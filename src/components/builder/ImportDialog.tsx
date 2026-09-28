@@ -4,7 +4,6 @@ import { linesFromText, parseCv, type ImportReport } from '@/lib/resume/import/p
 import type { Resume } from '@/lib/resume/types';
 import { TemplateThumb } from '@/components/resume/TemplateThumb';
 import { getTemplate } from '@/templates';
-import { hasContent } from './useResume';
 import { Icon } from './icons';
 
 type State = { step: 'pick' } | { step: 'reading'; name: string } | { step: 'review'; report: ImportReport; source: string } | { step: 'error'; message: string };
@@ -61,10 +60,8 @@ export function ImportDialog({ current, onApply, onClose }: { current: Resume; o
     setState({ step: 'review', report, source: 'pasted text' });
   };
 
-  const apply = (r: Resume) => {
-    if (hasContent(current) && !window.confirm('Replace the resume you are editing with the imported one? Download a backup first (File menu) if you want to keep it.')) return;
-    onApply(r);
-  };
+  // Imports open as a new resume, so nothing already saved is lost.
+  const apply = (r: Resume) => onApply(r);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-0 sm:p-6" onPointerDown={(e) => e.target === e.currentTarget && onClose()}>
@@ -170,7 +167,7 @@ export function ImportDialog({ current, onApply, onClose }: { current: Resume; o
                   </div>
                 )}
                 <p className="rounded-lg bg-surface-2 px-3 py-2 text-sm text-muted">
-                  Every CV is laid out differently, so give each section a quick read after importing. Your template, colours and paper size stay as they are, and you can switch templates at any time.
+                  Every CV is laid out differently, so give each section a quick read after importing. It opens as a new resume (your others stay under My resumes), with your current template, colours and paper size.
                 </p>
                 <div className="mt-auto flex flex-wrap gap-2 pt-2">
                   <button type="button" onClick={() => apply(state.report.resume)} className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand px-4 text-sm font-semibold text-brand-fg hover:opacity-90">

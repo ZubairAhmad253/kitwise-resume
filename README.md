@@ -75,9 +75,10 @@ Every Kitwise site shares the mark (three white tiles and one round teal "key");
 
 ## How the builder stores data
 
-- The resume lives in React state and is saved to `localStorage` (`kitwise-resume:current`) half a second after each change. Nothing is sent to a server.
-- **File → Download backup** saves the resume as JSON; **Open backup** loads one. Every file is checked and repaired by `normalizeResume` before it's used.
-- `/builder?sample=<id>` opens an example (`software`, `fresher`, `mechanical`, `civil`, `doctor`, `driver`, `designer`, `finance`, `academic`), asking first if there's work to lose. Add `&template=<id>`, `&paper=A4|Letter|Legal` or `&fit=1` to pick the template, paper size or fit to one page.
+- Every resume is saved to `localStorage` half a second after each change: one key per resume (`kitwise-resume:doc:<id>`) plus an index for the **My resumes** list (`kitwise-resume:library`). The single resume saved by earlier versions (`kitwise-resume:current`) is moved in on first load. Nothing is sent to a server (`lib/resume/library.ts`).
+- Examples, imports and backups open as new resumes, so nothing already saved is replaced. **My resumes** switches between them, duplicates one to tailor for another job, or deletes one.
+- **File → Download as** Word (.docx), plain text or Markdown (`lib/resume/export/`; the Word file is built in the browser with a small ZIP writer). **Download backup** saves the resume as JSON and **Open backup** loads one. Every file is checked and repaired by `normalizeResume` before it's used.
+- `/builder?sample=<id>` opens an example as a new resume (`software`, `fresher`, `mechanical`, `civil`, `doctor`, `driver`, `designer`, `finance`, `academic`). Add `&template=<id>`, `&paper=A4|Letter|Legal` or `&fit=1` to pick the template, paper size or fit to one page.
 - Descriptions use a small text format: lines starting with `- ` are bullets; `**bold**`, `*italic*` and `[link](https://…)` (see `lib/resume/richtext.ts`).
 
 ## Pages and PDF
@@ -136,7 +137,7 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 | 7 | Customising (colours, fonts, spacing, photo) and template gallery | Done |
 | 8 | Import an existing CV: upload a PDF, Word or text file and it fills the editor, ready for any template | Done |
 | 9 | Writing helpers: phrase library, ATS checks, completeness score | Done |
-| 10 | Multiple resumes and more exports | |
+| 10 | Multiple resumes and more exports | Done |
 | 11 | Site pages and SEO: template pages, resume examples, blog, legal pages | |
 | 12 | QA and launch prep | |
 | Later | Cover letters, Arabic (right-to-left), Word export, ads, accounts and paid features | |

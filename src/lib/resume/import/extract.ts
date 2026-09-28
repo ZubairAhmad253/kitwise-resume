@@ -85,10 +85,13 @@ async function readDocx(file: File): Promise<SourceLine[]> {
     copy.querySelectorAll('br').forEach((br) => br.replaceWith('\n'));
     return copy.textContent ?? '';
   };
+  // Sections use the top heading level in the file; lower levels (often job titles) are ordinary lines.
+  const levels = Array.from(body.querySelectorAll('h1, h2, h3, h4, h5, h6')).map((h) => Number(h.tagName[1]));
+  const top = levels.length ? Math.min(...levels) : 0;
   const walk = (el: Element) => {
     for (const child of Array.from(el.children)) {
       const tag = child.tagName.toLowerCase();
-      if (/^h[1-6]$/.test(tag)) push(textOf(child), { heading: true });
+      if (/^h[1-6]$/.test(tag)) push(textOf(child), Number(tag[1]) === top ? { heading: true } : {});
       else if (tag === 'p') {
         const t = textOf(child);
         // A paragraph that is entirely bold and short is often a heading.
