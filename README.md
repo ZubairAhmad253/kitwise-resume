@@ -49,6 +49,9 @@ Copy `.env.example` to `.env`:
 src/
 ├── config/site.ts         Site name, tagline, brand assets, AdSense ID
 ├── layouts/BaseLayout     <head>, SEO tags, header and footer ("app" variant for the builder)
+├── lib/resume/            Resume data model, editing reducer, import checks, dates, rich text, examples
+├── components/builder/    The builder app: editor forms, toolbar, autosave (useResume)
+├── components/resume/     Pieces shared by the resume templates (rich text)
 ├── components/layout/     Header, footer, logo
 ├── components/ui/         Small shared UI (icons)
 ├── pages/                 index (landing), builder, 404, robots.txt
@@ -69,6 +72,13 @@ Every Kitwise site shares the mark (three white tiles and one round teal "key");
 | `public/icon-192.png`, `public/icon-512.png` | Android and search-engine icons (also listed in `site.webmanifest`) |
 | `public/og-image.jpg` | 1200 × 630 default image for links shared on WhatsApp, X, Facebook and LinkedIn |
 
+## How the builder stores data
+
+- The resume lives in React state and is saved to `localStorage` (`kitwise-resume:current`) half a second after each change. Nothing is sent to a server.
+- **File → Download backup** saves the resume as JSON; **Open backup** loads one. Every file is checked and repaired by `normalizeResume` before it's used.
+- `/builder?sample=<id>` opens an example (`software`, `fresher`, `mechanical`, `civil`, `doctor`, `driver`, `designer`, `finance`, `academic`), asking first if there's work to lose.
+- Descriptions use a small text format: lines starting with `- ` are bullets; `**bold**`, `*italic*` and `[link](https://…)` (see `lib/resume/richtext.ts`).
+
 ## Deployment
 
 The build output in `dist/` is a fully static site. Pages are built as `name.html` and served at clean URLs (`/builder`); on Vercel, `vercel.json` turns on `cleanUrls` for this.
@@ -82,7 +92,7 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 | # | Phase | Status |
 |---|---|---|
 | 0 | Setup: project, branding, landing page | Done |
-| 1 | Resume data and editor: sections, reordering, autosave, sample content, backup and restore | |
+| 1 | Resume data and editor: sections, reordering, autosave, sample content, backup and restore | Done |
 | 2 | Page engine and PDF: live preview, A4 / US Letter / US Legal, page breaks with top padding on every new page, fit to page | |
 | 3 | Templates 1–3 and 20: Software & Tech, Startups & Freshers | |
 | 4 | Templates 4–8: Mechanical/Electrical and Civil Engineering | |
