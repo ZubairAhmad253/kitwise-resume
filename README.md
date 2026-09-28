@@ -100,6 +100,11 @@ The review screen shows what was found and a preview in the user's current templ
 
 To check the importer against real files, put PDFs in a folder and run `CV_FIXTURES=<folder> npx vitest run pdf-fixtures --silent=false` (add `CV_LINES=1` to see the rebuilt lines).
 
+### Writing helpers
+
+- **Ideas** (on the summary and on experience, project and volunteering descriptions) inserts ready-made wording from `src/lib/resume/assist/phrases.ts`: bullet points and summary starters for 12 fields, with the parts to personalise in [square brackets]. The field is guessed from the job title.
+- **Check** (next to Design) scores the resume out of 100 and lists what to fix and improve: missing details, dates, bullet points that don't start with a verb or have no numbers, leftover [placeholders], "I/my" in bullets, too few skills, non-standard headings, length, and a photo on US paper. Pasting a job ad shows which of its key words the resume uses and which are missing. All of it runs in the browser (`src/lib/resume/assist/review.ts`).
+
 ### Writing a template
 
 A template (`src/templates/<id>/`) exports a `TemplateDef`: its margins, its columns (`main`, optionally `side`), a `build(resume)` function that returns the blocks for each column (use `sectionBlocks` from `templates/shared.tsx`), an optional page decoration (rails, bands) and a stylesheet scoped under its class. Sizes in the stylesheet are in `em`, relative to `calc(<size> * var(--kr-scale))`, so fit-to-page and the text size setting can scale them.
@@ -130,7 +135,7 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 | 6 | Templates 13–19: Creative, Corporate/Finance, Academia/Legal | Done |
 | 7 | Customising (colours, fonts, spacing, photo) and template gallery | Done |
 | 8 | Import an existing CV: upload a PDF, Word or text file and it fills the editor, ready for any template | Done |
-| 9 | Writing helpers: phrase library, ATS checks, completeness score | |
+| 9 | Writing helpers: phrase library, ATS checks, completeness score | Done |
 | 10 | Multiple resumes and more exports | |
 | 11 | Site pages and SEO: template pages, resume examples, blog, legal pages | |
 | 12 | QA and launch prep | |

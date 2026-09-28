@@ -1,5 +1,6 @@
 import { useId, useRef, useState, type ReactNode } from 'react';
 import { joinDate, MONTH_NAMES, splitDate } from '@/lib/resume/dates';
+import { insertIdea, PhrasePicker } from './PhrasePicker';
 
 const inputCls =
   'h-11 w-full min-w-0 rounded-xl border border-line bg-surface px-3.5 text-[0.95rem] outline-none transition placeholder:text-muted/70 focus:border-brand focus:ring-4 focus:ring-brand/15';
@@ -159,7 +160,22 @@ export function LevelField({ label, value, onChange }: { label: string; value: n
  * Plain textarea with buttons that wrap the selection in the rich-text
  * markup (**bold**, *italic*, [link](url)) or turn lines into bullets.
  */
-export function RichTextField({ label, value, onChange, placeholder, rows = 5 }: { label: string; value: string; onChange: (v: string) => void; placeholder?: string; rows?: number }) {
+export function RichTextField({
+  label,
+  value,
+  onChange,
+  placeholder,
+  rows = 5,
+  ideas,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  rows?: number;
+  /** Show the "Ideas" picker with ready-made bullets or summary starters. */
+  ideas?: 'bullets' | 'summary';
+}) {
   const id = useId();
   const ref = useRef<HTMLTextAreaElement>(null);
 
@@ -194,7 +210,7 @@ export function RichTextField({ label, value, onChange, placeholder, rows = 5 }:
   return (
     <div className="min-w-0">
       <Label htmlFor={id}>{label}</Label>
-      <div className="overflow-hidden rounded-xl border border-line bg-surface transition focus-within:border-brand focus-within:ring-4 focus-within:ring-brand/15">
+      <div className="rounded-xl border border-line bg-surface transition focus-within:border-brand focus-within:ring-4 focus-within:ring-brand/15">
         <div className="flex gap-0.5 border-b border-line px-1.5 py-1" role="toolbar" aria-label={`${label} formatting`}>
           <button type="button" className={`${btn} font-bold`} onClick={() => wrap('**', 'bold text')} aria-label="Bold">
             B
@@ -208,6 +224,7 @@ export function RichTextField({ label, value, onChange, placeholder, rows = 5 }:
           <button type="button" className={btn} onClick={bullets} aria-label="Bullet list">
             • List
           </button>
+          {ideas && <PhrasePicker kind={ideas} onInsert={(idea) => onChange(insertIdea(value, idea, ideas))} />}
         </div>
         <textarea
           ref={ref}
@@ -216,7 +233,7 @@ export function RichTextField({ label, value, onChange, placeholder, rows = 5 }:
           value={value}
           placeholder={placeholder}
           onChange={(e) => onChange(e.target.value)}
-          className="block w-full resize-y bg-transparent px-3.5 py-2.5 text-[0.95rem] leading-relaxed outline-none placeholder:text-muted/70"
+          className="block w-full resize-y rounded-b-xl bg-transparent px-3.5 py-2.5 text-[0.95rem] leading-relaxed outline-none placeholder:text-muted/70"
         />
       </div>
     </div>
