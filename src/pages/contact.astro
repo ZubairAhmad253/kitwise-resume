@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE } from '@/config/site';
+---
+
+<BaseLayout title="Contact" description={`Get in touch with ${SITE.name}: questions, template ideas and bug reports are welcome.`}>
+  <section class="container-page max-w-3xl pt-12">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Contact</h1>
+    <p class="mt-4 text-lg text-muted">Questions, template ideas and bug reports are all welcome.</p>
+    <div class="card mt-8 p-6">
+      <p class="text-sm text-muted">Email</p>
+      <p class="mt-1 text-xl font-semibold"><a class="text-brand hover:underline" href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      <p class="mt-4 text-sm text-muted">
+        Please don't send your resume by email for support: we don't need it, and everything in the builder stays on your device. If something doesn't look right, a short description and a screenshot help most.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

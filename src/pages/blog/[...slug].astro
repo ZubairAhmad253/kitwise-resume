@@ -1,0 +1,100 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PreviewScale from '@/components/site/PreviewScale.astro';
+import { PagePreview } from '@/components/site/PagePreview';
+import { SITE } from '@/config/site';
+import { previewResume } from '@/lib/site/catalog';
+import { TEMPLATES } from '@/templates';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate, templates } = post.data;
+const shown = templates.map((id) => TEMPLATES.find((t) => t.id === id)).filter((t) => t !== undefined);
+const minutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).length / 220));
+const url = new URL(`/blog/${post.id}`, Astro.site).href;
+const fmt = (d: Date) => d.toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    datePublished: pubDate.toISOString(),
+    dateModified: (updatedDate ?? pubDate).toISOString(),
+    author: { '@type': 'Organization', name: SITE.name },
+    publisher: { '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: new URL(SITE.logo, Astro.site).href } },
+    mainEntityOfPage: url,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Blog', item: new URL('/blog', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: title, item: url },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} type="article" jsonLd={jsonLd}>
+  <article class="container-page max-w-3xl pt-8">
+    <nav aria-label="Breadcrumb" class="text-sm text-muted"><a href="/blog" class="hover:text-fg">Resume advice</a></nav>
+    <h1 class="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl">{title}</h1>
+    <p class="mt-3 text-lg text-muted">{description}</p>
+    <p class="mt-4 text-sm text-muted">
+      <time datetime={pubDate.toISOString()}>{fmt(pubDate)}</time>
+      {
+        updatedDate && (
+          <>
+            {' '}
+            · Updated <time datetime={updatedDate.toISOString()}>{fmt(updatedDate)}</time>
+          </>
+        )
+      }
+      {' '}· {minutes} min read
+    </p>
+    <div class="prose-content mt-8">
+      <Content />
+    </div>
+
+    {
+      shown.length > 0 && (
+        <section class="mt-14" aria-labelledby="templates-heading">
+          <h2 id="templates-heading" class="text-xl font-semibold">
+            Templates that fit this advice
+          </h2>
+          <ul class="mt-4 grid grid-cols-2 gap-5 sm:grid-cols-3">
+            {shown.map((t) => (
+              <li class="group relative">
+                <div class="overflow-hidden rounded shadow-sm ring-1 ring-line transition group-hover:ring-brand/50">
+                  <PagePreview resume={previewResume(t)} template={t} zoom={0.3} />
+                </div>
+                <p class="mt-2 text-sm font-semibold group-hover:text-brand">
+                  <a href={`/templates/${t.id}`} class="after:absolute after:inset-0">
+                    {t.name}
+                  </a>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+    <div class="mt-14 rounded-2xl border border-line bg-surface p-6 text-center">
+      <p class="text-lg font-semibold">Put it into practice</p>
+      <p class="mt-1 text-sm text-muted">Free, no sign-up. Start from scratch, an example, or your current CV.</p>
+      <div class="mt-4 flex flex-wrap justify-center gap-3">
+        <a href="/builder" class="inline-flex h-11 items-center rounded-xl bg-brand px-5 font-semibold text-brand-fg hover:opacity-90">Build my resume</a>
+        <a href="/builder?import=1" class="inline-flex h-11 items-center rounded-xl border border-line bg-surface px-5 font-semibold hover:border-brand/40">Upload my current CV</a>
+      </div>
+    </div>
+  </article>
+  <PreviewScale />
+</BaseLayout>

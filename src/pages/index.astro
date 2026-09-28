@@ -1,7 +1,13 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Icon from '@/components/ui/Icon.astro';
+import PreviewScale from '@/components/site/PreviewScale.astro';
+import { PagePreview } from '@/components/site/PagePreview';
 import { SITE } from '@/config/site';
+import { previewResume, templatesByCategory } from '@/lib/site/catalog';
+import { getTemplate, TEMPLATES } from '@/templates';
+
+const featured = ['code-block', 'credential-first', 'bento', 'executive-gold'].map(getTemplate);
 
 const jsonLd = [
   {
@@ -44,7 +50,7 @@ const steps = [
       <a href="/builder?import=1" class="inline-flex h-12 items-center gap-2 rounded-xl border border-brand/40 bg-brand-soft px-6 font-semibold hover:border-brand">
         <Icon name="upload" class="size-5" /> Upload my current CV
       </a>
-      <a href="#templates" class="inline-flex h-12 items-center rounded-xl border border-line bg-surface px-6 font-semibold hover:border-brand/40">See templates</a>
+      <a href="/templates" class="inline-flex h-12 items-center rounded-xl border border-line bg-surface px-6 font-semibold hover:border-brand/40">See templates</a>
     </div>
   </section>
 
@@ -63,18 +69,39 @@ const steps = [
   </section>
 
   <section id="templates" class="container-page scroll-mt-24 pt-20">
-    <h2 class="text-2xl font-bold tracking-tight">Templates for every field</h2>
+    <h2 class="text-2xl font-bold tracking-tight">{TEMPLATES.length} templates for every field</h2>
     <p class="mt-2 max-w-2xl text-muted">Each design is built for how recruiters in that field read a resume.</p>
-    <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <ul class="mt-6 grid grid-cols-2 gap-5 lg:grid-cols-4">
       {
-        ['Software & tech', 'Engineering', 'Civil & construction', 'Healthcare', 'Logistics & aviation', 'Creative & marketing', 'Corporate & finance', 'Academia & legal'].map((f) => (
-          <li class="flex items-center gap-2 rounded-xl border border-line bg-surface px-4 py-3 text-sm font-medium">
-            <Icon name="check" class="size-4 text-accent" />
-            {f}
+        featured.map((t) => (
+          <li class="group relative">
+            <div class="overflow-hidden rounded-lg shadow-sm ring-1 ring-line transition group-hover:ring-brand/50">
+              <PagePreview resume={previewResume(t)} template={t} zoom={0.34} />
+            </div>
+            <p class="mt-2 text-sm font-semibold group-hover:text-brand">
+              <a href={`/templates/${t.id}`} class="after:absolute after:inset-0">
+                {t.name}
+              </a>
+            </p>
+            <p class="text-xs text-muted">{t.category}</p>
           </li>
         ))
       }
     </ul>
+    <ul class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        templatesByCategory().map((g) => (
+          <li>
+            <a href={`/templates#${g.slug}`} class="flex items-center gap-2 rounded-xl border border-line bg-surface px-4 py-3 text-sm font-medium hover:border-brand/40">
+              <Icon name="check" class="size-4 text-accent" />
+              {g.category}
+              <span class="ml-auto text-xs text-muted">{g.templates.length}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-6"><a href="/templates" class="font-semibold text-brand hover:underline">See all {TEMPLATES.length} templates →</a></p>
   </section>
 
   <section id="how-it-works" class="container-page scroll-mt-24 pt-20">
@@ -94,4 +121,5 @@ const steps = [
       <a href="/builder" class="inline-flex h-12 items-center rounded-xl bg-brand px-6 font-semibold text-brand-fg hover:opacity-90">Start building, it's free</a>
     </div>
   </section>
+  <PreviewScale />
 </BaseLayout>

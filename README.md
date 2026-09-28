@@ -49,13 +49,18 @@ Copy `.env.example` to `.env`:
 src/
 ├── config/site.ts         Site name, tagline, brand assets, AdSense ID
 ├── layouts/BaseLayout     <head>, SEO tags, header and footer ("app" variant for the builder)
-├── lib/resume/            Resume data model, editing reducer, import checks, dates, rich text, examples
-├── components/builder/    The builder app: editor forms, toolbar, autosave (useResume)
-├── components/resume/     Page engine (usePagedLayout) and rich text
+├── lib/resume/            Resume data model, editing reducer, checks, dates, rich text, examples,
+│                          library (saved resumes), design settings, import/, export/, assist/
+├── lib/site/catalog.ts    What the site pages show: example per template, fields, example tips
+├── components/builder/    The builder app: editor forms, toolbar, panels, autosave (useResume)
+├── components/resume/     Page engine (usePagedLayout), thumbnails and rich text
+├── components/site/       Static page previews for the site pages (rendered at build time)
+├── content/blog/          Blog posts (Markdown, schema in content.config.ts)
 ├── templates/             One folder per resume design, plus shared helpers and the registry
 ├── components/layout/     Header, footer, logo
 ├── components/ui/         Small shared UI (icons)
-├── pages/                 index (landing), builder, 404, robots.txt
+├── pages/                 landing, builder, templates (+ one page each), examples (+ one each),
+│                          blog, privacy, terms, contact, 404, robots.txt
 └── styles/global.css      Tailwind setup and design tokens
 public/                    favicon, app icons, link-preview image, web manifest
 ```
@@ -138,6 +143,6 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 | 8 | Import an existing CV: upload a PDF, Word or text file and it fills the editor, ready for any template | Done |
 | 9 | Writing helpers: phrase library, ATS checks, completeness score | Done |
 | 10 | Multiple resumes and more exports | Done |
-| 11 | Site pages and SEO: template pages, resume examples, blog, legal pages | |
+| 11 | Site pages and SEO: template pages, resume examples, blog, legal pages | Done |
 | 12 | QA and launch prep | |
 | Later | Cover letters, Arabic (right-to-left), Word export, ads, accounts and paid features | |

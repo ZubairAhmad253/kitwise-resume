@@ -1,0 +1,39 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE } from '@/config/site';
+const updated = 'September 28, 2026';
+---
+
+<BaseLayout title="Privacy policy" description={`How ${SITE.name} handles your data: your resume stays in your own browser, files you import are read on your device, and nothing is uploaded.`}>
+  <article class="container-page max-w-3xl pt-12">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Privacy policy</h1>
+    <p class="mt-3 text-sm text-muted">Last updated {updated}</p>
+    <div class="prose-content mt-8">
+      <h2>The short version</h2>
+      <p>You don't create an account, and your resume never leaves your device. It is saved in your browser's local storage so you can come back to it. We can't see it, and neither can anyone else.</p>
+
+      <h2>Your resume data</h2>
+      <ul>
+        <li><strong>Where it's stored:</strong> in your browser's local storage on the device you're using. Clearing your browser data, or using a private window, removes it. Use <em>File → Download backup</em> to keep a copy.</li>
+        <li><strong>Files you import:</strong> a PDF, Word or text CV you upload is read by code running in your browser. The file is not sent to us or to any other service.</li>
+        <li><strong>PDF, Word and text downloads</strong> are created in your browser too.</li>
+        <li><strong>Resume check and job ad match</strong> run entirely in your browser; any job ad you paste is not stored or sent anywhere.</li>
+      </ul>
+
+      <h2>Information our hosting provider collects</h2>
+      <p>Like any website, the servers that deliver these pages keep standard technical logs (such as IP address, browser type and the pages requested) for security and to keep the service running. These logs don't include anything you type into the builder.</p>
+
+      <h2>Cookies and advertising</h2>
+      <p>The site doesn't use cookies for tracking today. It stores your preferred colour theme and your resumes in your browser's local storage. We may show ads in future to keep the builder free; if we do, this policy will be updated first and, where the law requires it, you'll be asked for consent before any advertising cookies are set.</p>
+
+      <h2>Children</h2>
+      <p>{SITE.name} is meant for job seekers aged 16 and over.</p>
+
+      <h2>Changes</h2>
+      <p>If this policy changes, the date at the top will change too. Significant changes will be announced on the site.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about privacy: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+    </div>
+  </article>
+</BaseLayout>

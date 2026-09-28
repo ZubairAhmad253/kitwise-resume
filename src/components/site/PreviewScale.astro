@@ -1,0 +1,37 @@
+---
+/**
+ * Fits every <PagePreview> on the page to its container width. Include
+ * once on pages that show previews; without JavaScript they keep the
+ * zoom they were rendered with.
+ */
+---
+
+<style is:global>
+  .kr-preview {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+  }
+  .kr-preview-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+    transform: scale(var(--z));
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  const fit = (el: HTMLElement) => {
+    const pageWidth = Number(el.dataset.preview);
+    if (pageWidth && el.clientWidth) el.style.setProperty('--z', String(el.clientWidth / pageWidth));
+  };
+  const all = document.querySelectorAll<HTMLElement>('[data-preview]');
+  const ro = new ResizeObserver((entries) => entries.forEach((e) => fit(e.target as HTMLElement)));
+  all.forEach((el) => {
+    fit(el);
+    ro.observe(el);
+  });
+</script>

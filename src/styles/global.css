@@ -111,6 +111,28 @@
   .prose-content ul {
     @apply list-disc pl-6;
   }
+  .prose-content ol {
+    @apply list-decimal pl-6;
+  }
+  .prose-content li + li {
+    @apply mt-1.5;
+  }
+  .prose-content h3 {
+    @apply mt-8 mb-2 text-lg font-semibold;
+  }
+  .prose-content blockquote {
+    @apply my-6 rounded-xl border-l-4 border-brand bg-brand-soft px-5 py-3;
+  }
+  .prose-content table {
+    @apply my-6 w-full border-collapse text-left text-[0.95rem];
+  }
+  .prose-content th,
+  .prose-content td {
+    @apply border-b border-line px-3 py-2 align-top;
+  }
+  .prose-content th {
+    @apply font-semibold;
+  }
   .prose-content a {
     @apply font-medium text-brand underline decoration-brand/30 underline-offset-2 hover:decoration-brand;
   }

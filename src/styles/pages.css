@@ -80,19 +80,20 @@
   contain: layout style;
 }
 
-/* Printing: only the pages, at their exact size, one per sheet. */
+/* Printing from the builder: only the pages, at their exact size, one per sheet.
+   Scoped to pages that have the print copy, so site pages print normally. */
 #kr-print {
   display: none;
 }
 @media print {
-  html,
-  body {
+  html:has(> body > #kr-print),
+  body:has(> #kr-print) {
     height: auto !important;
     min-height: 0 !important;
     overflow: visible !important;
     background: #fff !important;
   }
-  body > *:not(#kr-print) {
+  body:has(> #kr-print) > *:not(#kr-print) {
     display: none !important;
   }
   #kr-print {

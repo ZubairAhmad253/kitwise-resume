@@ -37,12 +37,18 @@ function sampleFromUrl(): Resume | null {
 /**
  * The resume being edited, and the library of all resumes in this browser.
  * Changes are saved half a second after each edit. `?sample=<id>` opens an
- * example as a new resume, so nothing already saved is replaced.
+ * example as a new resume, so nothing already saved is replaced;
+ * `?template=<id>` alone switches the open resume to that template.
  */
 export function useResume() {
   const [resume, dispatch] = useReducer(reducer, null, () => {
     const s = store();
-    return sampleFromUrl() ?? (s ? safe(() => openCurrent(s), null) : null) ?? emptyResume();
+    const sample = sampleFromUrl();
+    if (sample) return sample;
+    const r = (s ? safe(() => openCurrent(s), null) : null) ?? emptyResume();
+    // "Use this template" links (`/builder?template=<id>`) switch the design and keep the content.
+    const template = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('template');
+    return template && TEMPLATES.some((t) => t.id === template) ? { ...r, settings: { ...r.settings, template } } : r;
   });
   const [library, setLibrary] = useState<LibraryEntry[]>(() => {
     const s = store();
@@ -72,7 +78,7 @@ export function useResume() {
   useEffect(() => {
     // Drop ?sample= so a reload doesn't open another copy.
     const url = new URL(window.location.href);
-    if (url.searchParams.has('sample')) {
+    if (url.searchParams.has('sample') || url.searchParams.has('template')) {
       for (const k of ['sample', 'template', 'paper', 'fit']) url.searchParams.delete(k);
       history.replaceState(null, '', url.pathname + url.search + url.hash);
     }
