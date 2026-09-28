@@ -51,7 +51,8 @@ src/
 ├── layouts/BaseLayout     <head>, SEO tags, header and footer ("app" variant for the builder)
 ├── lib/resume/            Resume data model, editing reducer, import checks, dates, rich text, examples
 ├── components/builder/    The builder app: editor forms, toolbar, autosave (useResume)
-├── components/resume/     Pieces shared by the resume templates (rich text)
+├── components/resume/     Page engine (usePagedLayout) and rich text
+├── templates/             One folder per resume design, plus shared helpers and the registry
 ├── components/layout/     Header, footer, logo
 ├── components/ui/         Small shared UI (icons)
 ├── pages/                 index (landing), builder, 404, robots.txt
@@ -79,6 +80,18 @@ Every Kitwise site shares the mark (three white tiles and one round teal "key");
 - `/builder?sample=<id>` opens an example (`software`, `fresher`, `mechanical`, `civil`, `doctor`, `driver`, `designer`, `finance`, `academic`), asking first if there's work to lose.
 - Descriptions use a small text format: lines starting with `- ` are bullets; `**bold**`, `*italic*` and `[link](https://…)` (see `lib/resume/richtext.ts`).
 
+## Pages and PDF
+
+- Every page is drawn at its real size in millimetres: **A4** 210 × 297, **US Letter** 215.9 × 279.4, **US Legal** 215.9 × 355.6.
+- A template turns the resume into small **blocks** (a section heading, an entry header, each bullet). `usePagedLayout` renders them off-screen at the exact column width, measures each one and reads how much room every column has on page 1 and on later pages. `lib/resume/paginate.ts` then fills the pages: a heading or entry header is never left alone at the bottom of a page.
+- Pages 2+ use the template's `margins.topNext`, so continued pages always have space at the top.
+- **Fit to one page** reduces the text size in 3% steps down to 82%; if it still doesn't fit, the preview says so.
+- **Download PDF** opens the browser's print dialog ("Save as PDF"). The print view is the same pages as the preview, with `@page` set to the paper size and no margins, so the PDF matches exactly and keeps real, selectable text and clickable links.
+
+### Writing a template
+
+A template (`src/templates/<id>/`) exports a `TemplateDef`: its margins, its columns (`main`, optionally `side`), a `build(resume)` function that returns the blocks for each column (use `sectionBlocks` from `templates/shared.tsx`), an optional page decoration (rails, bands) and a stylesheet scoped under its class. Sizes in the stylesheet are in `em`, relative to `calc(<size> * var(--kr-scale))`, so fit-to-page can scale them.
+
 ## Deployment
 
 The build output in `dist/` is a fully static site. Pages are built as `name.html` and served at clean URLs (`/builder`); on Vercel, `vercel.json` turns on `cleanUrls` for this.
@@ -93,7 +106,7 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 |---|---|---|
 | 0 | Setup: project, branding, landing page | Done |
 | 1 | Resume data and editor: sections, reordering, autosave, sample content, backup and restore | Done |
-| 2 | Page engine and PDF: live preview, A4 / US Letter / US Legal, page breaks with top padding on every new page, fit to page | |
+| 2 | Page engine and PDF: live preview, A4 / US Letter / US Legal, page breaks with top padding on every new page, fit to page | Done |
 | 3 | Templates 1–3 and 20: Software & Tech, Startups & Freshers | |
 | 4 | Templates 4–8: Mechanical/Electrical and Civil Engineering | |
 | 5 | Templates 9–12: Healthcare, Logistics/Drivers/Aviation | |

@@ -74,6 +74,8 @@ export interface Settings {
   paper: PaperSize;
   dateFormat: DateFormat;
   showPhoto: boolean;
+  /** Shrink text slightly (down to about 82%) to fit everything on one page. */
+  fitOnePage: boolean;
 }
 
 export interface Resume {

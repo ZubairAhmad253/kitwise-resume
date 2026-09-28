@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { parseRichText, type Inline } from '@/lib/resume/richtext';
+import { parseRichText, type Block, type Inline } from '@/lib/resume/richtext';
 
 function Inlines({ nodes }: { nodes: Inline[] }) {
   return (
@@ -33,7 +33,11 @@ function Inlines({ nodes }: { nodes: Inline[] }) {
  * `rt` on the wrapper, `rt-p` paragraphs, `rt-ul` lists, `rt-li` bullets.
  */
 export function RichText({ source, className = '' }: { source: string; className?: string }) {
-  const blocks = parseRichText(source);
+  return <RichTextBlocks blocks={parseRichText(source)} className={className} />;
+}
+
+/** Same, from already-parsed blocks (templates split descriptions into pieces). */
+export function RichTextBlocks({ blocks, className = '' }: { blocks: Block[]; className?: string }) {
   if (blocks.length === 0) return null;
   return (
     <div className={`rt ${className}`}>

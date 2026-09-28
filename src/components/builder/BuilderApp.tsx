@@ -1,47 +1,11 @@
 import { useEffect, useState } from 'react';
-import { formatRange } from '@/lib/resume/dates';
-import { singleDate } from '@/lib/resume/schema';
-import type { Resume } from '@/lib/resume/types';
-import { RichText } from '@/components/resume/RichText';
 import { AddSection } from './AddSection';
 import { BasicsEditor } from './BasicsEditor';
+import { PreviewPanel } from './PreviewPanel';
 import { SectionEditor } from './SectionEditor';
 import { Toolbar } from './Toolbar';
 import { useReorder } from './useReorder';
 import { useResume } from './useResume';
-
-/** Plain preview of the content; replaced by the paged template preview in the next phase. */
-function DraftPreview({ resume }: { resume: Resume }) {
-  const { basics, settings } = resume;
-  return (
-    <article className="mx-auto max-w-[210mm] rounded-sm bg-white p-10 text-[13px] leading-relaxed text-slate-800 shadow-xl">
-      <h2 className="text-2xl font-bold text-slate-900">{basics.name || 'Your name'}</h2>
-      {basics.headline && <p className="font-medium text-indigo-700">{basics.headline}</p>}
-      <p className="mt-1 text-xs text-slate-500">{[basics.email, basics.phone, basics.location, basics.website, basics.linkedin, basics.github].filter(Boolean).join(' · ')}</p>
-      {basics.summary && <RichText source={basics.summary} className="mt-4" />}
-      {resume.sections
-        .filter((s) => !s.hidden && s.items.length)
-        .map((s) => (
-          <section key={s.id} className="mt-5">
-            <h3 className="border-b border-slate-200 pb-1 text-xs font-bold tracking-widest text-slate-900 uppercase">{s.title}</h3>
-            {s.items.map((it) => (
-              <div key={it.id} className="mt-2.5">
-                <div className="flex justify-between gap-4">
-                  <p className="font-semibold text-slate-900">
-                    {it.title}
-                    {it.subtitle && <span className="font-normal text-slate-600"> · {it.subtitle}</span>}
-                  </p>
-                  <p className="shrink-0 text-xs text-slate-500">{formatRange(it.start, it.end, it.current, settings.dateFormat, singleDate(s.kind))}</p>
-                </div>
-                {it.tags.length > 0 && <p className="text-xs text-slate-600">{it.tags.join(' · ')}</p>}
-                {it.description && <RichText source={it.description} className="mt-1 [&_.rt-li]:ml-4 [&_.rt-li]:list-disc" />}
-              </div>
-            ))}
-          </section>
-        ))}
-    </article>
-  );
-}
 
 export default function BuilderApp() {
   const { resume, dispatch, savedAt, saveError } = useResume();
@@ -84,8 +48,8 @@ export default function BuilderApp() {
           </div>
         </div>
 
-        <div className={`min-h-0 overflow-y-auto bg-surface-2 p-4 sm:p-8 ${tab === 'preview' ? '' : 'hidden lg:block'}`} aria-label="Resume preview">
-          <DraftPreview resume={resume} />
+        <div className={`min-h-0 ${tab === 'preview' ? '' : 'hidden lg:block'}`}>
+          <PreviewPanel resume={resume} dispatch={dispatch} />
         </div>
       </div>
     </div>

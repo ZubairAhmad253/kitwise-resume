@@ -17,7 +17,7 @@ export interface Sample {
 }
 
 const make = (name: string, template: string, data: { basics: Record<string, string>; sections: ReturnType<typeof sec>[] }) => () =>
-  normalizeResume({ name, basics: data.basics, sections: data.sections, settings: { template, paper: 'A4', dateFormat: 'MMM YYYY', showPhoto: true } })!;
+  normalizeResume({ name, basics: data.basics, sections: data.sections, settings: { template, paper: 'A4', dateFormat: 'MMM YYYY', showPhoto: true, fitOnePage: false } })!;
 
 export const SAMPLES: Sample[] = [
   {
@@ -377,9 +377,28 @@ export const SAMPLES: Sample[] = [
         ]),
         sec('publications', [
           { title: 'Brine discharge and seagrass decline in the Arabian Gulf', subtitle: 'Environmental Science & Technology', start: '2024', description: 'Rossi E, Karim A, Müller T.' },
+          { title: 'Microplastic transport in shallow coastal lagoons', subtitle: 'Marine Pollution Bulletin', start: '2023', description: 'Farouk N, Rossi E.' },
           { title: 'A low-cost sensor array for coastal salinity mapping', subtitle: 'Water Research', start: '2022', description: 'Rossi E, Haddad O.' },
+          { title: 'Seasonal hypoxia in the western Arabian Gulf, 2015–2021', subtitle: 'Estuarine, Coastal and Shelf Science', start: '2022', description: 'Karim A, Rossi E, Al-Thani M.' },
+          { title: 'Heavy metals in reclaimed coastal land: a ten-year record', subtitle: 'Science of the Total Environment', start: '2021', description: 'Rossi E, Bauer K, Farouk N.' },
           { title: 'Trace metal speciation in desalination effluents', subtitle: 'Chemosphere', start: '2019', description: 'Rossi E, Bauer K.' },
+          { title: 'Antiscalant residues in reverse-osmosis brine', subtitle: 'Desalination', start: '2018', description: 'Rossi E, Conti L.' },
+          { title: 'Hypersaline plume dilution models compared with field data', subtitle: 'Water Research', start: '2016', description: 'Rossi E, Müller T, Bauer K.' },
         ], 'Selected publications'),
+        sec('custom', [
+          { title: 'Analytical Chemistry (CHEM 310)', subtitle: 'Gulf Institute of Science', start: '2020', current: true, description: 'Lectures and lab design for 150 undergraduates a year; course rating 4.7 / 5.' },
+          { title: 'Environmental Monitoring Methods (graduate)', subtitle: 'Gulf Institute of Science', start: '2021', current: true },
+          { title: 'General Chemistry', subtitle: 'University of Bologna', start: '2015', end: '2020' },
+        ], 'Teaching'),
+        sec('custom', [
+          { title: 'PhD students', subtitle: '3 graduated, 6 current', description: '- Nadia Farouk (2023): microplastics in coastal lagoons\n- Ahmed Karim (2022): seasonal hypoxia modelling\n- Luca Conti (2019): antiscalant fate in brine' },
+          { title: 'MSc students', subtitle: '14 supervised since 2015' },
+        ], 'Supervision'),
+        sec('custom', [
+          { title: 'Keynote: Desalination and the future of Gulf coastal waters', subtitle: 'International Water Conference, Abu Dhabi', start: '2024-02' },
+          { title: 'Invited talk: Sensors for coastal salinity', subtitle: 'Goldschmidt Conference, Lyon', start: '2023-07' },
+          { title: 'Plenary: Trace metals in hypersaline systems', subtitle: 'European Geosciences Union, Vienna', start: '2021-04' },
+        ], 'Invited talks'),
         sec('awards', [
           { title: 'Early Career Research Award', subtitle: 'European Chemical Society', start: '2019' },
           { title: 'Research grant: Gulf Coastal Monitoring (USD 1.8M)', subtitle: 'National Research Fund', start: '2021' },

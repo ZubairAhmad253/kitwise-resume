@@ -1,0 +1,108 @@
+/*
+ * Page engine base styles. Every page is a fixed-size sheet in real
+ * millimetres; templates style everything inside it under their own
+ * class. The same markup is used for the preview and for printing.
+ */
+
+.kr-page {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: #fff;
+  color: #111;
+  /* Templates set their base size as `font-size: calc(<size> * var(--kr-scale))`. */
+  --kr-scale: 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+.kr-page *,
+.kr-page *::before,
+.kr-page *::after {
+  box-sizing: border-box;
+}
+.kr-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.kr-body {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+.kr-cols {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.kr-region {
+  min-width: 0;
+}
+.kr-region-main {
+  flex: 1;
+}
+/* A block contains its children's margins, so measured heights include the spacing. */
+.kr-block {
+  display: flow-root;
+}
+.kr-page p,
+.kr-page h1,
+.kr-page h2,
+.kr-page h3,
+.kr-page h4,
+.kr-page ul {
+  margin: 0;
+}
+.kr-page ul {
+  padding: 0;
+  list-style: none;
+}
+.kr-page img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Off-screen copies used only to measure (fixed, so they never add scroll space). */
+.kr-measure {
+  position: fixed;
+  top: 0;
+  left: -100000px;
+  visibility: hidden;
+  pointer-events: none;
+  contain: layout style;
+}
+
+/* Printing: only the pages, at their exact size, one per sheet. */
+#kr-print {
+  display: none;
+}
+@media print {
+  html,
+  body {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+  body > *:not(#kr-print) {
+    display: none !important;
+  }
+  #kr-print {
+    display: block;
+  }
+  #kr-print .kr-page {
+    break-after: page;
+    page-break-after: always;
+    box-shadow: none !important;
+  }
+  #kr-print .kr-page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+  #kr-print,
+  #kr-print * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
