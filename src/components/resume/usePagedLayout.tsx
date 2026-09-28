@@ -47,10 +47,10 @@ const wrap = (blocks: Block[]) =>
     </div>
   ));
 
-/** Content height available inside a region element (its box minus padding). */
+/** Content height available inside a region element (its box minus padding and borders). */
 function innerHeight(el: HTMLElement) {
   const cs = getComputedStyle(el);
-  return el.getBoundingClientRect().height - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  return el.getBoundingClientRect().height - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - parseFloat(cs.borderTopWidth) - parseFloat(cs.borderBottomWidth);
 }
 
 export interface PagedLayout {

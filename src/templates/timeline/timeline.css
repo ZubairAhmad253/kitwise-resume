@@ -1,0 +1,218 @@
+/*
+ * #5 Project Timeline. Type sizes are in em so "fit to one page" scales
+ * them; the columns are in mm because the line (drawn as page decoration)
+ * sits at a fixed 33mm from the left margin (see index.tsx).
+ */
+.t-timeline {
+  --tl-ink: #0f172a;
+  --tl-text: #334155;
+  --tl-muted: #64748b;
+  --tl-accent: #0e7490;
+  --tl-line: #cbd5e1;
+  --tl-head: 'Didact Gothic', 'Century Gothic', 'Arimo Variable', Arial, sans-serif;
+  font-family: 'Arimo Variable', Arial, Helvetica, sans-serif;
+  font-size: calc(9.4pt * var(--kr-scale));
+  line-height: 1.45;
+  color: var(--tl-text);
+}
+
+.t-timeline .tl-line {
+  position: absolute;
+  top: 14mm;
+  bottom: 10mm;
+  margin-left: -0.75px;
+  /* A border, not a background: thin gradient backgrounds can drop out of printed PDFs. */
+  border-left: 1.5px solid var(--tl-line);
+}
+/* On page 1 the line starts below the name. */
+.t-timeline .tl-line--first {
+  top: 40mm;
+}
+
+/* Two columns: dates (29mm), then a 8mm gutter holding the line, then content. */
+.t-timeline .tl-row {
+  display: grid;
+  grid-template-columns: 29mm 1fr;
+  column-gap: 8mm;
+}
+.t-timeline .kr-b--desc {
+  padding-left: 37mm;
+}
+
+/* Spacing between blocks */
+.t-timeline .kr-b--title {
+  margin-bottom: 0.7em;
+}
+.t-timeline .kr-b--item,
+.t-timeline .kr-b--desc {
+  margin-bottom: 0.25em;
+}
+.t-timeline .kr-end-item {
+  margin-bottom: 1em;
+}
+.t-timeline .kr-end-section {
+  margin-bottom: 1.5em;
+}
+
+/* Header: sits on white so the line never shows through it. */
+.t-timeline .tl-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.4em;
+  padding-bottom: 1.1em;
+  margin-bottom: 1.3em;
+  background: #fff;
+  border-bottom: 1px solid var(--tl-line);
+}
+.t-timeline .tl-photo {
+  width: 26mm;
+  height: 26mm;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+}
+.t-timeline .tl-name {
+  font-family: var(--tl-head);
+  font-size: 2.7em;
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--tl-ink);
+}
+.t-timeline .tl-headline {
+  margin-top: 0.3em;
+  font-family: var(--tl-head);
+  font-size: 1.2em;
+  color: var(--tl-accent);
+}
+.t-timeline .tl-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em 1.4em;
+  margin-top: 0.6em;
+  font-size: 0.92em;
+  color: var(--tl-muted);
+}
+
+.t-timeline .tl-side-label {
+  text-align: right;
+  font-family: var(--tl-head);
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--tl-accent);
+  padding-top: 0.1em;
+}
+.t-timeline .tl-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Section headings, marked by a filled square on the line. */
+.t-timeline .tl-title {
+  position: relative;
+  font-family: var(--tl-head);
+  font-size: 1.3em;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tl-ink);
+}
+.t-timeline .tl-title::before {
+  content: '';
+  position: absolute;
+  left: calc(-4mm - 0.3em);
+  top: 0.35em;
+  width: 0.6em;
+  height: 0.6em;
+  background: var(--tl-accent);
+  transform: rotate(45deg);
+}
+
+/* Entries */
+.t-timeline .tl-item > div:last-child {
+  position: relative;
+}
+.t-timeline .tl-node {
+  position: absolute;
+  left: calc(-4mm - 0.42em);
+  top: 0.3em;
+  width: 0.84em;
+  height: 0.84em;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--tl-accent);
+}
+.t-timeline .tl-when {
+  text-align: right;
+  font-size: 0.9em;
+  padding-top: 0.1em;
+}
+.t-timeline .tl-when p:first-child {
+  font-weight: 700;
+  color: var(--tl-ink);
+}
+.t-timeline .tl-muted {
+  color: var(--tl-muted);
+}
+.t-timeline .tl-item-title {
+  font-size: 1.08em;
+  font-weight: 700;
+  color: var(--tl-ink);
+}
+.t-timeline .tl-where {
+  color: var(--tl-accent);
+  font-weight: 600;
+}
+.t-timeline .tl-tags,
+.t-timeline .tl-link {
+  font-size: 0.92em;
+  color: var(--tl-muted);
+}
+.t-timeline .tl-link a {
+  color: var(--tl-accent);
+}
+
+/* Skills and languages */
+.t-timeline .tl-groups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7em 1.4em;
+}
+.t-timeline .tl-group-title {
+  font-weight: 700;
+  color: var(--tl-ink);
+}
+.t-timeline .tl-level {
+  display: flex;
+  gap: 0.25em;
+  margin-top: 0.3em;
+  max-width: 9em;
+}
+.t-timeline .tl-level span {
+  flex: 1;
+  height: 0.35em;
+  border-radius: 1em;
+  background: #e2e8f0;
+}
+.t-timeline .tl-level span.on {
+  background: var(--tl-accent);
+}
+
+/* Descriptions */
+.t-timeline .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-timeline .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.1em;
+}
+.t-timeline .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.15em;
+  top: 0.62em;
+  width: 0.5em;
+  height: 1.5px;
+  background: var(--tl-accent);
+}

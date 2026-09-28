@@ -1,0 +1,256 @@
+/* #7 Infrastructure Scale. All sizes in em so "fit to one page" scales them. */
+.t-infrastructure {
+  --is-ink: #1c1917;
+  --is-text: #3a3632;
+  --is-muted: #6f6861;
+  --is-accent: #d9480f;
+  --is-steel: #2b2f36;
+  --is-rule: #d6d3d1;
+  --is-fill: #f6f5f3;
+  --is-head: 'Fira Sans', 'Trebuchet MS', Arial, sans-serif;
+  font-family: 'Open Sans Variable', 'Open Sans', Arial, sans-serif;
+  font-size: calc(9pt * var(--kr-scale));
+  line-height: 1.45;
+  color: var(--is-text);
+}
+
+/* Spacing between blocks */
+.t-infrastructure .kr-b--title {
+  margin-bottom: 0.75em;
+}
+.t-infrastructure .kr-b--item,
+.t-infrastructure .kr-b--desc {
+  margin-bottom: 0.25em;
+}
+.t-infrastructure .kr-end-item {
+  margin-bottom: 0.95em;
+}
+.t-infrastructure .kr-end-section {
+  margin-bottom: 1.45em;
+}
+
+/* Header */
+.t-infrastructure .is-head {
+  margin-bottom: 1.2em;
+}
+.t-infrastructure .is-head-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.4em;
+  padding-bottom: 0.9em;
+}
+.t-infrastructure .is-photo {
+  width: 25mm;
+  height: 25mm;
+  object-fit: cover;
+  flex: none;
+}
+.t-infrastructure .is-head-name {
+  flex: 1;
+}
+.t-infrastructure .is-name {
+  font-family: var(--is-head);
+  font-size: 2.75em;
+  line-height: 1;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--is-ink);
+}
+.t-infrastructure .is-headline {
+  margin-top: 0.35em;
+  font-family: var(--is-head);
+  font-size: 1.2em;
+  font-weight: 500;
+  color: var(--is-accent);
+}
+.t-infrastructure .is-contact {
+  flex: none;
+  max-width: 45%;
+  text-align: right;
+  font-size: 0.92em;
+  color: var(--is-muted);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.t-infrastructure .is-hazard {
+  height: 3mm;
+  /* An SVG tile rather than a repeating gradient, which can drop out of printed PDFs. */
+  background: #2b2f36 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M-3 3l6-6M0 12L12 0M9 15l6-6' stroke='%23f59f00' stroke-width='4.25'/%3E%3C/svg%3E") repeat left center / 3mm 3mm;
+}
+
+.t-infrastructure .is-summary {
+  font-size: 1.04em;
+}
+.t-infrastructure .is-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Section headings */
+.t-infrastructure .is-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--is-head);
+  font-size: 1.1em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--is-ink);
+}
+.t-infrastructure .is-title::before {
+  content: '';
+  width: 0.55em;
+  height: 1.1em;
+  background: var(--is-accent);
+}
+.t-infrastructure .is-title::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--is-ink);
+}
+
+/* Entries */
+.t-infrastructure .is-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-infrastructure .is-item-title {
+  font-family: var(--is-head);
+  font-size: 1.15em;
+  font-weight: 600;
+  color: var(--is-ink);
+}
+.t-infrastructure .is-date {
+  flex: none;
+  font-family: var(--is-head);
+  font-size: 0.92em;
+  font-weight: 600;
+  color: var(--is-muted);
+}
+.t-infrastructure .is-where {
+  font-weight: 600;
+  color: var(--is-accent);
+}
+.t-infrastructure .is-muted {
+  color: var(--is-muted);
+}
+.t-infrastructure .is-link {
+  font-size: 0.92em;
+}
+.t-infrastructure .is-link a {
+  color: var(--is-accent);
+}
+
+/* Project sheets */
+.t-infrastructure .is-sheet {
+  border: 1px solid var(--is-rule);
+  background: var(--is-fill);
+}
+.t-infrastructure .is-sheet-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+  padding: 0.45em 0.9em;
+  background: var(--is-steel);
+  color: #fff;
+  font-family: var(--is-head);
+}
+.t-infrastructure .is-sheet-strip h4 {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.t-infrastructure .is-sheet-strip span {
+  flex: none;
+  font-size: 0.9em;
+  color: #f8c26b;
+}
+.t-infrastructure .is-sheet-body {
+  padding: 0.6em 0.9em 0.7em;
+  border-left: 0.35em solid var(--is-accent);
+}
+.t-infrastructure .is-sheet-role {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.5em;
+  color: var(--is-ink);
+  font-weight: 600;
+}
+.t-infrastructure .is-key {
+  font-family: var(--is-head);
+  font-size: 0.78em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--is-muted);
+}
+.t-infrastructure .is-key:not(:first-child) {
+  margin-left: 1em;
+}
+.t-infrastructure .is-sheet-desc {
+  margin-top: 0.25em;
+}
+.t-infrastructure .is-sheet-desc .rt-li {
+  position: relative;
+  padding-left: 1.1em;
+}
+.t-infrastructure .is-sheet-desc .rt-li::before {
+  content: '▸';
+  position: absolute;
+  left: 0.1em;
+  color: var(--is-accent);
+}
+.t-infrastructure .is-sheet-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  margin-top: 0.45em;
+}
+.t-infrastructure .is-sheet-specs span {
+  font-size: 0.88em;
+  font-weight: 600;
+  padding: 0.05em 0.55em;
+  background: #fff;
+  border: 1px solid var(--is-rule);
+  color: var(--is-ink);
+}
+
+/* Skills as a specification table */
+.t-infrastructure .is-spec-table {
+  border-top: 1px solid var(--is-rule);
+}
+.t-infrastructure .is-spec-row {
+  display: grid;
+  grid-template-columns: 11em 1fr;
+  gap: 1em;
+  padding: 0.4em 0;
+  border-bottom: 1px solid var(--is-rule);
+}
+.t-infrastructure .is-spec-key {
+  font-family: var(--is-head);
+  font-weight: 600;
+  color: var(--is-ink);
+}
+
+/* Descriptions */
+.t-infrastructure .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-infrastructure .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.2em;
+}
+.t-infrastructure .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.2em;
+  top: 0.5em;
+  width: 0.45em;
+  height: 0.45em;
+  background: var(--is-accent);
+}

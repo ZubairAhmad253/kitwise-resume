@@ -108,7 +108,7 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 | 1 | Resume data and editor: sections, reordering, autosave, sample content, backup and restore | Done |
 | 2 | Page engine and PDF: live preview, A4 / US Letter / US Legal, page breaks with top padding on every new page, fit to page | Done |
 | 3 | Templates 1–3 and 20: Software & Tech, Startups & Freshers | Done |
-| 4 | Templates 4–8: Mechanical/Electrical and Civil Engineering | |
+| 4 | Templates 4–8: Mechanical/Electrical and Civil Engineering | Done |
 | 5 | Templates 9–12: Healthcare, Logistics/Drivers/Aviation | |
 | 6 | Templates 13–19: Creative, Corporate/Finance, Academia/Legal | |
 | 7 | Customising (colours, fonts, spacing, photo) and template gallery | |

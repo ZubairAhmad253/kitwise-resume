@@ -1,0 +1,268 @@
+/* #6 Hybrid Blueprint. All sizes in em so "fit to one page" scales them. */
+.t-blueprint {
+  --bp-ink: #172a45;
+  --bp-text: #2c3e57;
+  --bp-muted: #5e7089;
+  --bp-accent: #3b5b8c;
+  --bp-line: #9fb3cf;
+  --bp-grid: #eff3f9;
+  --bp-paper: #fbfcfe;
+  --bp-head: 'Libre Franklin Variable', 'Franklin Gothic Medium', Arial, sans-serif;
+  font-family: 'Open Sans Variable', 'Segoe UI', Arial, sans-serif;
+  font-size: calc(9pt * var(--kr-scale));
+  line-height: 1.45;
+  color: var(--bp-text);
+}
+
+/* Drafting grid (5 mm cells, a stronger line every 25 mm) and sheet border */
+.t-blueprint .bp-grid {
+  position: absolute;
+  inset: 0;
+  background-color: var(--bp-paper);
+  background-image:
+    linear-gradient(to right, #e1e8f2 1px, transparent 1px), linear-gradient(to bottom, #e1e8f2 1px, transparent 1px),
+    linear-gradient(to right, var(--bp-grid) 1px, transparent 1px), linear-gradient(to bottom, var(--bp-grid) 1px, transparent 1px);
+  background-size:
+    25mm 25mm,
+    25mm 25mm,
+    5mm 5mm,
+    5mm 5mm;
+  background-position: 6mm 6mm;
+}
+.t-blueprint .bp-border {
+  position: absolute;
+  inset: 6mm;
+  border: 1px solid var(--bp-line);
+}
+
+/* Title block */
+.t-blueprint .kr-header {
+  margin-bottom: 7mm;
+}
+.t-blueprint .bp-titleblock {
+  display: flex;
+  align-items: stretch;
+  background: #fff;
+  border: 1.5px solid var(--bp-ink);
+}
+.t-blueprint .bp-tb-main {
+  flex: 1;
+  padding: 0.8em 1em 0.9em;
+  border-right: 1px solid var(--bp-ink);
+}
+.t-blueprint .bp-tb-label {
+  display: block;
+  font-family: var(--bp-head);
+  font-size: 0.72em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--bp-muted);
+}
+.t-blueprint .bp-name {
+  font-family: var(--bp-head);
+  font-size: 2.6em;
+  line-height: 1.08;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  color: var(--bp-ink);
+}
+.t-blueprint .bp-headline {
+  margin-top: 0.25em;
+  font-family: var(--bp-head);
+  font-size: 1.15em;
+  font-weight: 500;
+  color: var(--bp-accent);
+}
+.t-blueprint .bp-tb-contact {
+  width: 64mm;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+}
+.t-blueprint .bp-tb-contact li {
+  flex: 1;
+  padding: 0.25em 0.8em;
+  border-bottom: 1px solid var(--bp-line);
+  overflow-wrap: anywhere;
+}
+.t-blueprint .bp-tb-contact li:last-child {
+  border-bottom: 0;
+}
+.t-blueprint .bp-tb-value {
+  overflow-wrap: normal;
+  font-size: 0.92em;
+  color: var(--bp-ink);
+}
+.t-blueprint .bp-photo {
+  width: 30mm;
+  flex: none;
+  object-fit: cover;
+  border-left: 1px solid var(--bp-ink);
+}
+
+/* Columns: the side column is a white panel on the grid */
+.t-blueprint .kr-region-side {
+  width: 58mm;
+  flex: none;
+  margin-left: 7mm;
+  padding: 0.9em 0.9em 0;
+  background: #fff;
+  border: 1px solid var(--bp-line);
+}
+/* Nothing on this page's side column: no empty panel. */
+.t-blueprint .kr-region-side:empty {
+  visibility: hidden;
+}
+
+/* Spacing between blocks */
+.t-blueprint .kr-b--title {
+  margin-bottom: 0.7em;
+}
+.t-blueprint .kr-b--item,
+.t-blueprint .kr-b--desc {
+  margin-bottom: 0.25em;
+}
+.t-blueprint .kr-end-item {
+  margin-bottom: 0.95em;
+}
+.t-blueprint .kr-end-section {
+  margin-bottom: 1.45em;
+}
+.t-blueprint .kr-region-side .kr-end-item {
+  margin-bottom: 0.7em;
+}
+.t-blueprint .kr-region-side .kr-end-section {
+  margin-bottom: 1.2em;
+}
+
+/* Dimension-line headings: |<—— TITLE ——>| */
+.t-blueprint .bp-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  font-family: var(--bp-head);
+  font-size: 0.95em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--bp-ink);
+}
+.t-blueprint .bp-title span {
+  padding: 0.15em 0.6em;
+  background: var(--bp-ink);
+  color: #fff;
+}
+.t-blueprint .bp-title::after {
+  content: '';
+  flex: 1;
+  height: 0.7em;
+  border-right: 1px solid var(--bp-accent);
+  background: linear-gradient(var(--bp-accent), var(--bp-accent)) no-repeat center / 100% 1px;
+}
+.t-blueprint .bp-side-title {
+  font-family: var(--bp-head);
+  font-size: 0.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--bp-accent);
+  padding-bottom: 0.35em;
+  border-bottom: 1px dashed var(--bp-line);
+}
+
+.t-blueprint .bp-summary {
+  padding: 0.7em 0.9em;
+  background: #fff;
+  border-left: 3px solid var(--bp-accent);
+}
+.t-blueprint .bp-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Entries */
+.t-blueprint .bp-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-blueprint .bp-item-title {
+  font-family: var(--bp-head);
+  font-size: 1.12em;
+  font-weight: 700;
+  color: var(--bp-ink);
+}
+.t-blueprint .bp-date {
+  flex: none;
+  font-size: 0.86em;
+  font-weight: 600;
+  color: var(--bp-accent);
+  padding: 0 0.5em;
+  border: 1px solid var(--bp-line);
+  background: #fff;
+}
+.t-blueprint .bp-where {
+  font-weight: 600;
+  color: var(--bp-accent);
+}
+.t-blueprint .bp-tags,
+.t-blueprint .bp-link {
+  font-size: 0.92em;
+  color: var(--bp-muted);
+}
+.t-blueprint .bp-link a {
+  color: var(--bp-accent);
+}
+
+/* Side items */
+.t-blueprint .bp-side-item-title {
+  font-weight: 700;
+  color: var(--bp-ink);
+}
+.t-blueprint .bp-muted {
+  color: var(--bp-muted);
+}
+.t-blueprint .bp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  margin-top: 0.3em;
+}
+.t-blueprint .bp-chips span {
+  font-size: 0.88em;
+  padding: 0 0.45em;
+  border: 1px solid var(--bp-line);
+  color: var(--bp-ink);
+}
+.t-blueprint .bp-level {
+  display: flex;
+  gap: 0.2em;
+  margin-top: 0.35em;
+}
+.t-blueprint .bp-level span {
+  flex: 1;
+  height: 0.45em;
+  border: 1px solid var(--bp-accent);
+}
+.t-blueprint .bp-level span.on {
+  background: var(--bp-accent);
+}
+
+/* Descriptions */
+.t-blueprint .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-blueprint .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.2em;
+}
+.t-blueprint .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.15em;
+  top: 0.45em;
+  width: 0.5em;
+  height: 0.5em;
+  border: 1.5px solid var(--bp-accent);
+}
