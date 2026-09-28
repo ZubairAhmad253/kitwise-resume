@@ -128,6 +128,24 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 - output directory: `dist`
 - environment variables: none needed until you have a domain (then set `SITE_URL`)
 
+`vercel.json` also sets basic security headers (no MIME sniffing, strict referrer, no camera/microphone/location access, no framing by other sites) and long-term caching for the hashed files in `/_astro/`.
+
+### Launch checklist
+
+When the domain is ready:
+
+1. Add the domain in Vercel, then set `SITE_URL` (e.g. `https://kitwise.example`) in the project's environment variables and redeploy. Canonical links, the sitemap and link previews use it.
+2. Replace the placeholder email `hello@example.com` in `src/config/site.ts` (it appears on the contact, privacy and terms pages).
+3. Submit `/sitemap-index.xml` in Google Search Console and Bing Webmaster Tools.
+4. For ads: set `PUBLIC_ADSENSE_CLIENT`, and update the privacy page (cookies and consent) before switching them on.
+5. Check the builder once on the live site: import a PDF, download a PDF, a Word file and a backup.
+
+### Quality checks
+
+- `npm test`: unit tests for the data model, page breaks, templates, design settings, CV import, writing helpers, resume library and exports.
+- `npm run build` runs `astro check` (types) first.
+- Before each release, every page was checked for broken internal links and for errors in the browser console.
+
 ## Roadmap
 
 | # | Phase | Status |
@@ -144,5 +162,5 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 | 9 | Writing helpers: phrase library, ATS checks, completeness score | Done |
 | 10 | Multiple resumes and more exports | Done |
 | 11 | Site pages and SEO: template pages, resume examples, blog, legal pages | Done |
-| 12 | QA and launch prep | |
-| Later | Cover letters, Arabic (right-to-left), Word export, ads, accounts and paid features | |
+| 12 | QA and launch prep | Done |
+| Later | Cover letters, Arabic (right-to-left), ads, accounts and paid features | |
