@@ -88,6 +88,18 @@ Every Kitwise site shares the mark (three white tiles and one round teal "key");
 - **Fit to one page** reduces the text size in 3% steps down to 82%; if it still doesn't fit, the preview says so.
 - **Download PDF** opens the browser's print dialog ("Save as PDF"). The print view is the same pages as the preview, with `@page` set to the paper size and no margins, so the PDF matches exactly and keeps real, selectable text and clickable links.
 
+### Importing an existing CV
+
+"Import CV" in the builder (or `/builder?import=1`) reads a PDF, Word (.docx) or text file, or pasted text, in the browser: nothing is uploaded. The code is in `src/lib/resume/import/`:
+
+- `extract.ts` reads the file (pdf.js for PDF, mammoth for Word; both load only when a file is chosen).
+- `pdf-lines.ts` rebuilds lines from a PDF's positioned text: two-column layouts are read one column at a time (main text first, sidebar after), a box beside the name is read separately, letter-spacing is undone and wrapped lines are joined.
+- `parse.ts` turns lines into a resume: section headings, contact details, date ranges, entries (title, employer, place, dates, bullets), skills groups and languages.
+
+The review screen shows what was found and a preview in the user's current template; their template, paper and design settings are kept.
+
+To check the importer against real files, put PDFs in a folder and run `CV_FIXTURES=<folder> npx vitest run pdf-fixtures --silent=false` (add `CV_LINES=1` to see the rebuilt lines).
+
 ### Writing a template
 
 A template (`src/templates/<id>/`) exports a `TemplateDef`: its margins, its columns (`main`, optionally `side`), a `build(resume)` function that returns the blocks for each column (use `sectionBlocks` from `templates/shared.tsx`), an optional page decoration (rails, bands) and a stylesheet scoped under its class. Sizes in the stylesheet are in `em`, relative to `calc(<size> * var(--kr-scale))`, so fit-to-page and the text size setting can scale them.
@@ -117,7 +129,7 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 | 5 | Templates 9–12: Healthcare, Logistics/Drivers/Aviation | Done |
 | 6 | Templates 13–19: Creative, Corporate/Finance, Academia/Legal | Done |
 | 7 | Customising (colours, fonts, spacing, photo) and template gallery | Done |
-| 8 | Import an existing CV: upload a PDF, Word or text file and it fills the editor, ready for any template | |
+| 8 | Import an existing CV: upload a PDF, Word or text file and it fills the editor, ready for any template | Done |
 | 9 | Writing helpers: phrase library, ATS checks, completeness score | |
 | 10 | Multiple resumes and more exports | |
 | 11 | Site pages and SEO: template pages, resume examples, blog, legal pages | |

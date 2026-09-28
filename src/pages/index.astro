@@ -21,12 +21,13 @@ const points = [
   { icon: 'layout', title: 'Modern templates', text: 'Designs made for your field, from software and engineering to healthcare, logistics and finance.' },
   { icon: 'file', title: 'A4, US Letter or Legal', text: 'See real pages as you type, with clean page breaks and space at the top of every new page.' },
   { icon: 'download', title: 'Free PDF download', text: 'Text stays selectable and readable by applicant tracking systems (ATS). No watermark.' },
-  { icon: 'lock', title: 'Private by design', text: 'No sign-up. Your resume is saved in your own browser and never uploaded.' },
+  { icon: 'upload', title: 'Bring your old CV', text: 'Upload a PDF or Word CV and it fills the editor for you, ready for any template.' },
+  { icon: 'lock', title: 'Private by design', text: 'No sign-up. Your resume and any file you import stay in your own browser.' },
 ];
 
 const steps = [
   { n: '1', title: 'Pick a template', text: 'Choose a design for your profession. You can switch at any time without retyping.' },
-  { n: '2', title: 'Fill in your details', text: 'Start from example content, then edit. Everything saves automatically as you go.' },
+  { n: '2', title: 'Add your details', text: 'Upload your current CV (PDF or Word) and we fill everything in, or start from an example. It all saves as you go.' },
   { n: '3', title: 'Download your PDF', text: 'Choose A4, US Letter or US Legal and save a print-ready PDF.' },
 ];
 ---
@@ -40,11 +41,14 @@ const steps = [
     </p>
     <div class="mt-8 flex flex-wrap justify-center gap-3">
       <a href="/builder" class="inline-flex h-12 items-center rounded-xl bg-brand px-6 font-semibold text-brand-fg hover:opacity-90">Build my resume</a>
+      <a href="/builder?import=1" class="inline-flex h-12 items-center gap-2 rounded-xl border border-brand/40 bg-brand-soft px-6 font-semibold hover:border-brand">
+        <Icon name="upload" class="size-5" /> Upload my current CV
+      </a>
       <a href="#templates" class="inline-flex h-12 items-center rounded-xl border border-line bg-surface px-6 font-semibold hover:border-brand/40">See templates</a>
     </div>
   </section>
 
-  <section class="container-page grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  <section class="container-page grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
     {
       points.map((p) => (
         <div class="card p-5">

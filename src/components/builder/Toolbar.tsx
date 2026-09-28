@@ -4,6 +4,7 @@ import { normalizeResume } from '@/lib/resume/normalize';
 import { SAMPLES } from '@/lib/resume/samples';
 import type { Action } from '@/lib/resume/store';
 import type { Resume } from '@/lib/resume/types';
+import { ImportDialog } from './ImportDialog';
 import { hasContent } from './useResume';
 import { Icon } from './icons';
 
@@ -49,6 +50,16 @@ const slug = (s: string) =>
 export function Toolbar({ resume, dispatch, savedAt, saveError }: { resume: Resume; dispatch: (a: Action) => void; savedAt: Date | null; saveError: boolean }) {
   const file = useRef<HTMLInputElement>(null);
   const [notice, setNotice] = useState('');
+  const [importing, setImporting] = useState(false);
+
+  // Links like /builder?import=1 open the importer straight away.
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get('import') !== '1') return;
+    setImporting(true);
+    url.searchParams.delete('import');
+    history.replaceState(null, '', url.pathname + url.search + url.hash);
+  }, []);
 
   const replace = (next: Resume, what: string) => {
     if (hasContent(resume) && !window.confirm(`Replace your current resume with ${what}? Download a backup first if you want to keep it.`)) return;
@@ -94,6 +105,12 @@ export function Toolbar({ resume, dispatch, savedAt, saveError }: { resume: Resu
       )}
 
       <div className="ml-auto flex items-center gap-2">
+        <button type="button" onClick={() => setImporting(true)} aria-haspopup="dialog" className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-brand/40 bg-brand-soft px-3 text-sm font-medium text-fg hover:border-brand">
+          <Icon name="upload" />
+          <span>
+            Import<span className="hidden sm:inline"> CV</span>
+          </span>
+        </button>
         <Menu label="Examples" icon={<Icon name="sparkle" />}>
           {(close) => (
             <>
@@ -164,6 +181,16 @@ export function Toolbar({ resume, dispatch, savedAt, saveError }: { resume: Resu
           }}
         />
       </div>
+      {importing && (
+        <ImportDialog
+          current={resume}
+          onClose={() => setImporting(false)}
+          onApply={(r) => {
+            dispatch({ type: 'replace', resume: r });
+            setImporting(false);
+          }}
+        />
+      )}
     </div>
   );
 }
