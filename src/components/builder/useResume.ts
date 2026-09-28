@@ -22,14 +22,23 @@ export const hasContent = (r: Resume) => Boolean(r.basics.name || r.basics.summa
 /**
  * The resume being edited: loaded from this browser on first render,
  * saved back half a second after each change. `?sample=<id>` in the URL
- * opens that example instead (asking first if there's work to lose).
+ * opens that example instead (asking first if there's work to lose), with
+ * optional `&paper=A4|Letter|Legal` and `&fit=1`.
  */
 export function useResume() {
   const [resume, dispatch] = useReducer(reducer, null, () => {
     const saved = typeof window === 'undefined' ? null : readSaved();
     const sampleId = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('sample');
     const sample = sampleId ? sampleById(sampleId) : undefined;
-    if (sample && (!saved || !hasContent(saved) || window.confirm(`Replace your current resume with the “${sample.label}” example?`))) return sample.build();
+    if (sample && (!saved || !hasContent(saved) || window.confirm(`Replace your current resume with the “${sample.label}” example?`))) {
+      // Example links can also pick the paper size and "fit to one page".
+      const params = new URLSearchParams(window.location.search);
+      const r = sample.build();
+      const paper = params.get('paper');
+      if (paper === 'A4' || paper === 'Letter' || paper === 'Legal') r.settings.paper = paper;
+      if (params.get('fit') === '1') r.settings.fitOnePage = true;
+      return r;
+    }
     return saved ?? emptyResume();
   });
   const [savedAt, setSavedAt] = useState<Date | null>(null);
@@ -40,7 +49,7 @@ export function useResume() {
     // Drop ?sample= so a reload doesn't ask again.
     const url = new URL(window.location.href);
     if (url.searchParams.has('sample')) {
-      url.searchParams.delete('sample');
+      for (const k of ['sample', 'paper', 'fit']) url.searchParams.delete(k);
       history.replaceState(null, '', url.pathname + url.search + url.hash);
     }
   }, []);

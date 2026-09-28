@@ -76,6 +76,7 @@ function normalizeSettings(v: unknown): Settings {
     paper: PAPERS.includes(o.paper as PaperSize) ? (o.paper as PaperSize) : d.paper,
     dateFormat: FORMATS.includes(o.dateFormat as DateFormat) ? (o.dateFormat as DateFormat) : d.dateFormat,
     showPhoto: bool(o.showPhoto, d.showPhoto),
+    fitOnePage: bool(o.fitOnePage, d.fitOnePage),
   };
 }
 

@@ -27,6 +27,7 @@ export const defaultSettings = (): Settings => ({
   paper: 'A4',
   dateFormat: 'MMM YYYY',
   showPhoto: true,
+  fitOnePage: false,
 });
 
 export const newItem = (patch: Partial<Item> = {}): Item => ({
