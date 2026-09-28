@@ -1,0 +1,55 @@
+---
+import { SITE } from '@/config/site';
+import Icon from '@/components/ui/Icon.astro';
+import Logo from '@/components/layout/Logo.astro';
+
+interface Props {
+  variant?: 'site' | 'app';
+}
+const { variant = 'site' } = Astro.props;
+---
+
+<header class:list={['z-40 border-b border-line bg-bg/85 backdrop-blur supports-[backdrop-filter]:bg-bg/70 print:hidden', variant === 'site' && 'sticky top-0']}>
+  <div class:list={['flex h-16 items-center gap-4', variant === 'site' ? 'container-page' : 'px-4 sm:px-6']}>
+    <a href="/" class="shrink-0" aria-label={`${SITE.name} home`}>
+      <Logo id="kitwise-mark-header" />
+    </a>
+
+    <nav aria-label="Site" class="hidden flex-1 items-center gap-1 text-sm text-muted md:flex">
+      <a href="/#templates" class="rounded-lg px-3 py-2 hover:bg-surface-2 hover:text-fg">Templates</a>
+      <a href="/#how-it-works" class="rounded-lg px-3 py-2 hover:bg-surface-2 hover:text-fg">How it works</a>
+    </nav>
+
+    <div class="ml-auto flex items-center gap-2 md:ml-0">
+      {
+        variant === 'site' && (
+          <a href="/builder" class="inline-flex h-10 items-center rounded-xl bg-brand px-4 text-sm font-semibold text-brand-fg hover:opacity-90">
+            Build my resume
+          </a>
+        )
+      }
+      <button type="button" id="theme-toggle" class="grid size-10 place-items-center rounded-xl border border-line bg-surface text-muted hover:text-fg" aria-label="Toggle dark mode">
+        <Icon name="moon" class="size-5 dark-hide" />
+        <Icon name="sun" class="size-5 light-hide" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<style is:global>
+  :root[data-theme='dark'] .dark-hide,
+  :root:not([data-theme='dark']) .light-hide {
+    display: none;
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  btn?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+  });
+</script>

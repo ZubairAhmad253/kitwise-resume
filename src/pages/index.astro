@@ -1,0 +1,93 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { SITE } from '@/config/site';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: SITE.name,
+    url: Astro.site?.href,
+    description: SITE.description,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    publisher: { '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: new URL(SITE.logo, Astro.site).href } },
+  },
+];
+
+const points = [
+  { icon: 'layout', title: 'Modern templates', text: 'Designs made for your field, from software and engineering to healthcare, logistics and finance.' },
+  { icon: 'file', title: 'A4, US Letter or Legal', text: 'See real pages as you type, with clean page breaks and space at the top of every new page.' },
+  { icon: 'download', title: 'Free PDF download', text: 'Text stays selectable and readable by applicant tracking systems (ATS). No watermark.' },
+  { icon: 'lock', title: 'Private by design', text: 'No sign-up. Your resume is saved in your own browser and never uploaded.' },
+];
+
+const steps = [
+  { n: '1', title: 'Pick a template', text: 'Choose a design for your profession. You can switch at any time without retyping.' },
+  { n: '2', title: 'Fill in your details', text: 'Start from example content, then edit. Everything saves automatically as you go.' },
+  { n: '3', title: 'Download your PDF', text: 'Choose A4, US Letter or US Legal and save a print-ready PDF.' },
+];
+---
+
+<BaseLayout title={`${SITE.name} – Free Resume Builder with Modern Templates`} description={SITE.description} jsonLd={jsonLd}>
+  <section class="container-page pt-16 pb-12 text-center sm:pt-24">
+    <p class="text-sm font-semibold text-brand">Free · No sign-up · No watermark</p>
+    <h1 class="mx-auto mt-3 max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-6xl">Build a modern resume in minutes</h1>
+    <p class="mx-auto mt-5 max-w-2xl text-lg text-muted text-pretty">
+      Choose a template made for your field, fill in your details and download a print-ready PDF. Everything stays on your device.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/builder" class="inline-flex h-12 items-center rounded-xl bg-brand px-6 font-semibold text-brand-fg hover:opacity-90">Build my resume</a>
+      <a href="#templates" class="inline-flex h-12 items-center rounded-xl border border-line bg-surface px-6 font-semibold hover:border-brand/40">See templates</a>
+    </div>
+  </section>
+
+  <section class="container-page grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      points.map((p) => (
+        <div class="card p-5">
+          <span class="grid size-10 place-items-center rounded-xl bg-brand-soft text-brand">
+            <Icon name={p.icon} />
+          </span>
+          <h2 class="mt-4 font-semibold">{p.title}</h2>
+          <p class="mt-1.5 text-sm text-muted">{p.text}</p>
+        </div>
+      ))
+    }
+  </section>
+
+  <section id="templates" class="container-page scroll-mt-24 pt-20">
+    <h2 class="text-2xl font-bold tracking-tight">Templates for every field</h2>
+    <p class="mt-2 max-w-2xl text-muted">Each design is built for how recruiters in that field read a resume.</p>
+    <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        ['Software & tech', 'Engineering', 'Civil & construction', 'Healthcare', 'Logistics & aviation', 'Creative & marketing', 'Corporate & finance', 'Academia & legal'].map((f) => (
+          <li class="flex items-center gap-2 rounded-xl border border-line bg-surface px-4 py-3 text-sm font-medium">
+            <Icon name="check" class="size-4 text-accent" />
+            {f}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section id="how-it-works" class="container-page scroll-mt-24 pt-20">
+    <h2 class="text-2xl font-bold tracking-tight">How it works</h2>
+    <ol class="mt-6 grid gap-4 sm:grid-cols-3">
+      {
+        steps.map((s) => (
+          <li class="card p-5">
+            <span class="grid size-9 place-items-center rounded-full bg-brand text-sm font-bold text-brand-fg">{s.n}</span>
+            <h3 class="mt-4 font-semibold">{s.title}</h3>
+            <p class="mt-1.5 text-sm text-muted">{s.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="mt-10 text-center">
+      <a href="/builder" class="inline-flex h-12 items-center rounded-xl bg-brand px-6 font-semibold text-brand-fg hover:opacity-90">Start building, it's free</a>
+    </div>
+  </section>
+</BaseLayout>

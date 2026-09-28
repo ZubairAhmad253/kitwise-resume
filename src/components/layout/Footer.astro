@@ -1,0 +1,23 @@
+---
+import { SITE } from '@/config/site';
+import Logo from '@/components/layout/Logo.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-line bg-surface print:hidden">
+  <div class="container-page grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="lg:col-span-2">
+      <a href="/" class="inline-block" aria-label={`${SITE.name} home`}><Logo id="kitwise-mark-footer" size={28} /></a>
+      <p class="mt-3 max-w-sm text-sm text-muted">{SITE.tagline}. Your resume is saved on your own device and never uploaded.</p>
+    </div>
+    <nav aria-label="Resume builder">
+      <p class="text-sm font-semibold">Resume builder</p>
+      <ul class="mt-3 space-y-2 text-sm text-muted">
+        <li><a class="hover:text-fg" href="/builder">Build my resume</a></li>
+        <li><a class="hover:text-fg" href="/#templates">Templates</a></li>
+        <li><a class="hover:text-fg" href="/#how-it-works">How it works</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="border-t border-line py-6 text-center text-xs text-muted">© {year} {SITE.name} · Part of the {SITE.brand} family</div>
+</footer>

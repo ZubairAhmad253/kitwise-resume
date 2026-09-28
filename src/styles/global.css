@@ -1,0 +1,117 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+/*
+ * Design tokens for the site and editor (not the resume templates, which
+ * carry their own fixed colours so the PDF looks the same in dark mode).
+ * Components use the Tailwind names on the right (bg-surface, text-muted,
+ * border-line, ...); dark mode only swaps the raw values below.
+ */
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --surface-2: #f1f3f7;
+  --fg: #0f172a;
+  --muted: #5b6475;
+  --line: #e3e7ee;
+  --brand: #4f46e5;
+  --brand-fg: #ffffff;
+  --brand-soft: #eef0ff;
+  --accent: #0ea5a4;
+  --warn: #d97706;
+  --danger: #dc2626;
+  --shadow: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px rgb(15 23 42 / 0.06);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0b0f17;
+    --surface: #121826;
+    --surface-2: #1a2233;
+    --fg: #e7ebf3;
+    --muted: #97a1b3;
+    --line: #253046;
+    --brand: #8b93ff;
+    --brand-fg: #0b0f17;
+    --brand-soft: #1e2347;
+    --accent: #2dd4bf;
+    --warn: #fbbf24;
+    --danger: #f87171;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px rgb(0 0 0 / 0.25);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0b0f17;
+  --surface: #121826;
+  --surface-2: #1a2233;
+  --fg: #e7ebf3;
+  --muted: #97a1b3;
+  --line: #253046;
+  --brand: #8b93ff;
+  --brand-fg: #0b0f17;
+  --brand-soft: #1e2347;
+  --accent: #2dd4bf;
+  --warn: #fbbf24;
+  --danger: #f87171;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px rgb(0 0 0 / 0.25);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-brand-fg: var(--brand-fg);
+  --color-brand-soft: var(--brand-soft);
+  --color-accent: var(--accent);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --shadow-card: var(--shadow);
+}
+
+@layer base {
+  html {
+    @apply bg-bg text-fg antialiased;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg min-h-dvh font-sans;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-line bg-surface shadow-card;
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+  .prose-content {
+    @apply max-w-none text-[1.0625rem] leading-7 text-fg;
+  }
+  .prose-content h2 {
+    @apply mt-12 mb-4 text-2xl font-semibold tracking-tight;
+  }
+  .prose-content p,
+  .prose-content ul,
+  .prose-content ol {
+    @apply my-4;
+  }
+  .prose-content ul {
+    @apply list-disc pl-6;
+  }
+  .prose-content a {
+    @apply font-medium text-brand underline decoration-brand/30 underline-offset-2 hover:decoration-brand;
+  }
+}
