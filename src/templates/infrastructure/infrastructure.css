@@ -16,17 +16,17 @@
 
 /* Spacing between blocks */
 .t-infrastructure .kr-b--title {
-  margin-bottom: 0.75em;
+  margin-bottom: calc(0.75em * var(--kr-space));
 }
 .t-infrastructure .kr-b--item,
 .t-infrastructure .kr-b--desc {
-  margin-bottom: 0.25em;
+  margin-bottom: calc(0.25em * var(--kr-space));
 }
 .t-infrastructure .kr-end-item {
-  margin-bottom: 0.95em;
+  margin-bottom: calc(0.95em * var(--kr-space));
 }
 .t-infrastructure .kr-end-section {
-  margin-bottom: 1.45em;
+  margin-bottom: calc(1.45em * var(--kr-space));
 }
 
 /* Header */

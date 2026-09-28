@@ -16,17 +16,17 @@
 
 /* Spacing between blocks */
 .t-linear-mono .kr-b--title {
-  margin-bottom: 0.8em;
+  margin-bottom: calc(0.8em * var(--kr-space));
 }
 .t-linear-mono .kr-b--item,
 .t-linear-mono .kr-b--desc {
-  margin-bottom: 0.25em;
+  margin-bottom: calc(0.25em * var(--kr-space));
 }
 .t-linear-mono .kr-end-item {
-  margin-bottom: 0.95em;
+  margin-bottom: calc(0.95em * var(--kr-space));
 }
 .t-linear-mono .kr-end-section {
-  margin-bottom: 1.35em;
+  margin-bottom: calc(1.35em * var(--kr-space));
 }
 .t-linear-mono .kr-b--desc {
   padding-left: var(--lm-gutter);

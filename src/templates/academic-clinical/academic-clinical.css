@@ -15,17 +15,17 @@
 
 /* Spacing between blocks */
 .t-academic-clinical .kr-b--title {
-  margin-bottom: 0.6em;
+  margin-bottom: calc(0.6em * var(--kr-space));
 }
 .t-academic-clinical .kr-b--item,
 .t-academic-clinical .kr-b--desc {
-  margin-bottom: 0.2em;
+  margin-bottom: calc(0.2em * var(--kr-space));
 }
 .t-academic-clinical .kr-end-item {
-  margin-bottom: 0.8em;
+  margin-bottom: calc(0.8em * var(--kr-space));
 }
 .t-academic-clinical .kr-end-section {
-  margin-bottom: 1.3em;
+  margin-bottom: calc(1.3em * var(--kr-space));
 }
 
 /* Header with registration badge */

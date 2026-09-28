@@ -73,23 +73,23 @@
 
 /* Spacing between blocks */
 .t-color-rail .kr-b--title {
-  margin-bottom: 0.65em;
+  margin-bottom: calc(0.65em * var(--kr-space));
 }
 .t-color-rail .kr-b--item,
 .t-color-rail .kr-b--desc {
-  margin-bottom: 0.25em;
+  margin-bottom: calc(0.25em * var(--kr-space));
 }
 .t-color-rail .kr-end-item {
-  margin-bottom: 0.95em;
+  margin-bottom: calc(0.95em * var(--kr-space));
 }
 .t-color-rail .kr-end-section {
-  margin-bottom: 1.5em;
+  margin-bottom: calc(1.5em * var(--kr-space));
 }
 .t-color-rail .kr-region-side .kr-end-item {
-  margin-bottom: 0.75em;
+  margin-bottom: calc(0.75em * var(--kr-space));
 }
 .t-color-rail .kr-region-side .kr-end-section {
-  margin-bottom: 1.4em;
+  margin-bottom: calc(1.4em * var(--kr-space));
 }
 
 /* Highlighter headings: a coral block behind the lower half of the words */

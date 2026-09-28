@@ -122,6 +122,7 @@ export const timeline: TemplateDef = {
   className: 't-timeline',
   margins: { top: 15, topNext: 20, right: 16, bottom: 13, left: LEFT },
   regions: ['main'],
+  accent: { vars: ['--tl-accent'], color: '#0e7490' },
   build,
   decor: (page) => <div className={`tl-line${page === 0 ? ' tl-line--first' : ''}`} style={{ left: `${LEFT + LINE}mm` }} />,
 };

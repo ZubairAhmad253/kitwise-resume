@@ -123,5 +123,6 @@ export const curriculumVitae: TemplateDef = {
   className: 't-curriculum-vitae',
   margins: { top: 16, topNext: 22, right: 16, bottom: 14, left: 16 },
   regions: ['side', 'main'],
+  accent: { vars: ['--cv-accent'], color: '#7a1f2b' },
   build,
 };

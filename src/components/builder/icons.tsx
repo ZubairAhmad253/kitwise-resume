@@ -14,6 +14,11 @@ const PATHS = {
   image: 'M4 5h16v14H4zM4 16l5-5 4 4 3-3 4 4M15 9h.01',
   sparkle: 'M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6',
   reset: 'M4 4v6h6M20 20v-6h-6M5.6 15a7 7 0 0 0 12.3 2.1M18.4 9A7 7 0 0 0 6.1 6.9',
+  palette: 'M12 3a9 9 0 1 0 0 18c1.1 0 1.5-.8 1.5-1.5 0-1.2-1-1.6-1-2.7 0-.8.7-1.3 1.5-1.3H16a5 5 0 0 0 5-5c0-4.1-4-7.5-9-7.5ZM7.5 11h.01M10 7.5h.01M14.5 7.5h.01',
+  grid: 'M4 4h7v9H4zM13 4h7v5h-7zM13 11h7v9h-7zM4 15h7v5H4z',
+  close: 'M6 6l12 12M18 6 6 18',
+  check: 'm5 12 5 5 9-10',
+  file: 'M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6',
 } as const;
 
 export type IconName = keyof typeof PATHS;

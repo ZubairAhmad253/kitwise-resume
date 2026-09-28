@@ -114,5 +114,6 @@ export const linearMono: TemplateDef = {
   className: 't-linear-mono',
   margins: { top: 16, topNext: 22, right: 16, bottom: 14, left: 16 },
   regions: ['main'],
+  accent: { vars: ['--lm-ink'], color: '#111111' },
   build,
 };

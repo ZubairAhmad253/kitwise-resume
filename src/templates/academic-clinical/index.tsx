@@ -126,5 +126,6 @@ export const academicClinical: TemplateDef = {
   className: 't-academic-clinical',
   margins: { top: 16, topNext: 22, right: 17, bottom: 14, left: 17 },
   regions: ['main'],
+  accent: { vars: ['--ac-accent'], tints: [['--ac-badge', 8]], color: '#1d5c7a' },
   build,
 };

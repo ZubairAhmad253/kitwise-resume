@@ -38,13 +38,13 @@
 /* Spacing between blocks */
 .t-medical-minimal .kr-b--item,
 .t-medical-minimal .kr-b--desc {
-  margin-bottom: 0.25em;
+  margin-bottom: calc(0.25em * var(--kr-space));
 }
 .t-medical-minimal .kr-end-item {
-  margin-bottom: 0.85em;
+  margin-bottom: calc(0.85em * var(--kr-space));
 }
 .t-medical-minimal .kr-end-section {
-  margin-bottom: 1.6em;
+  margin-bottom: calc(1.6em * var(--kr-space));
 }
 
 /* Header */

@@ -150,5 +150,6 @@ export const portfolio: TemplateDef = {
   className: 't-portfolio',
   margins: { top: 14, topNext: 20, right: 14, bottom: 13, left: 14 },
   regions: ['main'],
+  accent: { vars: ['--pf-accent'], color: '#3d3aff' },
   build,
 };

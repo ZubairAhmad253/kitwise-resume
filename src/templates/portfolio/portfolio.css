@@ -17,20 +17,20 @@
 
 /* Spacing between blocks */
 .t-portfolio .kr-b--title {
-  margin-bottom: 0.7em;
+  margin-bottom: calc(0.7em * var(--kr-space));
 }
 .t-portfolio .kr-b--item,
 .t-portfolio .kr-b--desc {
-  margin-bottom: 0.2em;
+  margin-bottom: calc(0.2em * var(--kr-space));
 }
 .t-portfolio .kr-end-item {
-  margin-bottom: 0.85em;
+  margin-bottom: calc(0.85em * var(--kr-space));
 }
 .t-portfolio .kr-end-section {
-  margin-bottom: 1.45em;
+  margin-bottom: calc(1.45em * var(--kr-space));
 }
 .t-portfolio .kr-b--whole:not(.kr-end-item):has(> .pf-gallery) {
-  margin-bottom: 0.7em;
+  margin-bottom: calc(0.7em * var(--kr-space));
 }
 .t-portfolio .kr-b--desc {
   padding-left: calc(var(--pf-when) + 1em);

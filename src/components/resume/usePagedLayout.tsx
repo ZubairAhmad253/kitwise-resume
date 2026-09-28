@@ -1,4 +1,10 @@
 import { useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+// Typefaces the Design panel can switch every template to.
+import '@fontsource-variable/inter';
+import '@fontsource-variable/plus-jakarta-sans';
+import '@fontsource-variable/gelasio';
+import '@fontsource-variable/eb-garamond';
+import { designKey, pageDesign, textFactor } from '@/lib/resume/design';
 import { paginate } from '@/lib/resume/paginate';
 import { PAPER } from '@/lib/resume/paper';
 import type { Resume } from '@/lib/resume/types';
@@ -9,6 +15,8 @@ import '@/styles/pages.css';
 const MIN_FIT_SCALE = 0.82;
 const FIT_STEP = 0.03;
 
+export type PageDesign = ReturnType<typeof pageDesign>;
+
 interface PageProps {
   template: TemplateDef;
   paperWidth: number;
@@ -17,14 +25,15 @@ interface PageProps {
   scale: number;
   header?: ReactNode;
   regions: Partial<Record<RegionId, ReactNode>>;
+  design: PageDesign;
 }
 
-/** One sheet. Used for measuring, previewing and printing, so all three always match. */
-function Page({ template, paperWidth, height, pageIndex, scale, header, regions }: PageProps) {
+/** One sheet. Used for measuring, previewing, printing and gallery thumbnails, so they always match. */
+export function Page({ template, paperWidth, height, pageIndex, scale, header, regions, design }: PageProps) {
   const m = template.margins;
-  const style = { width: `${paperWidth}mm`, height: height === 'measure' ? '4000mm' : `${height}mm`, '--kr-scale': scale } as CSSProperties;
+  const style = { ...design.style, width: `${paperWidth}mm`, height: height === 'measure' ? '4000mm' : `${height}mm`, '--kr-scale': scale } as CSSProperties;
   return (
-    <div className={`kr-page ${template.className}`} style={style} data-page={pageIndex + 1}>
+    <div className={`kr-page ${template.className} ${design.className}`} style={style} data-page={pageIndex + 1}>
       {template.decor && <div className="kr-decor">{template.decor(pageIndex)}</div>}
       <div className="kr-body" style={{ padding: `${pageIndex === 0 ? m.top : m.topNext}mm ${m.right}mm ${m.bottom}mm ${m.left}mm` }}>
         {pageIndex === 0 && header && <div className="kr-header">{header}</div>}
@@ -40,7 +49,7 @@ function Page({ template, paperWidth, height, pageIndex, scale, header, regions 
   );
 }
 
-const wrap = (blocks: Block[]) =>
+export const wrapBlocks = (blocks: Block[]) =>
   blocks.map((b) => (
     <div key={b.key} className="kr-block" data-block={b.key}>
       {b.node}
@@ -60,7 +69,7 @@ export interface PagedLayout {
   pages: ReactNode[];
   pageCount: number;
   paper: { width: number; height: number };
-  /** Text scale in use (below 1 when fitting to one page). */
+  /** Text scale "fit to one page" is using (below 1 when it had to shrink). */
   scale: number;
   /** True when "fit to one page" couldn't get everything onto one page. */
   fitFailed: boolean;
@@ -68,11 +77,15 @@ export interface PagedLayout {
 
 /**
  * Measures every block of a template off-screen, then splits each column
- * into pages. Re-runs when the resume, template, paper or fonts change.
+ * into pages. Re-runs when the resume, template, paper, design or fonts change.
  */
 export function usePagedLayout(resume: Resume, template: TemplateDef, fit: boolean): PagedLayout {
   const paper = PAPER[resume.settings.paper];
   const content = useMemo(() => template.build(resume), [template, resume]);
+  const design = useMemo(() => pageDesign(resume.settings, template.accent), [resume.settings, template]);
+  // The Design panel's text size multiplies the fit-to-page scale.
+  const base = textFactor(resume.settings);
+  const dKey = designKey(resume.settings);
   const [scale, setScale] = useState(1);
   const [layout, setLayout] = useState<{ pages: Partial<Record<RegionId, number[][]>>; count: number; scale: number } | null>(null);
   const [fontTick, setFontTick] = useState(0);
@@ -87,7 +100,7 @@ export function usePagedLayout(resume: Resume, template: TemplateDef, fit: boole
   }, []);
 
   // New content or settings: start the fit search again from full size.
-  const contentKey = `${template.id}|${resume.settings.paper}|${fit}|${resume.updatedAt}|${resume.id}`;
+  const contentKey = `${template.id}|${resume.settings.paper}|${fit}|${dKey}|${resume.updatedAt}|${resume.id}`;
   const lastKey = useRef(contentKey);
   useLayoutEffect(() => {
     if (lastKey.current !== contentKey) {
@@ -125,13 +138,13 @@ export function usePagedLayout(resume: Resume, template: TemplateDef, fit: boole
       return;
     }
     setLayout({ pages, count, scale });
-  }, [content, template, paper.width, paper.height, scale, fit, fontTick]);
+  }, [content, template, paper.width, paper.height, scale, fit, fontTick, design, dKey]);
 
   const measurer = (
     <div ref={root} className="kr-measure" aria-hidden="true">
       {[0, 1].map((i) => (
         <div key={i} data-cap={i}>
-          <Page template={template} paperWidth={paper.width} height={paper.height} pageIndex={i} scale={scale} header={content.header} regions={{}} />
+          <Page template={template} paperWidth={paper.width} height={paper.height} pageIndex={i} scale={scale * base} header={content.header} regions={{}} design={design} />
         </div>
       ))}
       <div data-flow>
@@ -140,9 +153,10 @@ export function usePagedLayout(resume: Resume, template: TemplateDef, fit: boole
           paperWidth={paper.width}
           height="measure"
           pageIndex={0}
-          scale={scale}
+          scale={scale * base}
           header={content.header}
-          regions={Object.fromEntries(template.regions.map((id) => [id, wrap(content.regions[id] ?? [])]))}
+          regions={Object.fromEntries(template.regions.map((id) => [id, wrapBlocks(content.regions[id] ?? [])]))}
+          design={design}
         />
       </div>
     </div>
@@ -156,14 +170,15 @@ export function usePagedLayout(resume: Resume, template: TemplateDef, fit: boole
       paperWidth={paper.width}
       height={paper.height}
       pageIndex={p}
-      scale={used.scale}
+      scale={used.scale * base}
       header={content.header}
+      design={design}
       regions={Object.fromEntries(
         template.regions.map((id) => {
           const blocks = content.regions[id] ?? [];
           // Until the first measurement lands, show everything on page 1.
           const idx = layout ? (used.pages[id]?.[p] ?? []) : p === 0 ? blocks.map((_, i) => i) : [];
-          return [id, wrap(idx.map((i) => blocks[i]).filter(Boolean))];
+          return [id, wrapBlocks(idx.map((i) => blocks[i]).filter(Boolean))];
         }),
       )}
     />

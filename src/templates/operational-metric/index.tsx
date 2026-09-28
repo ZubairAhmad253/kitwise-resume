@@ -120,5 +120,6 @@ export const operationalMetric: TemplateDef = {
   className: 't-operational-metric',
   margins: { top: 15, topNext: 20, right: 15, bottom: 13, left: 15 },
   regions: ['main'],
+  accent: { vars: ['--om-accent'], color: '#0369a1' },
   build,
 };

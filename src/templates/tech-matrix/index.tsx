@@ -134,5 +134,6 @@ export const techMatrix: TemplateDef = {
   className: 't-tech-matrix',
   margins: { top: 14, topNext: 20, right: 14, bottom: 13, left: 14 },
   regions: ['main'],
+  accent: { vars: ['--tm-accent'], color: '#1d4ed8' },
   build,
 };

@@ -28,6 +28,10 @@ export const defaultSettings = (): Settings => ({
   dateFormat: 'MMM YYYY',
   showPhoto: true,
   fitOnePage: false,
+  accent: '',
+  font: 'template',
+  textSize: 'M',
+  spacing: 'normal',
 });
 
 export const newItem = (patch: Partial<Item> = {}): Item => ({

@@ -90,7 +90,12 @@ Every Kitwise site shares the mark (three white tiles and one round teal "key");
 
 ### Writing a template
 
-A template (`src/templates/<id>/`) exports a `TemplateDef`: its margins, its columns (`main`, optionally `side`), a `build(resume)` function that returns the blocks for each column (use `sectionBlocks` from `templates/shared.tsx`), an optional page decoration (rails, bands) and a stylesheet scoped under its class. Sizes in the stylesheet are in `em`, relative to `calc(<size> * var(--kr-scale))`, so fit-to-page can scale them.
+A template (`src/templates/<id>/`) exports a `TemplateDef`: its margins, its columns (`main`, optionally `side`), a `build(resume)` function that returns the blocks for each column (use `sectionBlocks` from `templates/shared.tsx`), an optional page decoration (rails, bands) and a stylesheet scoped under its class. Sizes in the stylesheet are in `em`, relative to `calc(<size> * var(--kr-scale))`, so fit-to-page and the text size setting can scale them.
+
+Two more things make a template work with the Design panel:
+
+- `accent` lists the CSS custom properties that take the user's accent colour (and any light tints of it), plus the template's own colour for the "default" swatch.
+- Gaps between blocks (`margin-bottom` and padding on `.kr-b--*` and `.kr-end-*`) are written as `calc(<gap> * var(--kr-space))`, so the Spacing setting can tighten or loosen them.
 
 ## Deployment
 
@@ -111,9 +116,10 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 | 4 | Templates 4–8: Mechanical/Electrical and Civil Engineering | Done |
 | 5 | Templates 9–12: Healthcare, Logistics/Drivers/Aviation | Done |
 | 6 | Templates 13–19: Creative, Corporate/Finance, Academia/Legal | Done |
-| 7 | Customising (colours, fonts, spacing, photo) and template gallery | |
-| 8 | Writing helpers: phrase library, ATS checks, completeness score | |
-| 9 | Multiple resumes and more exports | |
-| 10 | Site pages and SEO: template pages, resume examples, blog, legal pages | |
-| 11 | QA and launch prep | |
+| 7 | Customising (colours, fonts, spacing, photo) and template gallery | Done |
+| 8 | Import an existing CV: upload a PDF, Word or text file and it fills the editor, ready for any template | |
+| 9 | Writing helpers: phrase library, ATS checks, completeness score | |
+| 10 | Multiple resumes and more exports | |
+| 11 | Site pages and SEO: template pages, resume examples, blog, legal pages | |
+| 12 | QA and launch prep | |
 | Later | Cover letters, Arabic (right-to-left), Word export, ads, accounts and paid features | |

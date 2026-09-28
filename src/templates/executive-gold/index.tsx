@@ -102,6 +102,7 @@ export const executiveGold: TemplateDef = {
   className: 't-executive-gold',
   margins: { top: 15, topNext: 21, right: 18, bottom: 14, left: 18 },
   regions: ['main'],
+  accent: { vars: ['--eg-gold'], tints: [['--eg-gold-soft', 40]], color: '#b08d3c' },
   build,
   decor: () => <div className="eg-frame" />,
 };

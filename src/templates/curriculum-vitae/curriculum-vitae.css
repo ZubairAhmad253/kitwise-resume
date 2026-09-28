@@ -55,17 +55,17 @@
 
 /* Spacing between blocks */
 .t-curriculum-vitae .kr-b--title {
-  margin-bottom: 0.6em;
+  margin-bottom: calc(0.6em * var(--kr-space));
 }
 .t-curriculum-vitae .kr-b--item,
 .t-curriculum-vitae .kr-b--desc {
-  margin-bottom: 0.2em;
+  margin-bottom: calc(0.2em * var(--kr-space));
 }
 .t-curriculum-vitae .kr-end-item {
-  margin-bottom: 0.75em;
+  margin-bottom: calc(0.75em * var(--kr-space));
 }
 .t-curriculum-vitae .kr-end-section {
-  margin-bottom: 1.3em;
+  margin-bottom: calc(1.3em * var(--kr-space));
 }
 .t-curriculum-vitae .kr-b--desc {
   padding-left: calc(var(--cv-when) + 1em);

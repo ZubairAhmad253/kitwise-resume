@@ -116,6 +116,7 @@ export const colorRail: TemplateDef = {
   className: 't-color-rail',
   margins: { top: 15, topNext: 20, right: 14, bottom: 13, left: 22 },
   regions: ['main', 'side'],
+  accent: { vars: ['--cr-pop'], tints: [['--cr-pop-soft', 22]], color: '#ff5a5f' },
   build,
   decor: () => <div className="cr-strip" />,
 };

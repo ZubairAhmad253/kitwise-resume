@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import type { AccentSpec } from '@/lib/resume/design';
 import type { Resume } from '@/lib/resume/types';
 
 /** Columns a template can lay content into. Single-column templates use only "main". */
@@ -33,6 +34,8 @@ export interface TemplateDef {
   /** Regions in visual order (left to right). */
   regions: RegionId[];
   build: (resume: Resume) => TemplateContent;
+  /** Which of the template's colours the user's accent colour replaces. */
+  accent: AccentSpec;
   /** Full-bleed page decoration (rails, bands, patterns) drawn behind the content. */
   decor?: (pageIndex: number) => ReactNode;
 }

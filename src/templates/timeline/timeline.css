@@ -41,17 +41,17 @@
 
 /* Spacing between blocks */
 .t-timeline .kr-b--title {
-  margin-bottom: 0.7em;
+  margin-bottom: calc(0.7em * var(--kr-space));
 }
 .t-timeline .kr-b--item,
 .t-timeline .kr-b--desc {
-  margin-bottom: 0.25em;
+  margin-bottom: calc(0.25em * var(--kr-space));
 }
 .t-timeline .kr-end-item {
-  margin-bottom: 1em;
+  margin-bottom: calc(1em * var(--kr-space));
 }
 .t-timeline .kr-end-section {
-  margin-bottom: 1.5em;
+  margin-bottom: calc(1.5em * var(--kr-space));
 }
 
 /* Header: sits on white so the line never shows through it. */

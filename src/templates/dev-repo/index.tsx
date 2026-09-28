@@ -198,5 +198,6 @@ export const devRepo: TemplateDef = {
   className: 't-dev-repo',
   margins: { top: 13, topNext: 20, right: 15, bottom: 13, left: 15 },
   regions: ['main'],
+  accent: { vars: ['--dr-link', '--dr-accent'], color: '#0969da' },
   build,
 };
