@@ -222,7 +222,7 @@ export const PHRASE_FIELDS: PhraseField[] = [
   {
     id: 'student',
     label: 'Students & first jobs',
-    hints: /student|graduate|intern|fresher|trainee|entry level|apprentice/i,
+    hints: /\b(?:student|graduate|intern|internship|fresher|trainee|entry[ -]level|apprentice)\b/i,
     bullets: [
       'Built [project] with a team of [N], used by [N] students',
       'Won [place] at [competition or hackathon]',
