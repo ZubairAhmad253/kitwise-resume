@@ -1,0 +1,316 @@
+/* #3 Dev-Repo Style. All sizes in em so "fit to one page" scales them. */
+.t-dev-repo {
+  --dr-ink: #1f2328;
+  --dr-text: #1f2328;
+  --dr-muted: #59636e;
+  --dr-link: #0969da;
+  --dr-border: #d1d9e0;
+  --dr-subtle: #f6f8fa;
+  --dr-topic-bg: #ddf4ff;
+  --dr-accent: #fd8c73;
+  --dr-mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+  font-family: 'Inter Variable', Inter, Arial, sans-serif;
+  font-size: calc(9.3pt * var(--kr-scale));
+  line-height: 1.5;
+  color: var(--dr-text);
+}
+
+/* Spacing between blocks */
+.t-dev-repo .kr-b--title {
+  margin-bottom: 0.7em;
+}
+.t-dev-repo .kr-b--item,
+.t-dev-repo .kr-b--desc {
+  margin-bottom: 0.2em;
+}
+.t-dev-repo .kr-end-item {
+  margin-bottom: 0.85em;
+}
+.t-dev-repo .kr-end-section {
+  margin-bottom: 1.3em;
+}
+.t-dev-repo .kr-b--desc {
+  padding-left: 1.9em;
+}
+
+/* Repo bar and file tabs */
+.t-dev-repo .dr-bar {
+  border-bottom: 1px solid var(--dr-border);
+  margin-bottom: 1.3em;
+}
+.t-dev-repo .dr-icon {
+  width: 1.05em;
+  height: 1.05em;
+  flex: none;
+  color: var(--dr-muted);
+}
+.t-dev-repo .dr-repo {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  font-size: 1.15em;
+  color: var(--dr-link);
+}
+.t-dev-repo .dr-slash {
+  color: var(--dr-muted);
+}
+.t-dev-repo .dr-repo strong {
+  font-weight: 650;
+}
+.t-dev-repo .dr-pill {
+  font-size: 0.68em;
+  font-weight: 500;
+  color: var(--dr-muted);
+  border: 1px solid var(--dr-border);
+  border-radius: 2em;
+  padding: 0 0.65em;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.t-dev-repo .dr-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5em;
+  margin-top: 0.6em;
+  font-family: var(--dr-mono);
+  font-size: 0.82em;
+  color: var(--dr-muted);
+}
+.t-dev-repo .dr-tabs li {
+  padding: 0.35em 0 0.5em;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.t-dev-repo .dr-tabs li.on {
+  color: var(--dr-ink);
+  font-weight: 600;
+  border-bottom-color: var(--dr-accent);
+}
+
+/* README heading */
+.t-dev-repo .dr-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5em;
+  margin-bottom: 0.9em;
+}
+.t-dev-repo .dr-name {
+  font-size: 2.3em;
+  line-height: 1.15;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--dr-ink);
+  padding-bottom: 0.2em;
+  border-bottom: 1px solid var(--dr-border);
+}
+.t-dev-repo .dr-headline {
+  margin-top: 0.5em;
+  font-size: 1.15em;
+  color: var(--dr-muted);
+}
+.t-dev-repo .dr-avatar {
+  flex: none;
+  width: 27mm;
+  height: 27mm;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--dr-border);
+}
+.t-dev-repo .dr-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin-top: 0.75em;
+}
+.t-dev-repo .dr-badge {
+  display: inline-flex;
+  font-family: var(--dr-mono);
+  font-size: 0.76em;
+  line-height: 1.75;
+  border-radius: 0.3em;
+  overflow: hidden;
+}
+.t-dev-repo .dr-badge-k {
+  background: #555;
+  color: #fff;
+  padding: 0 0.55em;
+}
+.t-dev-repo .dr-badge-v {
+  background: #0e7ad1;
+  color: #fff;
+  padding: 0 0.6em;
+}
+.t-dev-repo .dr-badge--email .dr-badge-v {
+  background: #d4543c;
+}
+.t-dev-repo .dr-badge--phone .dr-badge-v {
+  background: #2da44e;
+}
+.t-dev-repo .dr-badge--location .dr-badge-v {
+  background: #8250df;
+}
+.t-dev-repo .dr-badge--github .dr-badge-v {
+  background: #24292f;
+}
+.t-dev-repo .dr-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Section headings */
+.t-dev-repo .dr-title {
+  font-size: 1.32em;
+  font-weight: 650;
+  color: var(--dr-ink);
+  padding-bottom: 0.2em;
+  border-bottom: 1px solid var(--dr-border);
+}
+
+/* Entries, shown like commits */
+.t-dev-repo .dr-item {
+  display: flex;
+  gap: 0.75em;
+}
+.t-dev-repo .dr-commit {
+  flex: none;
+  width: 0.8em;
+  height: 0.8em;
+  margin: 0.35em 0.15em 0 0.2em;
+  border: 2px solid var(--dr-muted);
+  border-radius: 50%;
+  background: #fff;
+}
+.t-dev-repo .dr-item-main {
+  flex: 1;
+  min-width: 0;
+}
+.t-dev-repo .dr-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-dev-repo .dr-item-title {
+  font-size: 1.05em;
+  font-weight: 650;
+  color: var(--dr-ink);
+}
+.t-dev-repo .dr-at {
+  font-weight: 500;
+  color: var(--dr-link);
+}
+.t-dev-repo .dr-date {
+  flex: none;
+  font-family: var(--dr-mono);
+  font-size: 0.8em;
+  color: var(--dr-muted);
+}
+.t-dev-repo .dr-muted {
+  color: var(--dr-muted);
+}
+.t-dev-repo .dr-link {
+  font-family: var(--dr-mono);
+  font-size: 0.82em;
+  color: var(--dr-link);
+}
+.t-dev-repo .dr-item-tags {
+  margin-top: 0.3em;
+}
+
+/* Repository cards */
+.t-dev-repo .dr-card {
+  border: 1px solid var(--dr-border);
+  border-radius: 0.5em;
+  padding: 0.75em 0.95em 0.7em;
+}
+.t-dev-repo .dr-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.t-dev-repo .dr-card-name {
+  font-weight: 650;
+  color: var(--dr-link);
+}
+.t-dev-repo .dr-card-desc {
+  margin-top: 0.35em;
+  color: var(--dr-muted);
+  font-size: 0.95em;
+}
+.t-dev-repo .dr-card-desc .rt-li {
+  padding-left: 1em;
+  position: relative;
+}
+.t-dev-repo .dr-card-desc .rt-li::before {
+  content: '-';
+  position: absolute;
+  left: 0.15em;
+}
+.t-dev-repo .dr-card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2em 1.2em;
+  margin-top: 0.5em;
+  font-size: 0.85em;
+  color: var(--dr-muted);
+}
+
+/* Topics (skills) and languages */
+.t-dev-repo .dr-topic-row {
+  display: grid;
+  grid-template-columns: 8.5em 1fr;
+  gap: 0.8em;
+  align-items: baseline;
+}
+.t-dev-repo .dr-topic-row + .dr-topic-row {
+  margin-top: 0.45em;
+}
+.t-dev-repo .dr-topic-name {
+  font-weight: 600;
+  color: var(--dr-ink);
+}
+.t-dev-repo .dr-topic-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em 0.4em;
+}
+.t-dev-repo .dr-topic {
+  font-size: 0.84em;
+  font-weight: 500;
+  line-height: 1.7;
+  padding: 0 0.75em;
+  border-radius: 2em;
+  background: var(--dr-topic-bg);
+  color: var(--dr-link);
+}
+.t-dev-repo .dr-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-right: 1em;
+}
+.t-dev-repo .dr-lang-dot {
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: 50%;
+  border: 1px solid rgb(0 0 0 / 0.1);
+}
+
+/* Descriptions */
+.t-dev-repo .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-dev-repo .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.2em;
+}
+.t-dev-repo .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.3em;
+  top: 0.65em;
+  width: 0.32em;
+  height: 0.32em;
+  border-radius: 50%;
+  background: var(--dr-ink);
+}

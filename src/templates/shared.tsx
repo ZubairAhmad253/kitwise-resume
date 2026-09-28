@@ -129,3 +129,13 @@ export function Level({ value, className = 'kr-level', label }: { value: number;
 }
 
 export const LEVEL_WORDS = ['', 'Beginner', 'Basic', 'Good', 'Very good', 'Expert'];
+
+/** An entry's web address as a clickable link without the "https://". */
+export function UrlLink({ url, className }: { url: string; className?: string }) {
+  if (!url) return null;
+  return (
+    <a className={className} href={withScheme(url)} style={{ textDecoration: 'none' }}>
+      {breakable(bare(url))}
+    </a>
+  );
+}

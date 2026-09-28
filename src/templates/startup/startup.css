@@ -1,0 +1,277 @@
+/* #20 Agile Tech Startup. All sizes in em so "fit to one page" scales them. */
+.t-startup {
+  --su-ink: #1e1b4b;
+  --su-text: #334155;
+  --su-muted: #64748b;
+  --su-accent: #6d28d9;
+  --su-rule: #e7e5f4;
+  --su-head: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', Arial, sans-serif;
+  font-family: 'Inter Variable', Inter, Arial, sans-serif;
+  font-size: calc(9.3pt * var(--kr-scale));
+  line-height: 1.45;
+  color: var(--su-text);
+}
+
+/* Name band: bleeds to the page edges (the page's side margins are 14mm). */
+.t-startup .kr-header {
+  margin: 0 -14mm 7mm;
+}
+.t-startup .su-band {
+  display: flex;
+  align-items: center;
+  gap: 1.6em;
+  padding: 11mm 14mm 8mm;
+  background: linear-gradient(120deg, #1e1b4b 0%, #4c1d95 60%, #6d28d9 100%);
+  color: #fff;
+}
+.t-startup .su-photo {
+  flex: none;
+  width: 28mm;
+  height: 28mm;
+  border-radius: 1.2em;
+  object-fit: cover;
+  border: 3px solid rgb(255 255 255 / 0.85);
+}
+.t-startup .su-name {
+  font-family: var(--su-head);
+  font-size: 2.6em;
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.t-startup .su-headline {
+  display: inline-block;
+  margin-top: 0.55em;
+  padding: 0.2em 0.8em;
+  border-radius: 2em;
+  background: #bef264;
+  color: #1a2e05;
+  font-family: var(--su-head);
+  font-size: 0.95em;
+  font-weight: 700;
+}
+.t-startup .su-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 0.45em;
+  margin-top: 0.8em;
+  font-size: 0.86em;
+}
+.t-startup .su-contact li {
+  padding: 0.12em 0.7em;
+  border-radius: 2em;
+  background: rgb(255 255 255 / 0.13);
+  border: 1px solid rgb(255 255 255 / 0.22);
+}
+
+/* Columns */
+.t-startup .kr-region-side {
+  width: 58mm;
+  flex: none;
+  margin-left: 7mm;
+  padding-left: 6mm;
+  border-left: 1px solid var(--su-rule);
+}
+
+/* Spacing between blocks */
+.t-startup .kr-b--title {
+  margin-bottom: 0.65em;
+}
+.t-startup .kr-b--item,
+.t-startup .kr-b--desc {
+  margin-bottom: 0.25em;
+}
+.t-startup .kr-end-item {
+  margin-bottom: 0.9em;
+}
+.t-startup .kr-end-section {
+  margin-bottom: 1.45em;
+}
+.t-startup .kr-region-side .kr-end-item {
+  margin-bottom: 0.65em;
+}
+.t-startup .kr-region-side .kr-end-section {
+  margin-bottom: 1.4em;
+}
+
+/* Headings */
+.t-startup .su-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--su-head);
+  font-size: 1.2em;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--su-ink);
+}
+.t-startup .su-title::before {
+  content: '';
+  width: 0.9em;
+  height: 0.35em;
+  border-radius: 1em;
+  background: linear-gradient(90deg, #6d28d9, #22c55e);
+}
+.t-startup .su-side-title {
+  font-family: var(--su-head);
+  font-size: 0.8em;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--su-accent);
+}
+
+.t-startup .su-summary {
+  font-size: 1.03em;
+  color: var(--su-text);
+}
+.t-startup .su-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Entries */
+.t-startup .su-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-startup .su-item-title {
+  font-family: var(--su-head);
+  font-size: 1.07em;
+  font-weight: 750;
+  color: var(--su-ink);
+}
+.t-startup .su-date {
+  flex: none;
+  font-size: 0.84em;
+  font-weight: 600;
+  color: var(--su-accent);
+}
+.t-startup .su-where {
+  font-weight: 550;
+  color: var(--su-muted);
+}
+.t-startup .su-link {
+  font-size: 0.88em;
+}
+.t-startup .su-link a {
+  color: var(--su-accent);
+}
+
+/* Project cards: a coloured edge that matches their chips */
+.t-startup .su-project {
+  padding: 0.7em 0.9em 0.75em;
+  border-radius: 0.7em;
+  background: var(--su-tone-bg);
+  border-left: 0.3em solid var(--su-tone-fg);
+}
+.t-startup .su-project-desc {
+  margin-top: 0.3em;
+}
+.t-startup .su-project-desc .rt-li {
+  position: relative;
+  padding-left: 1em;
+}
+.t-startup .su-project-desc .rt-li::before {
+  content: '•';
+  position: absolute;
+  left: 0.1em;
+  color: var(--su-tone-fg);
+}
+
+/* Chips */
+.t-startup .su-tone-0 {
+  --su-tone-bg: #f3efff;
+  --su-tone-fg: #6d28d9;
+}
+.t-startup .su-tone-1 {
+  --su-tone-bg: #e9f9ef;
+  --su-tone-fg: #15803d;
+}
+.t-startup .su-tone-2 {
+  --su-tone-bg: #fff4e5;
+  --su-tone-fg: #c2410c;
+}
+.t-startup .su-tone-3 {
+  --su-tone-bg: #e8f4ff;
+  --su-tone-fg: #0369a1;
+}
+.t-startup .su-tone-4 {
+  --su-tone-bg: #fdecf3;
+  --su-tone-fg: #be185d;
+}
+.t-startup .su-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  margin-top: 0.4em;
+}
+.t-startup .su-chip {
+  font-size: 0.84em;
+  font-weight: 600;
+  line-height: 1.7;
+  padding: 0 0.7em;
+  border-radius: 2em;
+  background: var(--su-tone-bg);
+  color: var(--su-tone-fg);
+  border: 1px solid color-mix(in srgb, var(--su-tone-fg) 22%, transparent);
+}
+.t-startup .su-project .su-chip {
+  background: #fff;
+}
+
+/* Side column */
+.t-startup .su-skills > div + div {
+  margin-top: 0.7em;
+}
+.t-startup .su-skill-group,
+.t-startup .su-side-item-title {
+  font-family: var(--su-head);
+  font-weight: 700;
+  color: var(--su-ink);
+}
+.t-startup .su-skill-group + .su-chips {
+  margin-top: 0.25em;
+}
+.t-startup .su-muted {
+  color: var(--su-muted);
+}
+.t-startup .su-side-desc {
+  font-size: 0.92em;
+  color: var(--su-muted);
+}
+.t-startup .su-bar {
+  display: flex;
+  gap: 0.25em;
+  margin-top: 0.35em;
+}
+.t-startup .su-bar span {
+  flex: 1;
+  height: 0.4em;
+  border-radius: 1em;
+  background: var(--su-rule);
+}
+.t-startup .su-bar span.on {
+  background: linear-gradient(90deg, #6d28d9, #8b5cf6);
+}
+
+/* Descriptions */
+.t-startup .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-startup .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.15em;
+}
+.t-startup .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.15em;
+  top: 0.5em;
+  width: 0.45em;
+  height: 0.45em;
+  border-radius: 0.15em;
+  background: #22c55e;
+  transform: rotate(45deg);
+}

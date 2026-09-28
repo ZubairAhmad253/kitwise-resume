@@ -1,0 +1,212 @@
+/* #2 Linear Monotone. All sizes in em so "fit to one page" scales them. */
+.t-linear-mono {
+  --lm-ink: #111111;
+  --lm-text: #2a2a2a;
+  --lm-muted: #6b6b6b;
+  --lm-rule: #d9d9d9;
+  --lm-card: #f5f5f4;
+  --lm-mono: 'Roboto Mono Variable', 'Roboto Mono', ui-monospace, Consolas, monospace;
+  /* Width of the date column; descriptions line up with the text beside it. */
+  --lm-gutter: 10.5em;
+  font-family: 'Arimo Variable', Arial, Helvetica, sans-serif;
+  font-size: calc(9.5pt * var(--kr-scale));
+  line-height: 1.45;
+  color: var(--lm-text);
+}
+
+/* Spacing between blocks */
+.t-linear-mono .kr-b--title {
+  margin-bottom: 0.8em;
+}
+.t-linear-mono .kr-b--item,
+.t-linear-mono .kr-b--desc {
+  margin-bottom: 0.25em;
+}
+.t-linear-mono .kr-end-item {
+  margin-bottom: 0.95em;
+}
+.t-linear-mono .kr-end-section {
+  margin-bottom: 1.35em;
+}
+.t-linear-mono .kr-b--desc {
+  padding-left: var(--lm-gutter);
+}
+
+/* Header */
+.t-linear-mono .lm-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5em;
+  padding-bottom: 1em;
+  border-bottom: 3px solid var(--lm-ink);
+  margin-bottom: 1.2em;
+}
+.t-linear-mono .lm-name {
+  font-size: 2.7em;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--lm-ink);
+}
+.t-linear-mono .lm-headline {
+  margin-top: 0.45em;
+  font-family: var(--lm-mono);
+  font-size: 0.98em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--lm-ink);
+}
+.t-linear-mono .lm-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em 1.5em;
+  margin-top: 0.8em;
+  font-family: var(--lm-mono);
+  font-size: 0.82em;
+  color: var(--lm-muted);
+}
+.t-linear-mono .lm-contact li::before {
+  content: '';
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  margin-right: 0.55em;
+  vertical-align: 0.1em;
+  background: var(--lm-ink);
+}
+.t-linear-mono .lm-photo {
+  flex: none;
+  width: 26mm;
+  height: 26mm;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+/* Label column + content */
+.t-linear-mono .lm-row {
+  display: grid;
+  grid-template-columns: var(--lm-gutter) 1fr;
+}
+.t-linear-mono .lm-label,
+.t-linear-mono .lm-date {
+  font-family: var(--lm-mono);
+  font-size: 0.8em;
+  line-height: 1.8;
+  color: var(--lm-muted);
+  padding-right: 1em;
+}
+.t-linear-mono .lm-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--lm-ink);
+  font-weight: 600;
+}
+.t-linear-mono .lm-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Section headings */
+.t-linear-mono .lm-title {
+  display: flex;
+  align-items: baseline;
+  gap: 1em;
+  padding-top: 0.55em;
+  border-top: 1px solid var(--lm-ink);
+  font-family: var(--lm-mono);
+  font-size: 0.86em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--lm-ink);
+}
+.t-linear-mono .lm-num {
+  width: calc(var(--lm-gutter) / 0.86 - 1em);
+  flex: none;
+  color: var(--lm-muted);
+  font-weight: 500;
+}
+
+/* Entries */
+.t-linear-mono .lm-item-title {
+  font-size: 1.06em;
+  font-weight: 700;
+  color: var(--lm-ink);
+}
+.t-linear-mono .lm-where {
+  color: var(--lm-text);
+}
+.t-linear-mono .lm-tags,
+.t-linear-mono .lm-link {
+  font-family: var(--lm-mono);
+  font-size: 0.8em;
+  color: var(--lm-muted);
+  margin-top: 0.15em;
+}
+.t-linear-mono .lm-link a {
+  color: var(--lm-ink);
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+}
+
+/* Skill and language cards */
+.t-linear-mono .lm-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6em;
+}
+.t-linear-mono .lm-card {
+  background: var(--lm-card);
+  border-left: 3px solid var(--lm-ink);
+  padding: 0.6em 0.8em 0.7em;
+}
+.t-linear-mono .lm-card-title {
+  font-family: var(--lm-mono);
+  font-size: 0.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--lm-ink);
+}
+.t-linear-mono .lm-card-sub {
+  font-size: 0.92em;
+  color: var(--lm-muted);
+}
+.t-linear-mono .lm-card-tags {
+  margin-top: 0.25em;
+}
+.t-linear-mono .lm-card-desc {
+  margin-top: 0.25em;
+  font-size: 0.92em;
+  color: var(--lm-muted);
+}
+.t-linear-mono .lm-bar {
+  display: flex;
+  gap: 0.2em;
+  margin-top: 0.45em;
+}
+.t-linear-mono .lm-bar span {
+  flex: 1;
+  height: 0.3em;
+  background: var(--lm-rule);
+}
+.t-linear-mono .lm-bar span.on {
+  background: var(--lm-ink);
+}
+
+/* Descriptions */
+.t-linear-mono .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-linear-mono .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.2em;
+}
+.t-linear-mono .kr-desc .rt-li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--lm-muted);
+}
