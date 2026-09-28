@@ -110,7 +110,7 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 | 3 | Templates 1–3 and 20: Software & Tech, Startups & Freshers | Done |
 | 4 | Templates 4–8: Mechanical/Electrical and Civil Engineering | Done |
 | 5 | Templates 9–12: Healthcare, Logistics/Drivers/Aviation | Done |
-| 6 | Templates 13–19: Creative, Corporate/Finance, Academia/Legal | |
+| 6 | Templates 13–19: Creative, Corporate/Finance, Academia/Legal | Done |
 | 7 | Customising (colours, fonts, spacing, photo) and template gallery | |
 | 8 | Writing helpers: phrase library, ATS checks, completeness score | |
 | 9 | Multiple resumes and more exports | |

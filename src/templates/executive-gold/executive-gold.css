@@ -1,0 +1,182 @@
+/* #16 Executive Gold. All sizes in em so "fit to one page" scales them. */
+.t-executive-gold {
+  --eg-navy: #14213d;
+  --eg-text: #2b2f38;
+  --eg-muted: #676b75;
+  --eg-gold: #b08d3c;
+  --eg-gold-soft: #e4d4ad;
+  --eg-serif: 'EB Garamond Variable', 'EB Garamond', Garamond, Georgia, serif;
+  font-family: Tinos, 'Times New Roman', Times, serif;
+  font-size: calc(10pt * var(--kr-scale));
+  line-height: 1.4;
+  color: var(--eg-text);
+}
+
+/* A thin gold frame inset from the page edge */
+.t-executive-gold .eg-frame {
+  position: absolute;
+  inset: 7mm;
+  border: 0.8px solid var(--eg-gold-soft);
+}
+
+/* Spacing between blocks */
+.t-executive-gold .kr-b--title {
+  margin-bottom: 0.7em;
+}
+.t-executive-gold .kr-b--item,
+.t-executive-gold .kr-b--desc {
+  margin-bottom: 0.2em;
+}
+.t-executive-gold .kr-end-item {
+  margin-bottom: 0.85em;
+}
+.t-executive-gold .kr-end-section {
+  margin-bottom: 1.35em;
+}
+
+/* Centred header between a navy and a gold rule */
+.t-executive-gold .eg-head {
+  text-align: center;
+  padding: 0.3em 0 0.9em;
+  margin-bottom: 1.1em;
+  border-bottom: 3px solid var(--eg-navy);
+  position: relative;
+}
+/* The gold line just under the navy one (a border, so it always prints). */
+.t-executive-gold .eg-head::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  border-top: 1px solid var(--eg-gold);
+}
+.t-executive-gold .eg-photo {
+  width: 24mm;
+  height: 24mm;
+  margin: 0 auto 0.7em;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--eg-gold);
+}
+.t-executive-gold .eg-name {
+  font-family: var(--eg-serif);
+  font-size: 2.6em;
+  line-height: 1.05;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--eg-navy);
+}
+.t-executive-gold .eg-headline {
+  margin-top: 0.3em;
+  font-family: var(--eg-serif);
+  font-size: 1.2em;
+  font-style: italic;
+  color: var(--eg-gold);
+}
+.t-executive-gold .eg-contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.15em 0;
+  margin-top: 0.55em;
+  font-size: 0.92em;
+  color: var(--eg-muted);
+}
+.t-executive-gold .eg-contact li {
+  padding: 0 0.8em;
+}
+.t-executive-gold .eg-contact li + li {
+  border-left: 1px solid var(--eg-gold-soft);
+}
+
+.t-executive-gold .eg-summary {
+  text-align: center;
+  font-style: italic;
+  padding: 0 4%;
+}
+.t-executive-gold .eg-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Centred headings between gold lines */
+.t-executive-gold .eg-title {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  font-family: var(--eg-serif);
+  font-size: 1.15em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--eg-navy);
+}
+.t-executive-gold .eg-title::before,
+.t-executive-gold .eg-title::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid var(--eg-gold);
+}
+
+/* Entries */
+.t-executive-gold .eg-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-executive-gold .eg-item-title {
+  font-family: var(--eg-serif);
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--eg-navy);
+}
+.t-executive-gold .eg-date {
+  flex: none;
+  font-size: 0.94em;
+  font-weight: 700;
+  color: var(--eg-gold);
+}
+.t-executive-gold .eg-where {
+  font-style: italic;
+}
+.t-executive-gold .eg-muted {
+  color: var(--eg-muted);
+}
+.t-executive-gold .eg-link a {
+  color: var(--eg-navy);
+}
+.t-executive-gold .eg-columns {
+  columns: 2;
+  column-gap: 2em;
+}
+.t-executive-gold .eg-columns p {
+  break-inside: avoid;
+  margin-bottom: 0.3em;
+}
+.t-executive-gold .eg-columns strong {
+  color: var(--eg-navy);
+}
+.t-executive-gold .eg-columns em {
+  color: var(--eg-muted);
+}
+
+/* Descriptions */
+.t-executive-gold .kr-desc .rt-p + .rt-p {
+  margin-top: 0.35em;
+}
+.t-executive-gold .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.2em;
+}
+.t-executive-gold .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.25em;
+  top: 0.5em;
+  width: 0.36em;
+  height: 0.36em;
+  background: var(--eg-gold);
+  transform: rotate(45deg);
+}

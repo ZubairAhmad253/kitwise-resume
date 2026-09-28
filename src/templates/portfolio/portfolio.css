@@ -1,0 +1,243 @@
+/* #15 Portfolio Gallery. All sizes in em so "fit to one page" scales them. */
+.t-portfolio {
+  --pf-ink: #0a0a0a;
+  --pf-text: #333338;
+  --pf-muted: #75757f;
+  --pf-accent: #3d3aff;
+  --pf-card: #f3f3f5;
+  --pf-rule: #e4e4e8;
+  --pf-display: 'Syne Variable', Syne, 'Arial Black', sans-serif;
+  /* Width of the date column in the compact list. */
+  --pf-when: 10em;
+  font-family: 'Inter Variable', Inter, Arial, sans-serif;
+  font-size: calc(9pt * var(--kr-scale));
+  line-height: 1.45;
+  color: var(--pf-text);
+}
+
+/* Spacing between blocks */
+.t-portfolio .kr-b--title {
+  margin-bottom: 0.7em;
+}
+.t-portfolio .kr-b--item,
+.t-portfolio .kr-b--desc {
+  margin-bottom: 0.2em;
+}
+.t-portfolio .kr-end-item {
+  margin-bottom: 0.85em;
+}
+.t-portfolio .kr-end-section {
+  margin-bottom: 1.45em;
+}
+.t-portfolio .kr-b--whole:not(.kr-end-item):has(> .pf-gallery) {
+  margin-bottom: 0.7em;
+}
+.t-portfolio .kr-b--desc {
+  padding-left: calc(var(--pf-when) + 1em);
+}
+
+/* Header */
+.t-portfolio .pf-head {
+  margin-bottom: 1.2em;
+}
+.t-portfolio .pf-head-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1em;
+  padding-bottom: 0.4em;
+  border-bottom: 2px solid var(--pf-ink);
+}
+.t-portfolio .pf-name {
+  font-family: var(--pf-display);
+  font-size: 3.5em;
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: var(--pf-ink);
+}
+.t-portfolio .pf-photo {
+  width: 24mm;
+  height: 24mm;
+  flex: none;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.t-portfolio .pf-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5em;
+  margin-top: 0.6em;
+}
+.t-portfolio .pf-headline {
+  flex: 1 0 auto;
+  max-width: 55%;
+  font-family: var(--pf-display);
+  font-size: 1.2em;
+  font-weight: 700;
+  color: var(--pf-accent);
+}
+.t-portfolio .pf-contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.15em 1.2em;
+  font-size: 0.92em;
+  color: var(--pf-muted);
+}
+.t-portfolio .pf-summary {
+  font-size: 1.15em;
+  line-height: 1.5;
+  color: var(--pf-ink);
+}
+.t-portfolio .pf-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Section headings with an item count */
+.t-portfolio .pf-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  font-family: var(--pf-display);
+  font-size: 1.45em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--pf-ink);
+}
+.t-portfolio .pf-count {
+  font-family: 'Inter Variable', Inter, Arial, sans-serif;
+  font-size: 0.5em;
+  font-weight: 600;
+  padding: 0.1em 0.6em;
+  border-radius: 2em;
+  background: var(--pf-ink);
+  color: #fff;
+  position: relative;
+  top: -0.3em;
+}
+
+/* Gallery cards */
+.t-portfolio .pf-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7em;
+}
+.t-portfolio .pf-card {
+  padding: 0.9em 1em 1em;
+  border-radius: 0.6em;
+  background: var(--pf-card);
+}
+.t-portfolio .pf-num {
+  font-family: var(--pf-display);
+  font-size: 1.9em;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--pf-accent);
+}
+.t-portfolio .pf-card-title {
+  margin-top: 0.35em;
+  font-family: var(--pf-display);
+  font-size: 1.2em;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--pf-ink);
+}
+.t-portfolio .pf-card-meta {
+  margin-top: 0.1em;
+  font-size: 0.9em;
+  color: var(--pf-muted);
+}
+.t-portfolio .pf-card-desc {
+  margin-top: 0.4em;
+}
+.t-portfolio .pf-card-desc .rt-li {
+  position: relative;
+  padding-left: 0.9em;
+}
+.t-portfolio .pf-card-desc .rt-li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+}
+.t-portfolio .pf-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  margin-top: 0.55em;
+}
+.t-portfolio .pf-tags span {
+  font-size: 0.85em;
+  font-weight: 500;
+  padding: 0.05em 0.6em;
+  border-radius: 2em;
+  border: 1px solid var(--pf-ink);
+  color: var(--pf-ink);
+}
+.t-portfolio .pf-card-link {
+  display: inline-block;
+  margin-top: 0.4em;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--pf-accent);
+}
+
+/* Compact list */
+.t-portfolio .pf-row {
+  display: grid;
+  grid-template-columns: var(--pf-when) 1fr;
+  gap: 1em;
+}
+.t-portfolio .pf-when {
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--pf-muted);
+  padding-top: 0.1em;
+}
+.t-portfolio .pf-item-title {
+  font-size: 1.05em;
+  font-weight: 700;
+  color: var(--pf-ink);
+}
+.t-portfolio .pf-at {
+  font-weight: 500;
+  color: var(--pf-accent);
+}
+.t-portfolio .pf-muted {
+  color: var(--pf-muted);
+}
+.t-portfolio .pf-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+}
+.t-portfolio .pf-cloud span {
+  padding: 0.15em 0.75em;
+  border-radius: 2em;
+  background: var(--pf-ink);
+  color: #fff;
+  font-weight: 500;
+}
+.t-portfolio .pf-cloud em {
+  font-style: normal;
+  opacity: 0.7;
+}
+
+/* Descriptions */
+.t-portfolio .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-portfolio .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.1em;
+}
+.t-portfolio .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.1em;
+  top: 0.62em;
+  width: 0.55em;
+  height: 2px;
+  background: var(--pf-accent);
+}

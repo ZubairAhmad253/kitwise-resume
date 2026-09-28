@@ -24,3 +24,13 @@ describe('templates', () => {
     expect(getTemplate('startup').id).toBe('startup');
   });
 });
+
+describe('catalogue', () => {
+  it('has all 20 designs, numbered 1 to 20', () => {
+    expect(TEMPLATES.map((t) => t.number)).toEqual(Array.from({ length: 20 }, (_, i) => i + 1));
+  });
+
+  it('has a real template for every example', () => {
+    for (const s of SAMPLES) expect(getTemplate(s.build().settings.template).id).toBe(s.build().settings.template);
+  });
+});
