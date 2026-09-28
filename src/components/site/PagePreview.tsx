@@ -2,22 +2,21 @@ import { useMemo } from 'react';
 import { pageDesign, textFactor } from '@/lib/resume/design';
 import { PAPER, PX_PER_MM } from '@/lib/resume/paper';
 import type { Resume } from '@/lib/resume/types';
+import { Page, wrapBlocks } from '@/components/resume/usePagedLayout';
 import type { TemplateDef } from '@/templates/types';
-import { Page, wrapBlocks } from './usePagedLayout';
 
 /**
- * A scaled-down first page of a resume in a template: the real page
- * markup, just smaller, so thumbnails always match the PDF. Content past
- * the first page is cut off rather than paginated.
+ * The first page of a resume, scaled to fill its container. Rendered to
+ * static HTML on the site pages (no JavaScript needed to show it); a small
+ * script in PreviewScale.astro fits the scale to the container's width.
  */
-export function TemplateThumb({ resume, template, width }: { resume: Resume; template: TemplateDef; width: number }) {
+export function PagePreview({ resume, template, zoom }: { resume: Resume; template: TemplateDef; zoom: number }) {
   const paper = PAPER[resume.settings.paper];
   const content = useMemo(() => template.build(resume), [template, resume]);
-  const design = useMemo(() => pageDesign(resume.settings, template.accent), [resume.settings, template]);
-  const zoom = width / (paper.width * PX_PER_MM);
+  const design = pageDesign(resume.settings, template.accent);
   return (
-    <div className="relative overflow-hidden bg-white" style={{ width, height: paper.height * PX_PER_MM * zoom }} aria-hidden="true">
-      <div className="pointer-events-none absolute top-0 left-0 origin-top-left" style={{ transform: `scale(${zoom})` }} inert>
+    <div className="kr-preview" data-preview={paper.width * PX_PER_MM} style={{ aspectRatio: `${paper.width} / ${paper.height}`, ['--z' as string]: zoom }}>
+      <div className="kr-preview-page" aria-hidden="true" inert>
         <Page
           template={template}
           paperWidth={paper.width}

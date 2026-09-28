@@ -15,9 +15,11 @@ interface Props {
   noindex?: boolean;
   /** "app" drops the footer and lets the page fill the screen (the builder). */
   variant?: 'site' | 'app';
+  /** Open Graph type: "article" for blog posts. */
+  type?: 'website' | 'article';
 }
 
-const { title, description, image, jsonLd = [], noindex = false, variant = 'site' } = Astro.props;
+const { title, description, image, jsonLd = [], noindex = false, variant = 'site', type = 'website' } = Astro.props;
 // Titles that already name the site (the home page) are used as they are.
 const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
 // At build time the path can end in ".html" or "/index"; canonical URLs
@@ -44,7 +46,7 @@ const ogImage = new URL(image ?? SITE.ogImage, Astro.site).href;
     <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)" />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />

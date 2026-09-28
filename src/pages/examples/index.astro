@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PreviewScale from '@/components/site/PreviewScale.astro';
+import { PagePreview } from '@/components/site/PagePreview';
+import { SAMPLES } from '@/lib/resume/samples';
+import { EXAMPLE_NOTES } from '@/lib/site/catalog';
+import { getTemplate } from '@/templates';
+
+const title = 'Resume examples for every field';
+const description = 'Real-world resume and CV examples for software engineers, graduates, engineers, doctors, drivers, designers, finance managers and academics, with tips for each. Open any example and make it yours.';
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="container-page pt-12 pb-6 sm:pt-16">
+    <h1 class="max-w-3xl text-3xl font-bold tracking-tight text-balance sm:text-5xl">{title}</h1>
+    <p class="mt-4 max-w-2xl text-lg text-muted">Start from an example written for your field, then replace the details with your own. All names and details are made up.</p>
+  </section>
+  <ul class="container-page grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      SAMPLES.map((s) => {
+        const r = s.build();
+        const notes = EXAMPLE_NOTES[s.id];
+        return (
+          <li class="card relative overflow-hidden">
+            <div class="border-b border-line bg-surface-2 p-4">
+              <div class="overflow-hidden rounded shadow-sm ring-1 ring-line">
+                <PagePreview resume={r} template={getTemplate(r.settings.template)} zoom={0.4} />
+              </div>
+            </div>
+            <div class="p-4">
+              <p class="text-xs font-semibold text-brand">{s.field}</p>
+              <h2 class="mt-1 font-semibold">
+                <a href={`/examples/${s.id}`} class="after:absolute after:inset-0 hover:text-brand">
+                  {notes?.title ?? `${s.label} resume example`}
+                </a>
+              </h2>
+              <p class="mt-1 line-clamp-2 text-sm text-muted">{notes?.intro}</p>
+            </div>
+          </li>
+        );
+      })
+    }
+  </ul>
+  <PreviewScale />
+</BaseLayout>

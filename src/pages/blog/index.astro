@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const fmt = (d: Date) => d.toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title="Resume advice" description="Practical resume and CV advice: passing applicant tracking systems, adding numbers to your achievements, resume vs CV, and choosing A4 or US Letter.">
+  <section class="container-page max-w-4xl pt-12 sm:pt-16">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-5xl">Resume advice</h1>
+    <p class="mt-4 text-lg text-muted">Short, practical guides for writing a resume that gets read.</p>
+    <ul class="mt-10 divide-y divide-line">
+      {
+        posts.map((p) => (
+          <li class="py-6">
+            <p class="text-sm text-muted">
+              <time datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
+            </p>
+            <h2 class="mt-1 text-xl font-semibold">
+              <a href={`/blog/${p.id}`} class="hover:text-brand">
+                {p.data.title}
+              </a>
+            </h2>
+            <p class="mt-2 text-muted">{p.data.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
