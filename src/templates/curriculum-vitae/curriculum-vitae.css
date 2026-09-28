@@ -1,0 +1,187 @@
+/* #18 Traditional CV. All sizes in em so "fit to one page" scales them. */
+.t-curriculum-vitae {
+  --cv-ink: #1a1a1a;
+  --cv-text: #333;
+  --cv-muted: #6b6b6b;
+  --cv-accent: #7a1f2b;
+  --cv-rule: #d8d2c8;
+  --cv-display: 'Libre Baskerville', Baskerville, Georgia, serif;
+  /* Date margin in the main column. */
+  --cv-when: 8.8em;
+  font-family: 'Gelasio Variable', Gelasio, Georgia, serif;
+  font-size: calc(9.3pt * var(--kr-scale));
+  line-height: 1.45;
+  color: var(--cv-text);
+}
+
+/* Header */
+.t-curriculum-vitae .kr-header {
+  margin-bottom: 6mm;
+}
+.t-curriculum-vitae .cv-head {
+  padding-bottom: 0.9em;
+  border-bottom: 1.5px solid var(--cv-ink);
+}
+.t-curriculum-vitae .cv-name {
+  font-family: var(--cv-display);
+  font-size: 2.35em;
+  line-height: 1.15;
+  font-weight: 400;
+  color: var(--cv-ink);
+}
+.t-curriculum-vitae .cv-headline {
+  margin-top: 0.2em;
+  font-family: var(--cv-display);
+  font-style: italic;
+  font-size: 1.1em;
+  color: var(--cv-accent);
+}
+.t-curriculum-vitae .cv-kicker {
+  margin-top: 0.5em;
+  font-size: 0.78em;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--cv-muted);
+}
+
+/* Columns */
+.t-curriculum-vitae .kr-region-side {
+  width: 44mm;
+  flex: none;
+  padding-right: 5mm;
+  margin-right: 6mm;
+  border-right: 1px solid var(--cv-rule);
+}
+
+/* Spacing between blocks */
+.t-curriculum-vitae .kr-b--title {
+  margin-bottom: 0.6em;
+}
+.t-curriculum-vitae .kr-b--item,
+.t-curriculum-vitae .kr-b--desc {
+  margin-bottom: 0.2em;
+}
+.t-curriculum-vitae .kr-end-item {
+  margin-bottom: 0.75em;
+}
+.t-curriculum-vitae .kr-end-section {
+  margin-bottom: 1.3em;
+}
+.t-curriculum-vitae .kr-b--desc {
+  padding-left: calc(var(--cv-when) + 1em);
+}
+
+/* Side column */
+.t-curriculum-vitae .cv-photo {
+  width: 32mm;
+  height: 38mm;
+  object-fit: cover;
+  margin-bottom: 1.2em;
+  border: 1px solid var(--cv-rule);
+}
+.t-curriculum-vitae .cv-side-title {
+  font-family: var(--cv-display);
+  font-size: 0.78em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--cv-accent);
+  margin-bottom: 0.6em;
+}
+.t-curriculum-vitae .cv-contact li {
+  margin-bottom: 0.5em;
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+}
+.t-curriculum-vitae .cv-contact-label {
+  display: block;
+  font-size: 0.82em;
+  font-style: italic;
+  color: var(--cv-muted);
+}
+.t-curriculum-vitae .cv-contact-value {
+  overflow-wrap: normal;
+  color: var(--cv-ink);
+}
+.t-curriculum-vitae .cv-toc li {
+  display: flex;
+  gap: 0.6em;
+  padding: 0.28em 0;
+  border-bottom: 1px dotted var(--cv-rule);
+  font-size: 0.92em;
+  color: var(--cv-ink);
+}
+.t-curriculum-vitae .cv-toc-num {
+  width: 1.2em;
+  flex: none;
+  font-family: var(--cv-display);
+  color: var(--cv-accent);
+}
+
+.t-curriculum-vitae .cv-summary {
+  font-style: italic;
+}
+.t-curriculum-vitae .cv-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Numbered section headings */
+.t-curriculum-vitae .cv-title {
+  font-family: var(--cv-display);
+  font-size: 1.12em;
+  font-weight: 700;
+  color: var(--cv-ink);
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--cv-rule);
+}
+.t-curriculum-vitae .cv-title-num {
+  color: var(--cv-accent);
+}
+
+/* Entries with dates in the margin */
+.t-curriculum-vitae .cv-row {
+  display: grid;
+  grid-template-columns: var(--cv-when) 1fr;
+  gap: 1em;
+}
+.t-curriculum-vitae .cv-when {
+  font-size: 0.86em;
+  color: var(--cv-muted);
+  padding-top: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+.t-curriculum-vitae .cv-list .cv-when {
+  font-weight: 700;
+  color: var(--cv-ink);
+}
+.t-curriculum-vitae .cv-list .cv-row + .cv-row {
+  margin-top: 0.25em;
+}
+.t-curriculum-vitae .cv-item-title {
+  font-weight: 700;
+  color: var(--cv-ink);
+}
+.t-curriculum-vitae .cv-where {
+  font-style: italic;
+}
+.t-curriculum-vitae .cv-muted {
+  color: var(--cv-muted);
+}
+.t-curriculum-vitae .cv-link a {
+  color: var(--cv-accent);
+}
+
+/* Descriptions */
+.t-curriculum-vitae .kr-desc .rt-p + .rt-p {
+  margin-top: 0.35em;
+}
+.t-curriculum-vitae .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1em;
+}
+.t-curriculum-vitae .kr-desc .rt-li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--cv-accent);
+}

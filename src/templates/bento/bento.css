@@ -1,0 +1,227 @@
+/* #14 Bento Asymmetrical Grid. All sizes in em so "fit to one page" scales them. */
+.t-bento {
+  --bn-ink: #1f1b16;
+  --bn-text: #3d3730;
+  --bn-muted: #7a7065;
+  --bn-accent: #c2553a;
+  --bn-tile: #f4efe8;
+  --bn-tile-side: #e7eee8;
+  --bn-radius: 0.9em;
+  --bn-serif: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
+  font-family: 'Work Sans Variable', 'Work Sans', Arial, sans-serif;
+  font-size: calc(9.1pt * var(--kr-scale));
+  line-height: 1.45;
+  color: var(--bn-text);
+}
+
+/* Bento header */
+.t-bento .kr-header {
+  margin-bottom: 6mm;
+}
+.t-bento .bn-bento {
+  display: grid;
+  /* Same right column width as the side column below, so the tiles line up. */
+  grid-template-columns: 1fr 26mm 58mm;
+  grid-template-areas:
+    'name name contact'
+    'sum mono contact';
+  gap: 0.6em;
+}
+.t-bento .bn-bento--short {
+  grid-template-areas: 'name mono contact';
+}
+.t-bento .bn-tile {
+  border-radius: var(--bn-radius);
+  padding: 1em 1.1em;
+  background: var(--bn-tile);
+}
+.t-bento .bn-tile--name {
+  grid-area: name;
+  background: var(--bn-ink);
+  color: #fff;
+  padding: 1.2em 1.3em;
+}
+.t-bento .bn-name {
+  font-family: var(--bn-serif);
+  font-size: 2.75em;
+  line-height: 1.05;
+  font-weight: 700;
+}
+.t-bento .bn-headline {
+  margin-top: 0.45em;
+  font-size: 1.1em;
+  font-weight: 500;
+  color: #f0b79f;
+}
+.t-bento .bn-tile--mono,
+.t-bento .bn-tile--photo {
+  grid-area: mono;
+}
+.t-bento .bn-tile--mono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bn-accent);
+  color: #fff;
+  font-family: var(--bn-serif);
+  font-size: 2.6em;
+  font-style: italic;
+  font-weight: 600;
+  padding: 0;
+}
+.t-bento .bn-tile--photo {
+  width: 100%;
+  height: 100%;
+  min-height: 26mm;
+  object-fit: cover;
+  padding: 0;
+}
+.t-bento .bn-tile--summary {
+  grid-area: sum;
+}
+.t-bento .bn-tile--summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-bento .bn-tile--contact {
+  grid-area: contact;
+  background: var(--bn-tile-side);
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+.t-bento .bn-tile--contact li + li {
+  margin-top: 0.35em;
+}
+.t-bento .bn-label {
+  display: block;
+  font-size: 0.76em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--bn-muted);
+}
+
+/* Columns */
+.t-bento .kr-region-side {
+  width: 58mm;
+  flex: none;
+  margin-left: 0.6em;
+}
+
+/* Section headings */
+.t-bento .bn-title {
+  font-family: var(--bn-serif);
+  font-size: 1.35em;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--bn-ink);
+  padding-left: 0.2em;
+}
+.t-bento .kr-b--title {
+  margin-bottom: 0.45em;
+}
+.t-bento .kr-end-section {
+  margin-bottom: 1.1em;
+}
+
+/* Tiles made of blocks: the entry header opens a tile, its last line closes it. */
+.t-bento .kr-b--item,
+.t-bento .kr-b--desc {
+  background: var(--bn-tile);
+  padding: 0 1.05em 0.2em;
+}
+/* Pull each continuation line 1px up under the one before, so no hairline seam shows between blocks. */
+.t-bento .kr-b--desc {
+  margin-top: -1px;
+  padding-top: 1px;
+}
+.t-bento .kr-b--item {
+  padding-top: 0.85em;
+  border-radius: var(--bn-radius) var(--bn-radius) 0 0;
+}
+.t-bento .kr-end-item {
+  padding-bottom: 0.85em;
+  border-bottom-left-radius: var(--bn-radius);
+  border-bottom-right-radius: var(--bn-radius);
+  margin-bottom: 0.6em;
+}
+.t-bento .kr-b--whole {
+  background: var(--bn-tile);
+  padding: 0.85em 1.05em;
+  border-radius: var(--bn-radius);
+}
+.t-bento .kr-region-side .kr-b--item,
+.t-bento .kr-region-side .kr-b--desc,
+.t-bento .kr-region-side .kr-b--whole {
+  background: var(--bn-tile-side);
+}
+
+/* Entries */
+.t-bento .bn-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-bento .bn-item-title {
+  font-size: 1.07em;
+  font-weight: 650;
+  color: var(--bn-ink);
+}
+.t-bento .bn-date {
+  flex: none;
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 0.05em 0.6em;
+  border-radius: 2em;
+  background: #fff;
+  color: var(--bn-accent);
+}
+.t-bento .bn-where {
+  font-weight: 500;
+  color: var(--bn-accent);
+}
+.t-bento .bn-muted {
+  color: var(--bn-muted);
+}
+.t-bento .bn-link a {
+  color: var(--bn-accent);
+}
+.t-bento .bn-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  margin-top: 0.35em;
+}
+.t-bento .bn-pills span {
+  font-size: 0.86em;
+  padding: 0.05em 0.65em;
+  border-radius: 2em;
+  background: #fff;
+  color: var(--bn-ink);
+}
+.t-bento .bn-side-title {
+  font-weight: 650;
+  color: var(--bn-ink);
+}
+.t-bento .bn-stack > div + div {
+  margin-top: 0.7em;
+}
+
+/* Descriptions */
+.t-bento .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-bento .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.1em;
+}
+.t-bento .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.15em;
+  top: 0.55em;
+  width: 0.42em;
+  height: 0.42em;
+  border-radius: 0.12em;
+  background: var(--bn-accent);
+}

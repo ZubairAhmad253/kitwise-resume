@@ -1,0 +1,169 @@
+/* #19 Scholar Block. All sizes in em so "fit to one page" scales them. */
+.t-scholar {
+  --sb-ink: #1c2433;
+  --sb-text: #323a47;
+  --sb-muted: #677083;
+  --sb-accent: #2f4a73;
+  --sb-shade: #e9edf3;
+  --sb-shade-strong: #d5dde9;
+  --sb-display: 'Crimson Pro Variable', 'Crimson Pro', 'Palatino Linotype', Palatino, serif;
+  font-family: 'EB Garamond Variable', 'EB Garamond', Garamond, Georgia, serif;
+  font-size: calc(10.4pt * var(--kr-scale));
+  line-height: 1.38;
+  color: var(--sb-text);
+}
+
+/* Spacing between blocks */
+.t-scholar .kr-b--title {
+  margin-bottom: 0.6em;
+}
+.t-scholar .kr-b--item,
+.t-scholar .kr-b--desc {
+  margin-bottom: 0.2em;
+}
+.t-scholar .kr-end-item {
+  margin-bottom: 0.7em;
+}
+.t-scholar .kr-end-section {
+  margin-bottom: 1.25em;
+}
+.t-scholar .kr-b--desc {
+  padding-left: 0.9em;
+}
+
+/* Header: a shaded block of its own */
+.t-scholar .sb-head {
+  display: flex;
+  align-items: center;
+  gap: 1.4em;
+  padding: 1em 1.2em;
+  margin-bottom: 1em;
+  background: var(--sb-shade);
+  border-left: 0.35em solid var(--sb-accent);
+}
+.t-scholar .sb-head-text {
+  flex: 1;
+  min-width: 0;
+}
+.t-scholar .sb-name {
+  font-family: var(--sb-display);
+  font-size: 2.3em;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--sb-ink);
+}
+.t-scholar .sb-headline {
+  margin-top: 0.15em;
+  font-family: var(--sb-display);
+  font-size: 1.12em;
+  font-style: italic;
+  color: var(--sb-accent);
+}
+.t-scholar .sb-contact {
+  flex: none;
+  max-width: 45%;
+  text-align: right;
+  font-size: 0.92em;
+  line-height: 1.5;
+  color: var(--sb-muted);
+  overflow-wrap: anywhere;
+}
+.t-scholar .sb-photo {
+  width: 22mm;
+  height: 26mm;
+  flex: none;
+  object-fit: cover;
+}
+
+.t-scholar .sb-summary {
+  padding: 0 0.9em;
+}
+.t-scholar .sb-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Shaded heading bands */
+.t-scholar .sb-title {
+  padding: 0.25em 0.9em;
+  background: var(--sb-shade-strong);
+  font-family: var(--sb-display);
+  font-size: 1.12em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--sb-ink);
+}
+
+/* Entries */
+.t-scholar .sb-item {
+  padding: 0 0.9em;
+}
+.t-scholar .sb-ref {
+  display: flex;
+  gap: 0.6em;
+}
+.t-scholar .sb-num {
+  flex: none;
+  min-width: 2em;
+  font-family: var(--sb-display);
+  font-weight: 600;
+  color: var(--sb-accent);
+}
+.t-scholar .sb-item-body {
+  flex: 1;
+  min-width: 0;
+}
+.t-scholar .sb-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-scholar .sb-item-title {
+  font-weight: 700;
+  color: var(--sb-ink);
+}
+.t-scholar .sb-date {
+  flex: none;
+  color: var(--sb-muted);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.t-scholar .sb-where {
+  font-style: italic;
+  color: var(--sb-accent);
+}
+.t-scholar .sb-authors {
+  margin-top: 0.1em;
+}
+.t-scholar .sb-muted {
+  color: var(--sb-muted);
+}
+.t-scholar .sb-link a {
+  color: var(--sb-accent);
+}
+.t-scholar .sb-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  padding: 0 0.9em;
+}
+.t-scholar .sb-inline strong {
+  color: var(--sb-ink);
+}
+
+/* Descriptions */
+.t-scholar .kr-desc .rt-p + .rt-p {
+  margin-top: 0.35em;
+}
+.t-scholar .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1em;
+}
+.t-scholar .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.15em;
+  top: 0.55em;
+  width: 0.35em;
+  height: 0.35em;
+  background: var(--sb-accent);
+}

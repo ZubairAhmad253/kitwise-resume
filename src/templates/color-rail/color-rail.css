@@ -1,0 +1,219 @@
+/* #13 Color-Pop Left Rail. All sizes in em so "fit to one page" scales them. */
+.t-color-rail {
+  --cr-ink: #1d1b2c;
+  --cr-text: #3b3a4a;
+  --cr-muted: #6e6c80;
+  --cr-pop: #ff5a5f;
+  --cr-pop-soft: #ffe1e2;
+  --cr-second: #ffc94d;
+  --cr-rule: #ecebf2;
+  --cr-head-font: 'Montserrat Variable', Montserrat, Arial, sans-serif;
+  font-family: Lato, 'Helvetica Neue', Arial, sans-serif;
+  font-size: calc(9.6pt * var(--kr-scale));
+  line-height: 1.45;
+  color: var(--cr-text);
+}
+
+/* The strip: coral with a thin yellow edge */
+.t-color-rail .cr-strip {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 11mm;
+  background: var(--cr-pop);
+  border-right: 1.4mm solid var(--cr-second);
+}
+
+/* Header */
+.t-color-rail .kr-header {
+  margin-bottom: 7mm;
+}
+.t-color-rail .cr-head {
+  display: flex;
+  align-items: center;
+  gap: 1.4em;
+}
+.t-color-rail .cr-photo {
+  width: 28mm;
+  height: 28mm;
+  flex: none;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--cr-pop);
+}
+.t-color-rail .cr-name {
+  font-family: var(--cr-head-font);
+  font-size: 2.9em;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--cr-ink);
+}
+.t-color-rail .cr-headline {
+  margin-top: 0.35em;
+  font-family: var(--cr-head-font);
+  font-size: 1.15em;
+  font-weight: 600;
+  color: var(--cr-pop);
+}
+.t-color-rail .cr-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em 1.3em;
+  margin-top: 0.6em;
+  font-size: 0.94em;
+  color: var(--cr-muted);
+}
+
+/* Columns */
+.t-color-rail .kr-region-side {
+  width: 56mm;
+  flex: none;
+  margin-left: 8mm;
+}
+
+/* Spacing between blocks */
+.t-color-rail .kr-b--title {
+  margin-bottom: 0.65em;
+}
+.t-color-rail .kr-b--item,
+.t-color-rail .kr-b--desc {
+  margin-bottom: 0.25em;
+}
+.t-color-rail .kr-end-item {
+  margin-bottom: 0.95em;
+}
+.t-color-rail .kr-end-section {
+  margin-bottom: 1.5em;
+}
+.t-color-rail .kr-region-side .kr-end-item {
+  margin-bottom: 0.75em;
+}
+.t-color-rail .kr-region-side .kr-end-section {
+  margin-bottom: 1.4em;
+}
+
+/* Highlighter headings: a coral block behind the lower half of the words */
+.t-color-rail .cr-title {
+  font-family: var(--cr-head-font);
+  font-size: 1.3em;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--cr-ink);
+}
+.t-color-rail .cr-title span {
+  position: relative;
+  z-index: 0;
+  padding: 0 0.15em;
+}
+.t-color-rail .cr-title span::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: 0.08em;
+  height: 0.5em;
+  background: var(--cr-pop-soft);
+}
+.t-color-rail .cr-side-title {
+  font-family: var(--cr-head-font);
+  font-size: 0.82em;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--cr-pop);
+}
+
+.t-color-rail .cr-summary {
+  font-size: 1.04em;
+}
+.t-color-rail .cr-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Entries */
+.t-color-rail .cr-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-color-rail .cr-item-title {
+  font-family: var(--cr-head-font);
+  font-size: 1.05em;
+  font-weight: 700;
+  color: var(--cr-ink);
+}
+.t-color-rail .cr-date {
+  flex: none;
+  font-size: 0.88em;
+  font-weight: 700;
+  color: var(--cr-muted);
+}
+.t-color-rail .cr-where {
+  font-weight: 700;
+  color: var(--cr-pop);
+}
+.t-color-rail .cr-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  margin-top: 0.35em;
+}
+.t-color-rail .cr-tags span {
+  font-size: 0.85em;
+  font-weight: 700;
+  padding: 0.05em 0.6em;
+  border-radius: 2em;
+  background: var(--cr-ink);
+  color: #fff;
+}
+.t-color-rail .cr-link a {
+  color: var(--cr-pop);
+  font-weight: 700;
+}
+
+/* Side items */
+.t-color-rail .cr-side-item-title {
+  font-weight: 700;
+  color: var(--cr-ink);
+}
+.t-color-rail .cr-muted {
+  color: var(--cr-muted);
+}
+.t-color-rail .cr-side-tags {
+  color: var(--cr-text);
+}
+.t-color-rail .cr-meter {
+  display: block;
+  height: 0.5em;
+  margin-top: 0.35em;
+  border-radius: 1em;
+  background: var(--cr-rule);
+  overflow: hidden;
+}
+.t-color-rail .cr-meter span {
+  display: block;
+  height: 100%;
+  border-radius: 1em;
+  background: var(--cr-pop);
+}
+
+/* Descriptions */
+.t-color-rail .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-color-rail .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.15em;
+}
+.t-color-rail .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.15em;
+  top: 0.5em;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: var(--cr-pop);
+}
