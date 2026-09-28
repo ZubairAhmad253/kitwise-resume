@@ -261,11 +261,11 @@ export const SAMPLES: Sample[] = [
     build: make('Driver resume', 'credential-first', {
       basics: {
         name: 'Ramesh Kumar',
-        headline: 'Heavy Vehicle Driver · 14 Years, Zero Accidents',
+        headline: 'Heavy Vehicle Driver · Zero Accidents',
         email: 'ramesh.kumar@example.com',
         phone: '+974 5550 6060',
         location: 'Industrial Area, Doha',
-        summary: 'Safety-first heavy vehicle driver with 14 years across the GCC. Experienced with trailers, tankers and construction equipment, with a perfect safety record and on-time delivery rate above 99%.',
+        summary: 'Safety-first heavy vehicle driver working across the GCC since 2011. Experienced with trailers, tankers and construction equipment, with a perfect safety record and on-time delivery rate above 99%.',
       },
       sections: [
         sec('certifications', [

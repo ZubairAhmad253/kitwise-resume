@@ -1,0 +1,176 @@
+/* #9 Academic-Clinical. All sizes in em so "fit to one page" scales them. */
+.t-academic-clinical {
+  --ac-ink: #14253d;
+  --ac-text: #2f3a4a;
+  --ac-muted: #5f6b7a;
+  --ac-accent: #1d5c7a;
+  --ac-rule: #c9d3dd;
+  --ac-badge: #eef5f8;
+  --ac-serif: 'Gelasio Variable', Gelasio, Georgia, serif;
+  font-family: Carlito, Calibri, 'Segoe UI', Arial, sans-serif;
+  font-size: calc(10.4pt * var(--kr-scale));
+  line-height: 1.38;
+  color: var(--ac-text);
+}
+
+/* Spacing between blocks */
+.t-academic-clinical .kr-b--title {
+  margin-bottom: 0.6em;
+}
+.t-academic-clinical .kr-b--item,
+.t-academic-clinical .kr-b--desc {
+  margin-bottom: 0.2em;
+}
+.t-academic-clinical .kr-end-item {
+  margin-bottom: 0.8em;
+}
+.t-academic-clinical .kr-end-section {
+  margin-bottom: 1.3em;
+}
+
+/* Header with registration badge */
+.t-academic-clinical .ac-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.3em;
+  padding-bottom: 1em;
+  margin-bottom: 1.1em;
+  border-bottom: 3px double var(--ac-ink);
+}
+.t-academic-clinical .ac-photo {
+  width: 25mm;
+  height: 30mm;
+  object-fit: cover;
+  flex: none;
+  border: 1px solid var(--ac-rule);
+}
+.t-academic-clinical .ac-head-text {
+  flex: 1;
+  min-width: 0;
+}
+.t-academic-clinical .ac-name {
+  font-family: var(--ac-serif);
+  font-size: 2.35em;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--ac-ink);
+}
+.t-academic-clinical .ac-headline {
+  margin-top: 0.2em;
+  font-family: var(--ac-serif);
+  font-size: 1.15em;
+  font-style: italic;
+  color: var(--ac-accent);
+}
+.t-academic-clinical .ac-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15em 1.2em;
+  margin-top: 0.6em;
+  font-size: 0.95em;
+  color: var(--ac-muted);
+}
+.t-academic-clinical .ac-badge {
+  flex: none;
+  width: 55mm;
+  padding: 0.7em 0.9em 0.75em;
+  background: var(--ac-badge);
+  border: 1px solid var(--ac-accent);
+  border-top: 0.35em solid var(--ac-accent);
+  border-radius: 0.3em;
+}
+.t-academic-clinical .ac-badge-label {
+  font-size: 0.78em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ac-accent);
+}
+.t-academic-clinical .ac-badge-title {
+  margin-top: 0.15em;
+  font-family: var(--ac-serif);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ac-ink);
+}
+.t-academic-clinical .ac-badge-sub {
+  font-size: 0.92em;
+  color: var(--ac-muted);
+}
+.t-academic-clinical .ac-badge-no {
+  margin-top: 0.2em;
+  font-weight: 700;
+  color: var(--ac-ink);
+  letter-spacing: 0.02em;
+}
+
+.t-academic-clinical .ac-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Section headings: serif small caps over a hairline */
+.t-academic-clinical .ac-title {
+  font-family: var(--ac-serif);
+  font-size: 1.1em;
+  font-weight: 600;
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  color: var(--ac-ink);
+  padding-bottom: 0.15em;
+  border-bottom: 1px solid var(--ac-rule);
+}
+
+/* Entries */
+.t-academic-clinical .ac-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-academic-clinical .ac-item-title {
+  font-size: 1.04em;
+  font-weight: 700;
+  color: var(--ac-ink);
+}
+.t-academic-clinical .ac-date {
+  flex: none;
+  color: var(--ac-muted);
+  font-variant-numeric: tabular-nums;
+}
+.t-academic-clinical .ac-where {
+  font-style: italic;
+  color: var(--ac-accent);
+}
+.t-academic-clinical .ac-muted {
+  color: var(--ac-muted);
+}
+.t-academic-clinical .ac-link a {
+  color: var(--ac-accent);
+}
+.t-academic-clinical .ac-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em 1.6em;
+}
+.t-academic-clinical .ac-skills p + p {
+  margin-top: 0.25em;
+}
+.t-academic-clinical .ac-skills strong,
+.t-academic-clinical .ac-inline strong {
+  color: var(--ac-ink);
+}
+
+/* Descriptions */
+.t-academic-clinical .kr-desc .rt-p + .rt-p {
+  margin-top: 0.35em;
+}
+.t-academic-clinical .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.1em;
+}
+.t-academic-clinical .kr-desc .rt-li::before {
+  content: '•';
+  position: absolute;
+  left: 0.25em;
+  color: var(--ac-accent);
+}

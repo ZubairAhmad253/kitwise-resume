@@ -1,0 +1,215 @@
+/* #12 Operational Metric. All sizes in em so "fit to one page" scales them. */
+.t-operational-metric {
+  --om-ink: #0c2340;
+  --om-text: #34404f;
+  --om-muted: #66727f;
+  --om-accent: #0369a1;
+  --om-hot: #ea580c;
+  --om-rule: #dbe3ea;
+  --om-fill: #f1f6fa;
+  font-family: 'Noto Sans Variable', 'Noto Sans', Verdana, Tahoma, sans-serif;
+  font-size: calc(8.9pt * var(--kr-scale));
+  line-height: 1.45;
+  color: var(--om-text);
+}
+
+/* Spacing between blocks */
+.t-operational-metric .kr-b--title {
+  margin-bottom: 0.65em;
+}
+.t-operational-metric .kr-b--item,
+.t-operational-metric .kr-b--desc {
+  margin-bottom: 0.25em;
+}
+.t-operational-metric .kr-end-item {
+  margin-bottom: 0.9em;
+}
+.t-operational-metric .kr-end-section {
+  margin-bottom: 1.35em;
+}
+
+/* Header */
+.t-operational-metric .om-head {
+  display: flex;
+  align-items: center;
+  gap: 1.3em;
+  margin-bottom: 1.1em;
+}
+.t-operational-metric .om-photo {
+  width: 24mm;
+  height: 24mm;
+  flex: none;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--om-accent);
+}
+.t-operational-metric .om-name {
+  font-size: 2.45em;
+  line-height: 1.1;
+  font-weight: 750;
+  letter-spacing: -0.015em;
+  color: var(--om-ink);
+}
+.t-operational-metric .om-headline {
+  margin-top: 0.2em;
+  font-size: 1.15em;
+  font-weight: 600;
+  color: var(--om-accent);
+}
+.t-operational-metric .om-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em 1.4em;
+  margin-top: 0.5em;
+  color: var(--om-muted);
+}
+
+/* Counters */
+.t-operational-metric .om-metrics {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  border: 1px solid var(--om-rule);
+  border-radius: 0.5em;
+  overflow: hidden;
+}
+.t-operational-metric .om-metrics li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.65em 0.5em 0.7em;
+  background: var(--om-fill);
+  text-align: center;
+}
+.t-operational-metric .om-metrics li + li {
+  border-left: 1px solid var(--om-rule);
+}
+.t-operational-metric .om-metric-value {
+  font-size: 2.1em;
+  line-height: 1.1;
+  font-weight: 800;
+  color: var(--om-ink);
+  font-variant-numeric: tabular-nums;
+}
+.t-operational-metric .om-metrics li:first-child .om-metric-value {
+  color: var(--om-hot);
+}
+.t-operational-metric .om-metric-label {
+  margin-top: 0.2em;
+  font-size: 0.8em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--om-muted);
+}
+
+.t-operational-metric .om-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Section headings: a band with a gauge-like marker */
+.t-operational-metric .om-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.3em 0.7em;
+  background: var(--om-ink);
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.t-operational-metric .om-title::before {
+  content: '';
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  border: 0.18em solid var(--om-hot);
+  flex: none;
+}
+
+/* Entries */
+.t-operational-metric .om-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-operational-metric .om-item-title {
+  font-size: 1.08em;
+  font-weight: 700;
+  color: var(--om-ink);
+}
+.t-operational-metric .om-date {
+  flex: none;
+  font-size: 0.9em;
+  font-weight: 700;
+  color: var(--om-accent);
+  font-variant-numeric: tabular-nums;
+}
+.t-operational-metric .om-where {
+  color: var(--om-muted);
+}
+.t-operational-metric .om-where strong {
+  font-weight: 600;
+  color: var(--om-text);
+}
+.t-operational-metric .om-muted {
+  color: var(--om-muted);
+}
+.t-operational-metric .om-link a {
+  color: var(--om-accent);
+}
+
+/* Skills and languages as a table */
+.t-operational-metric .om-table-row {
+  display: grid;
+  grid-template-columns: 10em 1fr auto;
+  gap: 1em;
+  align-items: center;
+  padding: 0.3em 0;
+  border-bottom: 1px solid var(--om-rule);
+}
+.t-operational-metric .om-table-row > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1em;
+}
+.t-operational-metric .om-table-key {
+  font-weight: 700;
+  color: var(--om-ink);
+}
+.t-operational-metric .om-level {
+  display: flex;
+  gap: 0.2em;
+}
+.t-operational-metric .om-level span {
+  width: 1.1em;
+  height: 0.45em;
+  border-radius: 1em;
+  background: var(--om-rule);
+}
+.t-operational-metric .om-level span.on {
+  background: var(--om-accent);
+}
+
+/* Descriptions */
+.t-operational-metric .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-operational-metric .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.2em;
+}
+.t-operational-metric .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.2em;
+  top: 0.45em;
+  width: 0;
+  height: 0;
+  border-left: 0.45em solid var(--om-hot);
+  border-top: 0.3em solid transparent;
+  border-bottom: 0.3em solid transparent;
+}
