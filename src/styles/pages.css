@@ -12,6 +12,8 @@
   color: #111;
   /* Templates set their base size as `font-size: calc(<size> * var(--kr-scale))`. */
   --kr-scale: 1;
+  /* Spacing multiplier from the Design panel; templates' block gaps are multiplied by it. */
+  --kr-space: 1;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -41,6 +43,11 @@
 }
 .kr-region-main {
   flex: 1;
+}
+/* The Design panel's typeface choice replaces every font on the page. */
+.kr-page.kr-font-override,
+.kr-page.kr-font-override * {
+  font-family: var(--kr-font) !important;
 }
 /* A block contains its children's margins, so measured heights include the spacing. */
 .kr-block {

@@ -75,23 +75,23 @@
 
 /* Spacing between blocks */
 .t-startup .kr-b--title {
-  margin-bottom: 0.65em;
+  margin-bottom: calc(0.65em * var(--kr-space));
 }
 .t-startup .kr-b--item,
 .t-startup .kr-b--desc {
-  margin-bottom: 0.25em;
+  margin-bottom: calc(0.25em * var(--kr-space));
 }
 .t-startup .kr-end-item {
-  margin-bottom: 0.9em;
+  margin-bottom: calc(0.9em * var(--kr-space));
 }
 .t-startup .kr-end-section {
-  margin-bottom: 1.45em;
+  margin-bottom: calc(1.45em * var(--kr-space));
 }
 .t-startup .kr-region-side .kr-end-item {
-  margin-bottom: 0.65em;
+  margin-bottom: calc(0.65em * var(--kr-space));
 }
 .t-startup .kr-region-side .kr-end-section {
-  margin-bottom: 1.4em;
+  margin-bottom: calc(1.4em * var(--kr-space));
 }
 
 /* Headings */

@@ -30,23 +30,23 @@
 
 /* Spacing between blocks */
 .t-corporate .kr-b--title {
-  margin-bottom: 0.55em;
+  margin-bottom: calc(0.55em * var(--kr-space));
 }
 .t-corporate .kr-b--item,
 .t-corporate .kr-b--desc {
-  margin-bottom: 0.25em;
+  margin-bottom: calc(0.25em * var(--kr-space));
 }
 .t-corporate .kr-end-item {
-  margin-bottom: 0.9em;
+  margin-bottom: calc(0.9em * var(--kr-space));
 }
 .t-corporate .kr-end-section {
-  margin-bottom: 1.5em;
+  margin-bottom: calc(1.5em * var(--kr-space));
 }
 .t-corporate .kr-region-side .kr-end-item {
-  margin-bottom: 0.7em;
+  margin-bottom: calc(0.7em * var(--kr-space));
 }
 .t-corporate .kr-region-side .kr-end-section {
-  margin-bottom: 1.4em;
+  margin-bottom: calc(1.4em * var(--kr-space));
 }
 
 /* Sidebar */

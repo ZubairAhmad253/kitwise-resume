@@ -68,6 +68,10 @@ export interface Section {
 
 export type PaperSize = 'A4' | 'Letter' | 'Legal';
 export type DateFormat = 'MMM YYYY' | 'MM/YYYY' | 'YYYY';
+/** Typeface for the whole page; 'template' keeps the design's own pairing. */
+export type FontChoice = 'template' | 'inter' | 'jakarta' | 'gelasio' | 'garamond';
+export type TextSize = 'S' | 'M' | 'L';
+export type Spacing = 'compact' | 'normal' | 'relaxed';
 
 export interface Settings {
   template: string;
@@ -76,6 +80,11 @@ export interface Settings {
   showPhoto: boolean;
   /** Shrink text slightly (down to about 82%) to fit everything on one page. */
   fitOnePage: boolean;
+  /** Accent colour as '#rrggbb', or '' for the template's own colour. */
+  accent: string;
+  font: FontChoice;
+  textSize: TextSize;
+  spacing: Spacing;
 }
 
 export interface Resume {

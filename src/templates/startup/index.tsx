@@ -146,5 +146,6 @@ export const startup: TemplateDef = {
   className: 't-startup',
   margins: { top: 0, topNext: 18, right: 14, bottom: 13, left: 14 },
   regions: ['main', 'side'],
+  accent: { vars: ['--su-accent'], color: '#6d28d9' },
   build,
 };

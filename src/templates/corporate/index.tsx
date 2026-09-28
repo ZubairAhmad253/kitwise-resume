@@ -115,6 +115,7 @@ export const corporate: TemplateDef = {
   className: 't-corporate',
   margins: { top: 15, topNext: 22, right: 13, bottom: 13, left: 0 },
   regions: ['side', 'main'],
+  accent: { vars: ['--c-accent'], color: '#1f5fbf' },
   build,
   decor: () => <div className="c-rail" />,
 };

@@ -156,5 +156,6 @@ export const credentialFirst: TemplateDef = {
   className: 't-credential-first',
   margins: { top: 15, topNext: 20, right: 15, bottom: 13, left: 15 },
   regions: ['main'],
+  accent: { vars: ['--cf-accent'], tints: [['--cf-accent-soft', 9]], color: '#047857' },
   build,
 };

@@ -97,7 +97,7 @@
   background-position: calc(var(--tm-pad) + var(--tm-col) + 0.8em) 0;
 }
 .t-tech-matrix .kr-b--item {
-  padding-top: 0.7em;
+  padding-top: calc(0.7em * var(--kr-space));
   border-top: 1px dashed var(--tm-rule);
 }
 .t-tech-matrix .kr-block:has(> .kr-b--title) + .kr-block > .kr-b--item {
@@ -105,14 +105,14 @@
 }
 .t-tech-matrix .kr-b--desc {
   padding-left: calc(var(--tm-pad) + var(--tm-col) + 1.6em);
-  padding-top: 0.2em;
+  padding-top: calc(0.2em * var(--kr-space));
 }
 .t-tech-matrix .kr-end-item {
-  padding-bottom: 0.75em;
+  padding-bottom: calc(0.75em * var(--kr-space));
 }
 .t-tech-matrix .kr-end-section {
   border-bottom: 1px solid var(--tm-frame);
-  margin-bottom: 1.1em;
+  margin-bottom: calc(1.1em * var(--kr-space));
 }
 .t-tech-matrix .kr-b:has(> .tm-summary) {
   border: 1px solid var(--tm-frame);

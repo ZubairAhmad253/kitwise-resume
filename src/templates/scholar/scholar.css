@@ -15,17 +15,17 @@
 
 /* Spacing between blocks */
 .t-scholar .kr-b--title {
-  margin-bottom: 0.6em;
+  margin-bottom: calc(0.6em * var(--kr-space));
 }
 .t-scholar .kr-b--item,
 .t-scholar .kr-b--desc {
-  margin-bottom: 0.2em;
+  margin-bottom: calc(0.2em * var(--kr-space));
 }
 .t-scholar .kr-end-item {
-  margin-bottom: 0.7em;
+  margin-bottom: calc(0.7em * var(--kr-space));
 }
 .t-scholar .kr-end-section {
-  margin-bottom: 1.25em;
+  margin-bottom: calc(1.25em * var(--kr-space));
 }
 .t-scholar .kr-b--desc {
   padding-left: 0.9em;

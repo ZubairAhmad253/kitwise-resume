@@ -21,17 +21,17 @@
 
 /* Spacing between blocks */
 .t-executive-gold .kr-b--title {
-  margin-bottom: 0.7em;
+  margin-bottom: calc(0.7em * var(--kr-space));
 }
 .t-executive-gold .kr-b--item,
 .t-executive-gold .kr-b--desc {
-  margin-bottom: 0.2em;
+  margin-bottom: calc(0.2em * var(--kr-space));
 }
 .t-executive-gold .kr-end-item {
-  margin-bottom: 0.85em;
+  margin-bottom: calc(0.85em * var(--kr-space));
 }
 .t-executive-gold .kr-end-section {
-  margin-bottom: 1.35em;
+  margin-bottom: calc(1.35em * var(--kr-space));
 }
 
 /* Centred header between a navy and a gold rule */

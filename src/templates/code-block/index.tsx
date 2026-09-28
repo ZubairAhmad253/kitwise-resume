@@ -147,6 +147,7 @@ export const codeBlock: TemplateDef = {
   className: 't-code-block',
   margins: { top: 14, topNext: 20, right: 12, bottom: 12, left: 0 },
   regions: ['side', 'main'],
+  accent: { vars: ['--cb-accent', '--cb-rail-accent'], color: '#0d9488' },
   build,
   decor: () => <div className="cb-rail" />,
 };

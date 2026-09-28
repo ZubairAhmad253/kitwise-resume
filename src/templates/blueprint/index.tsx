@@ -115,6 +115,7 @@ export const blueprint: TemplateDef = {
   className: 't-blueprint',
   margins: { top: 13, topNext: 20, right: 13, bottom: 13, left: 13 },
   regions: ['main', 'side'],
+  accent: { vars: ['--bp-accent'], color: '#3b5b8c' },
   build,
   decor: () => (
     <>

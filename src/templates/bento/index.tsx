@@ -147,5 +147,6 @@ export const bento: TemplateDef = {
   className: 't-bento',
   margins: { top: 12, topNext: 18, right: 12, bottom: 12, left: 12 },
   regions: ['main', 'side'],
+  accent: { vars: ['--bn-accent'], color: '#c2553a' },
   build,
 };

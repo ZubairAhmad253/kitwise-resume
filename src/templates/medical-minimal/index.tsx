@@ -124,5 +124,6 @@ export const medicalMinimal: TemplateDef = {
   className: 't-medical-minimal',
   margins: { top: 18, topNext: 22, right: 17, bottom: 15, left: 17 },
   regions: ['main'],
+  accent: { vars: ['--mm-accent'], color: '#0f7c86' },
   build,
 };

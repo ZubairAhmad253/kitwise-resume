@@ -15,17 +15,17 @@
 
 /* Spacing between blocks */
 .t-operational-metric .kr-b--title {
-  margin-bottom: 0.65em;
+  margin-bottom: calc(0.65em * var(--kr-space));
 }
 .t-operational-metric .kr-b--item,
 .t-operational-metric .kr-b--desc {
-  margin-bottom: 0.25em;
+  margin-bottom: calc(0.25em * var(--kr-space));
 }
 .t-operational-metric .kr-end-item {
-  margin-bottom: 0.9em;
+  margin-bottom: calc(0.9em * var(--kr-space));
 }
 .t-operational-metric .kr-end-section {
-  margin-bottom: 1.35em;
+  margin-bottom: calc(1.35em * var(--kr-space));
 }
 
 /* Header */

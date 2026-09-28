@@ -4,7 +4,9 @@ import { PAPER, PAPER_SIZES, PX_PER_MM } from '@/lib/resume/paper';
 import type { Action } from '@/lib/resume/store';
 import type { PaperSize, Resume } from '@/lib/resume/types';
 import { usePagedLayout } from '@/components/resume/usePagedLayout';
-import { getTemplate, TEMPLATES } from '@/templates';
+import { getTemplate } from '@/templates';
+import { DesignPanel } from './DesignPanel';
+import { TemplateGallery } from './TemplateGallery';
 import { Icon } from './icons';
 
 const PAD = 32;
@@ -31,6 +33,8 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
   const [zoom, setZoom] = useState(0.7);
   const [printHost, setPrintHost] = useState<HTMLElement | null>(null);
   const [measureHost, setMeasureHost] = useState<HTMLElement | null>(null);
+  const [gallery, setGallery] = useState(false);
+  const [designOpen, setDesignOpen] = useState(false);
 
   // Scale pages to the panel width (never above 100%).
   const pageW = layout.paper.width * PX_PER_MM;
@@ -68,21 +72,28 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
   return (
     <div className="flex h-full min-h-0 flex-col">
       <div className="flex flex-wrap items-center gap-2 border-b border-line bg-surface px-3 py-2 sm:px-4">
-        <label className="sr-only" htmlFor="kr-template">
-          Template
-        </label>
-        <select
-          id="kr-template"
-          value={template.id}
-          onChange={(e) => dispatch({ type: 'settings', patch: { template: e.target.value } })}
-          className="h-9 max-w-[14rem] rounded-lg border border-line bg-surface px-2.5 text-sm font-medium outline-none focus:border-brand"
+        <button
+          type="button"
+          onClick={() => setGallery(true)}
+          aria-haspopup="dialog"
+          className="inline-flex h-9 max-w-[15rem] items-center gap-2 rounded-lg border border-line bg-surface px-2.5 text-sm font-medium hover:border-brand/40"
+          title="Change template"
         >
-          {TEMPLATES.map((t) => (
-            <option key={t.id} value={t.id}>
-              {t.number}. {t.name}
-            </option>
-          ))}
-        </select>
+          <Icon name="grid" className="size-4 shrink-0 text-muted" />
+          <span className="truncate">
+            {template.number}. {template.name}
+          </span>
+          <Icon name="chevron" className="size-3.5 shrink-0 text-muted" />
+        </button>
+        <button
+          type="button"
+          onClick={() => setDesignOpen((o) => !o)}
+          aria-expanded={designOpen}
+          aria-controls="kr-design"
+          className={`inline-flex h-9 items-center gap-1.5 rounded-lg border px-2.5 text-sm font-medium ${designOpen ? 'border-brand bg-brand-soft text-fg' : 'border-line bg-surface hover:border-brand/40'}`}
+        >
+          <Icon name="palette" /> Design
+        </button>
         <div className="flex overflow-hidden rounded-lg border border-line" role="radiogroup" aria-label="Paper size">
           {PAPER_SIZES.map((p: PaperSize) => (
             <button
@@ -113,6 +124,12 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
         </div>
       </div>
 
+      {designOpen && (
+        <div id="kr-design">
+          <DesignPanel resume={resume} template={template} dispatch={dispatch} />
+        </div>
+      )}
+
       <div ref={box} className="min-h-0 flex-1 overflow-auto bg-surface-2" aria-label="Resume preview">
         <div className="flex flex-col items-center" style={{ padding: PAD, gap: GAP }}>
           {layout.pages.map((page, i) => (
@@ -125,6 +142,17 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
           ))}
         </div>
       </div>
+
+      {gallery && (
+        <TemplateGallery
+          resume={resume}
+          onClose={() => setGallery(false)}
+          onPick={(id) => {
+            dispatch({ type: 'settings', patch: { template: id } });
+            setGallery(false);
+          }}
+        />
+      )}
 
       {measureHost && createPortal(layout.measurer, measureHost)}
 

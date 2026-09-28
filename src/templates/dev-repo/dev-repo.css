@@ -17,17 +17,17 @@
 
 /* Spacing between blocks */
 .t-dev-repo .kr-b--title {
-  margin-bottom: 0.7em;
+  margin-bottom: calc(0.7em * var(--kr-space));
 }
 .t-dev-repo .kr-b--item,
 .t-dev-repo .kr-b--desc {
-  margin-bottom: 0.2em;
+  margin-bottom: calc(0.2em * var(--kr-space));
 }
 .t-dev-repo .kr-end-item {
-  margin-bottom: 0.85em;
+  margin-bottom: calc(0.85em * var(--kr-space));
 }
 .t-dev-repo .kr-end-section {
-  margin-bottom: 1.3em;
+  margin-bottom: calc(1.3em * var(--kr-space));
 }
 .t-dev-repo .kr-b--desc {
   padding-left: 1.9em;

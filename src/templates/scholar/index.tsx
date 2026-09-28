@@ -105,5 +105,6 @@ export const scholar: TemplateDef = {
   className: 't-scholar',
   margins: { top: 15, topNext: 21, right: 16, bottom: 14, left: 16 },
   regions: ['main'],
+  accent: { vars: ['--sb-accent'], color: '#2f4a73' },
   build,
 };

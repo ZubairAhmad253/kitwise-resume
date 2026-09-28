@@ -6,7 +6,7 @@
  */
 import { isSectionKind, KINDS } from './schema';
 import { defaultSettings, emptyBasics, uid } from './defaults';
-import type { Basics, DateFormat, Item, PaperSize, Resume, Section, Settings } from './types';
+import type { Basics, DateFormat, FontChoice, Item, PaperSize, Resume, Section, Settings, Spacing, TextSize } from './types';
 
 const str = (v: unknown, max = 5000): string => (typeof v === 'string' ? v.slice(0, max) : typeof v === 'number' ? String(v) : '');
 const bool = (v: unknown, fallback: boolean): boolean => (typeof v === 'boolean' ? v : fallback);
@@ -24,6 +24,9 @@ export function cleanDate(v: unknown): string {
 const PHOTO = /^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/;
 const PAPERS: PaperSize[] = ['A4', 'Letter', 'Legal'];
 const FORMATS: DateFormat[] = ['MMM YYYY', 'MM/YYYY', 'YYYY'];
+const FONTS: FontChoice[] = ['template', 'inter', 'jakarta', 'gelasio', 'garamond'];
+const SIZES: TextSize[] = ['S', 'M', 'L'];
+const SPACINGS: Spacing[] = ['compact', 'normal', 'relaxed'];
 
 function normalizeBasics(v: unknown): Basics {
   const o = obj(v);
@@ -77,6 +80,10 @@ function normalizeSettings(v: unknown): Settings {
     dateFormat: FORMATS.includes(o.dateFormat as DateFormat) ? (o.dateFormat as DateFormat) : d.dateFormat,
     showPhoto: bool(o.showPhoto, d.showPhoto),
     fitOnePage: bool(o.fitOnePage, d.fitOnePage),
+    accent: typeof o.accent === 'string' && /^#[0-9a-f]{6}$/i.test(o.accent) ? o.accent.toLowerCase() : d.accent,
+    font: FONTS.includes(o.font as FontChoice) ? (o.font as FontChoice) : d.font,
+    textSize: SIZES.includes(o.textSize as TextSize) ? (o.textSize as TextSize) : d.textSize,
+    spacing: SPACINGS.includes(o.spacing as Spacing) ? (o.spacing as Spacing) : d.spacing,
   };
 }
 

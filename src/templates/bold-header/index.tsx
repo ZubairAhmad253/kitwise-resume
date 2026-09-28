@@ -128,6 +128,7 @@ export const boldHeader: TemplateDef = {
   className: 't-bold-header',
   margins: { top: 0, topNext: 20, right: 14, bottom: 13, left: 14 },
   regions: ['side', 'main'],
+  accent: { vars: ['--bh-accent', '--bh-accent-ink'], color: '#f59e0b' },
   build,
   decor: (page) => (page > 0 ? <div className="bh-strip" /> : null),
 };
