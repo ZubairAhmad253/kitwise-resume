@@ -1,13 +1,15 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import BuilderApp from '@/components/builder/BuilderApp';
 import { SITE } from '@/config/site';
 ---
 
-<BaseLayout title="Resume Builder" description={`Create your resume with ${SITE.name}: pick a template, fill in your details and download a PDF.`} variant="app">
-  <div class="grid h-full place-items-center p-8 text-center">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">Resume builder</h1>
-      <p class="mt-2 text-muted">The editor arrives in the next phase.</p>
-    </div>
-  </div>
+<BaseLayout title="Resume Builder" description={`Create your resume with ${SITE.name}: pick a template, fill in your details and download a PDF. Free, no sign-up.`} variant="app">
+  <!-- The builder reads and saves this browser's storage, so it renders only in the browser. -->
+  <BuilderApp client:only="react">
+    <div slot="fallback" class="grid h-full place-items-center p-8 text-center text-muted">Loading the resume builder…</div>
+  </BuilderApp>
+  <noscript>
+    <p class="p-8 text-center">The resume builder needs JavaScript. Please turn it on and reload the page.</p>
+  </noscript>
 </BaseLayout>
