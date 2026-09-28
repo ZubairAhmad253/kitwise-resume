@@ -1,0 +1,189 @@
+/* #10 Clean Medical Minimalist. All sizes in em so "fit to one page" scales them. */
+.t-medical-minimal {
+  --mm-ink: #1b2a33;
+  --mm-text: #3d4a52;
+  --mm-muted: #7a878f;
+  --mm-accent: #0f7c86;
+  --mm-rule: #e3e8eb;
+  /* Width of the index column and the gap after it. */
+  --mm-index: 9.5em;
+  --mm-gap: 1.6em;
+  font-family: 'Open Sans Variable', 'Open Sans', Arial, sans-serif;
+  font-weight: 350;
+  font-size: calc(9.2pt * var(--kr-scale));
+  line-height: 1.55;
+  color: var(--mm-text);
+}
+
+.t-medical-minimal .mm-row {
+  display: grid;
+  grid-template-columns: var(--mm-index) 1fr;
+  column-gap: var(--mm-gap);
+}
+.t-medical-minimal .kr-b--desc {
+  padding-left: calc(var(--mm-index) + var(--mm-gap));
+}
+
+/* Row separators: each entry starts with a fine rule across the content column */
+.t-medical-minimal .mm-item,
+.t-medical-minimal .mm-pairs {
+  padding-top: 0.75em;
+  border-top: 1px solid var(--mm-rule);
+}
+.t-medical-minimal .mm-section-start {
+  padding-top: 0.75em;
+  border-top: 1px solid var(--mm-ink);
+}
+
+/* Spacing between blocks */
+.t-medical-minimal .kr-b--item,
+.t-medical-minimal .kr-b--desc {
+  margin-bottom: 0.25em;
+}
+.t-medical-minimal .kr-end-item {
+  margin-bottom: 0.85em;
+}
+.t-medical-minimal .kr-end-section {
+  margin-bottom: 1.6em;
+}
+
+/* Header */
+.t-medical-minimal .mm-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5em;
+  margin-bottom: 2em;
+}
+.t-medical-minimal .mm-name {
+  font-family: 'Arimo Variable', Arial, Helvetica, sans-serif;
+  font-size: 2.2em;
+  line-height: 1.1;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--mm-ink);
+}
+.t-medical-minimal .mm-headline {
+  margin-top: 0.6em;
+  font-size: 0.95em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--mm-accent);
+}
+.t-medical-minimal .mm-photo {
+  width: 24mm;
+  height: 24mm;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+}
+
+/* Index column labels */
+.t-medical-minimal .mm-index {
+  font-family: 'Arimo Variable', Arial, Helvetica, sans-serif;
+  font-size: 0.74em;
+  font-weight: 700;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--mm-ink);
+  padding-top: 0.25em;
+}
+/* The heading block: a dark rule across the page, no height of its own. */
+.t-medical-minimal .kr-b--title {
+  border-top: 1px solid var(--mm-ink);
+}
+.t-medical-minimal .mm-title {
+  position: relative;
+  height: 0;
+}
+.t-medical-minimal .mm-title .mm-index {
+  position: absolute;
+  top: calc(0.75em / 0.74);
+  left: 0;
+  width: calc(var(--mm-index) / 0.74);
+  padding-top: 0.25em;
+}
+/* The first entry of a section already sits under the section's dark rule. */
+.t-medical-minimal .kr-block:has(> .kr-b--title) + .kr-block .mm-item,
+.t-medical-minimal .kr-block:has(> .kr-b--title) + .kr-block .mm-pairs {
+  border-top-color: transparent;
+}
+
+/* Contact */
+.t-medical-minimal .mm-contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35em 1.5em;
+}
+.t-medical-minimal .mm-contact li {
+  overflow-wrap: anywhere;
+}
+.t-medical-minimal .mm-contact-label {
+  display: block;
+  font-size: 0.78em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--mm-muted);
+}
+.t-medical-minimal .mm-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Entries */
+.t-medical-minimal .mm-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-medical-minimal .mm-item-title {
+  font-size: 1.05em;
+  font-weight: 600;
+  color: var(--mm-ink);
+}
+.t-medical-minimal .mm-date {
+  flex: none;
+  font-size: 0.85em;
+  letter-spacing: 0.08em;
+  color: var(--mm-muted);
+}
+.t-medical-minimal .mm-where {
+  color: var(--mm-muted);
+}
+.t-medical-minimal .mm-link a {
+  color: var(--mm-accent);
+}
+.t-medical-minimal .mm-pairs p {
+  display: grid;
+  grid-template-columns: 8em 1fr;
+  gap: 1em;
+}
+.t-medical-minimal .mm-pairs p + p {
+  margin-top: 0.3em;
+}
+.t-medical-minimal .mm-pair-key {
+  font-weight: 600;
+  color: var(--mm-ink);
+}
+
+/* Descriptions */
+.t-medical-minimal .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-medical-minimal .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.2em;
+}
+.t-medical-minimal .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.2em;
+  top: 0.72em;
+  width: 0.45em;
+  height: 1px;
+  background: var(--mm-accent);
+}

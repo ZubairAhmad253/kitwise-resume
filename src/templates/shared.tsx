@@ -77,7 +77,7 @@ export function descriptionPieces(source: string): RtBlock[] {
  * `.kr-b--title`, `.kr-b--item`, `.kr-b--desc`, and the larger gaps after
  * `.kr-end-item` (last block of an entry) and `.kr-end-section`.
  */
-const role = (kind: 'title' | 'item' | 'desc' | 'whole', endItem: boolean, endSection: boolean, node: ReactNode) => (
+export const role = (kind: 'title' | 'item' | 'desc' | 'whole', endItem: boolean, endSection: boolean, node: ReactNode) => (
   <div className={`kr-b kr-b--${kind}${endItem ? ' kr-end-item' : ''}${endSection ? ' kr-end-section' : ''}`}>{node}</div>
 );
 
