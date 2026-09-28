@@ -37,6 +37,7 @@ function ItemFields({ section, item, onChange }: { section: Section; item: Item;
           value={item.description}
           onChange={(v) => onChange({ description: v })}
           rows={section.kind === 'experience' || section.kind === 'projects' ? 5 : 3}
+          ideas={section.kind === 'experience' || section.kind === 'projects' || section.kind === 'volunteering' ? 'bullets' : undefined}
           placeholder={section.kind === 'experience' ? '- Start each point with a strong verb\n- Add numbers: “Cut costs by 20%”' : undefined}
         />
       )}

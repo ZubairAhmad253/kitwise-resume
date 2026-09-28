@@ -6,6 +6,7 @@ import type { PaperSize, Resume } from '@/lib/resume/types';
 import { usePagedLayout } from '@/components/resume/usePagedLayout';
 import { getTemplate } from '@/templates';
 import { DesignPanel } from './DesignPanel';
+import { ReviewPanel } from './ReviewPanel';
 import { TemplateGallery } from './TemplateGallery';
 import { Icon } from './icons';
 
@@ -34,7 +35,8 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
   const [printHost, setPrintHost] = useState<HTMLElement | null>(null);
   const [measureHost, setMeasureHost] = useState<HTMLElement | null>(null);
   const [gallery, setGallery] = useState(false);
-  const [designOpen, setDesignOpen] = useState(false);
+  const [panel, setPanel] = useState<'design' | 'check' | null>(null);
+  const toggle = (p: 'design' | 'check') => setPanel((cur) => (cur === p ? null : p));
 
   // Scale pages to the panel width (never above 100%).
   const pageW = layout.paper.width * PX_PER_MM;
@@ -87,12 +89,21 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
         </button>
         <button
           type="button"
-          onClick={() => setDesignOpen((o) => !o)}
-          aria-expanded={designOpen}
-          aria-controls="kr-design"
-          className={`inline-flex h-9 items-center gap-1.5 rounded-lg border px-2.5 text-sm font-medium ${designOpen ? 'border-brand bg-brand-soft text-fg' : 'border-line bg-surface hover:border-brand/40'}`}
+          onClick={() => toggle('design')}
+          aria-expanded={panel === 'design'}
+          aria-controls="kr-panel"
+          className={`inline-flex h-9 items-center gap-1.5 rounded-lg border px-2.5 text-sm font-medium ${panel === 'design' ? 'border-brand bg-brand-soft text-fg' : 'border-line bg-surface hover:border-brand/40'}`}
         >
           <Icon name="palette" /> Design
+        </button>
+        <button
+          type="button"
+          onClick={() => toggle('check')}
+          aria-expanded={panel === 'check'}
+          aria-controls="kr-panel"
+          className={`inline-flex h-9 items-center gap-1.5 rounded-lg border px-2.5 text-sm font-medium ${panel === 'check' ? 'border-brand bg-brand-soft text-fg' : 'border-line bg-surface hover:border-brand/40'}`}
+        >
+          <Icon name="check" /> Check
         </button>
         <div className="flex overflow-hidden rounded-lg border border-line" role="radiogroup" aria-label="Paper size">
           {PAPER_SIZES.map((p: PaperSize) => (
@@ -124,9 +135,9 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
         </div>
       </div>
 
-      {designOpen && (
-        <div id="kr-design">
-          <DesignPanel resume={resume} template={template} dispatch={dispatch} />
+      {panel && (
+        <div id="kr-panel">
+          {panel === 'design' ? <DesignPanel resume={resume} template={template} dispatch={dispatch} /> : <ReviewPanel resume={resume} pageCount={layout.pageCount} />}
         </div>
       )}
 

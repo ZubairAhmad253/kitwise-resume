@@ -88,6 +88,7 @@ export function BasicsEditor({ basics, onChange }: { basics: Basics; onChange: (
         onChange={(v) => onChange({ summary: v })}
         rows={4}
         placeholder="Two or three sentences on who you are, your experience and what you’re looking for."
+        ideas="summary"
       />
     </div>
   );
