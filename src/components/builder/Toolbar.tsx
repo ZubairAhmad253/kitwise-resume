@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { emptyResume } from '@/lib/resume/defaults';
+import { toDocx } from '@/lib/resume/export/docx';
+import { toMarkdown, toPlainText } from '@/lib/resume/export/text';
+import type { LibraryEntry } from '@/lib/resume/library';
 import { normalizeResume } from '@/lib/resume/normalize';
 import { SAMPLES } from '@/lib/resume/samples';
 import type { Action } from '@/lib/resume/store';
 import type { Resume } from '@/lib/resume/types';
+import { getTemplate } from '@/templates';
 import { ImportDialog } from './ImportDialog';
-import { hasContent } from './useResume';
 import { Icon } from './icons';
 
 /** Dropdown menu that closes on outside click or Escape. */
-function Menu({ label, icon, children }: { label: string; icon: ReactNode; children: (close: () => void) => ReactNode }) {
+function Menu({ label, icon, children, width = 'w-72' }: { label: string; icon: ReactNode; children: (close: () => void) => ReactNode; width?: string }) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -31,7 +33,7 @@ function Menu({ label, icon, children }: { label: string; icon: ReactNode; child
         <Icon name="chevron" className="size-3.5 text-muted" />
       </button>
       {open && (
-        <div role="menu" className="absolute right-0 z-30 mt-2 w-72 overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-2xl">
+        <div role="menu" className={`absolute right-0 z-30 mt-2 ${width} max-w-[calc(100vw-1.5rem)] overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-2xl`}>
           {children(() => setOpen(false))}
         </div>
       )}
@@ -47,10 +49,34 @@ const slug = (s: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '') || 'resume';
 
-export function Toolbar({ resume, dispatch, savedAt, saveError }: { resume: Resume; dispatch: (a: Action) => void; savedAt: Date | null; saveError: boolean }) {
+function download(data: BlobPart, type: string, name: string) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([data], { type }));
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+const when = (iso: string) => {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  const today = new Date().toDateString() === d.toDateString();
+  return today ? d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : d.toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric' });
+};
+
+export interface LibraryActions {
+  library: LibraryEntry[];
+  open: (id: string) => void;
+  create: (r?: Resume) => void;
+  duplicate: () => void;
+  remove: (id: string) => void;
+}
+
+export function Toolbar({ resume, dispatch, savedAt, saveError, lib }: { resume: Resume; dispatch: (a: Action) => void; savedAt: Date | null; saveError: boolean; lib: LibraryActions }) {
   const file = useRef<HTMLInputElement>(null);
   const [notice, setNotice] = useState('');
   const [importing, setImporting] = useState(false);
+  const base = slug(resume.basics.name || resume.name);
 
   // Links like /builder?import=1 open the importer straight away.
   useEffect(() => {
@@ -61,31 +87,19 @@ export function Toolbar({ resume, dispatch, savedAt, saveError }: { resume: Resu
     history.replaceState(null, '', url.pathname + url.search + url.hash);
   }, []);
 
-  const replace = (next: Resume, what: string) => {
-    if (hasContent(resume) && !window.confirm(`Replace your current resume with ${what}? Download a backup first if you want to keep it.`)) return;
-    dispatch({ type: 'replace', resume: next });
-  };
-
-  const backup = () => {
-    const blob = new Blob([JSON.stringify(resume, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `${slug(resume.basics.name || resume.name)}-kitwise-resume.json`;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-  };
-
   const restore = async (f: File | undefined) => {
     if (!f) return;
     try {
       const data = normalizeResume(JSON.parse(await f.text()));
       if (!data) throw new Error('not a resume');
-      replace({ ...data, updatedAt: new Date().toISOString() }, 'the backup');
+      lib.create(data);
       setNotice('');
     } catch {
       setNotice('That file isn’t a Kitwise Resume backup.');
     }
   };
+
+  const others = lib.library.filter((e) => e.id !== resume.id);
 
   return (
     <div className="flex flex-wrap items-center gap-2 border-b border-line bg-surface px-3 py-2 sm:px-4">
@@ -104,17 +118,81 @@ export function Toolbar({ resume, dispatch, savedAt, saveError }: { resume: Resu
         </span>
       )}
 
-      <div className="ml-auto flex items-center gap-2">
+      <div className="ml-auto flex flex-wrap items-center gap-2">
         <button type="button" onClick={() => setImporting(true)} aria-haspopup="dialog" className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-brand/40 bg-brand-soft px-3 text-sm font-medium text-fg hover:border-brand">
           <Icon name="upload" />
           <span>
             Import<span className="hidden sm:inline"> CV</span>
           </span>
         </button>
+
+        <Menu label={`My resumes${lib.library.length > 1 ? ` (${lib.library.length})` : ''}`} icon={<Icon name="copy" />} width="w-80">
+          {(close) => (
+            <>
+              <p className="px-3 pt-1 pb-2 text-xs text-muted">Saved in this browser. Keep a version for each kind of job.</p>
+              <div className="flex items-center gap-2 rounded-lg bg-brand-soft px-3 py-2 text-sm">
+                <Icon name="check" className="size-4 shrink-0 text-brand" />
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate font-medium">{resume.name}</span>
+                  <span className="block text-xs text-muted">Open now · {getTemplate(resume.settings.template).name}</span>
+                </span>
+              </div>
+              {others.length > 0 && (
+                <ul className="mt-1 max-h-64 overflow-y-auto">
+                  {others.map((e) => (
+                    <li key={e.id} className="group flex items-center gap-1 rounded-lg hover:bg-surface-2">
+                      <button type="button" role="menuitem" className="min-w-0 flex-1 px-3 py-2 text-left text-sm" onClick={() => (close(), lib.open(e.id))}>
+                        <span className="block truncate font-medium">{e.name}</span>
+                        <span className="block text-xs text-muted">
+                          {when(e.updatedAt)} · {getTemplate(e.template).name}
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        aria-label={`Delete ${e.name}`}
+                        className="mr-1 grid size-8 place-items-center rounded-lg text-muted hover:bg-danger/10 hover:text-danger"
+                        onClick={() => window.confirm(`Delete “${e.name}”? This can’t be undone.`) && lib.remove(e.id)}
+                      >
+                        <Icon name="trash" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div className="mt-1 border-t border-line pt-1">
+                <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), lib.duplicate())}>
+                  <Icon name="copy" className="mt-0.5 size-4 shrink-0" />
+                  <span>
+                    <span className="block font-medium">Duplicate this resume</span>
+                    <span className="block text-xs text-muted">Make a copy to tailor for another job.</span>
+                  </span>
+                </button>
+                <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), lib.create())}>
+                  <Icon name="plus" className="mt-0.5 size-4 shrink-0" />
+                  <span className="block font-medium">New blank resume</span>
+                </button>
+                <button
+                  type="button"
+                  role="menuitem"
+                  className={`${menuItem} text-danger`}
+                  onClick={() => {
+                    if (!window.confirm(`Delete “${resume.name}”? This can’t be undone.`)) return;
+                    close();
+                    lib.remove(resume.id);
+                  }}
+                >
+                  <Icon name="trash" className="mt-0.5 size-4 shrink-0" />
+                  <span className="block font-medium">Delete this resume</span>
+                </button>
+              </div>
+            </>
+          )}
+        </Menu>
+
         <Menu label="Examples" icon={<Icon name="sparkle" />}>
           {(close) => (
             <>
-              <p className="px-3 pt-1 pb-2 text-xs text-muted">Start from an example and edit it. Your current resume is replaced.</p>
+              <p className="px-3 pt-1 pb-2 text-xs text-muted">Opens as a new resume; your own resumes are kept.</p>
               {SAMPLES.map((s) => (
                 <button
                   key={s.id}
@@ -123,7 +201,7 @@ export function Toolbar({ resume, dispatch, savedAt, saveError }: { resume: Resu
                   className={menuItem}
                   onClick={() => {
                     close();
-                    replace(s.build(), `the “${s.label}” example`);
+                    lib.create(s.build());
                   }}
                 >
                   <span>
@@ -135,38 +213,48 @@ export function Toolbar({ resume, dispatch, savedAt, saveError }: { resume: Resu
             </>
           )}
         </Menu>
+
         <Menu label="File" icon={<Icon name="download" />}>
           {(close) => (
             <>
-              <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), backup())}>
-                <Icon name="download" className="mt-0.5 size-4 shrink-0" />
+              <p className="px-3 pt-1 pb-1 text-xs font-semibold tracking-wide text-muted uppercase">Download as</p>
+              <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), download(toDocx(resume) as BlobPart, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', `${base}.docx`))}>
+                <Icon name="file" className="mt-0.5 size-4 shrink-0" />
                 <span>
-                  <span className="block font-medium">Download backup</span>
-                  <span className="block text-xs text-muted">Save your resume data as a file, to keep or move to another device.</span>
+                  <span className="block font-medium">Word document (.docx)</span>
+                  <span className="block text-xs text-muted">A simple, editable version for employers who ask for Word.</span>
                 </span>
               </button>
-              <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), file.current?.click())}>
-                <Icon name="upload" className="mt-0.5 size-4 shrink-0" />
+              <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), download(toPlainText(resume), 'text/plain;charset=utf-8', `${base}.txt`))}>
+                <Icon name="file" className="mt-0.5 size-4 shrink-0" />
                 <span>
-                  <span className="block font-medium">Open backup</span>
-                  <span className="block text-xs text-muted">Load a backup file you saved earlier.</span>
+                  <span className="block font-medium">Plain text (.txt)</span>
+                  <span className="block text-xs text-muted">For job sites that ask you to paste your CV.</span>
                 </span>
               </button>
-              <button
-                type="button"
-                role="menuitem"
-                className={menuItem}
-                onClick={() => {
-                  close();
-                  replace(emptyResume(), 'a blank resume');
-                }}
-              >
-                <Icon name="reset" className="mt-0.5 size-4 shrink-0" />
+              <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), download(toMarkdown(resume), 'text/markdown;charset=utf-8', `${base}.md`))}>
+                <Icon name="file" className="mt-0.5 size-4 shrink-0" />
                 <span>
-                  <span className="block font-medium">Start over</span>
-                  <span className="block text-xs text-muted">Clear everything and begin with a blank resume.</span>
+                  <span className="block font-medium">Markdown (.md)</span>
+                  <span className="block text-xs text-muted">For GitHub profiles, portfolios and notes apps.</span>
                 </span>
               </button>
+              <div className="mt-1 border-t border-line pt-1">
+                <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), download(JSON.stringify(resume, null, 2), 'application/json', `${base}-kitwise-resume.json`))}>
+                  <Icon name="download" className="mt-0.5 size-4 shrink-0" />
+                  <span>
+                    <span className="block font-medium">Download backup</span>
+                    <span className="block text-xs text-muted">Save your resume data as a file, to keep or move to another device.</span>
+                  </span>
+                </button>
+                <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), file.current?.click())}>
+                  <Icon name="upload" className="mt-0.5 size-4 shrink-0" />
+                  <span>
+                    <span className="block font-medium">Open backup</span>
+                    <span className="block text-xs text-muted">Load a backup file as a new resume.</span>
+                  </span>
+                </button>
+              </div>
             </>
           )}
         </Menu>
@@ -186,7 +274,7 @@ export function Toolbar({ resume, dispatch, savedAt, saveError }: { resume: Resu
           current={resume}
           onClose={() => setImporting(false)}
           onApply={(r) => {
-            dispatch({ type: 'replace', resume: r });
+            lib.create(r);
             setImporting(false);
           }}
         />

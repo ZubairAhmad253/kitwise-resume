@@ -10,7 +10,7 @@ import { useReorder } from './useReorder';
 import { useResume } from './useResume';
 
 export default function BuilderApp() {
-  const { resume, dispatch, savedAt, saveError } = useResume();
+  const { resume, dispatch, savedAt, saveError, library, open, create, duplicate, remove } = useResume();
   const [tab, setTab] = useState<'edit' | 'preview'>('edit');
   const [justAdded, setJustAdded] = useState<string | null>(null);
   const field = useMemo(() => guessField(resume), [resume]);
@@ -26,7 +26,7 @@ export default function BuilderApp() {
   return (
     <PhraseFieldContext.Provider value={field}>
       <div className="flex h-full flex-col">
-        <Toolbar resume={resume} dispatch={dispatch} savedAt={savedAt} saveError={saveError} />
+        <Toolbar resume={resume} dispatch={dispatch} savedAt={savedAt} saveError={saveError} lib={{ library, open, create, duplicate, remove }} />
 
         <div className="flex border-b border-line bg-surface lg:hidden" role="tablist">
           {(['edit', 'preview'] as const).map((t) => (
