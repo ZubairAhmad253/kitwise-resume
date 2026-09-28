@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE } from '@/config/site';
+---
+
+<BaseLayout title="Resume Builder" description={`Create your resume with ${SITE.name}: pick a template, fill in your details and download a PDF.`} variant="app">
+  <div class="grid h-full place-items-center p-8 text-center">
+    <div>
+      <h1 class="text-2xl font-bold tracking-tight">Resume builder</h1>
+      <p class="mt-2 text-muted">The editor arrives in the next phase.</p>
+    </div>
+  </div>
+</BaseLayout>
