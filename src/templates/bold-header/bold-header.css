@@ -1,0 +1,261 @@
+/* #8 Bold Header. All sizes in em so "fit to one page" scales them. */
+.t-bold-header {
+  --bh-ink: #111827;
+  --bh-text: #374151;
+  --bh-muted: #6b7280;
+  --bh-band: #16191f;
+  --bh-accent: #f59e0b;
+  --bh-accent-ink: #b45309;
+  --bh-rule: #e5e7eb;
+  --bh-head: 'Oswald Variable', Oswald, Impact, 'Arial Narrow', sans-serif;
+  font-family: 'Roboto Variable', Roboto, Arial, sans-serif;
+  font-size: calc(9.3pt * var(--kr-scale));
+  line-height: 1.45;
+  color: var(--bh-text);
+}
+
+/* Band across the top of page 1 (the page's side margins are 14mm) */
+.t-bold-header .kr-header {
+  margin: 0 -14mm 8mm;
+}
+.t-bold-header .bh-band {
+  padding: 12mm 14mm 0;
+  background: var(--bh-band);
+  color: #fff;
+  border-bottom: 1.6mm solid var(--bh-accent);
+}
+.t-bold-header .bh-band-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5em;
+}
+.t-bold-header .bh-name {
+  font-family: var(--bh-head);
+  font-size: 3.4em;
+  line-height: 0.98;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+.t-bold-header .bh-headline {
+  margin-top: 0.4em;
+  font-family: var(--bh-head);
+  font-size: 1.25em;
+  font-weight: 450;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--bh-accent);
+}
+.t-bold-header .bh-photo {
+  width: 27mm;
+  height: 27mm;
+  flex: none;
+  object-fit: cover;
+  border: 2px solid var(--bh-accent);
+}
+.t-bold-header .bh-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em 1.8em;
+  margin-top: 1em;
+  padding: 0.75em 0 0.8em;
+  border-top: 1px solid rgb(255 255 255 / 0.14);
+  font-size: 0.92em;
+  color: #e5e7eb;
+}
+.t-bold-header .bh-contact-label {
+  margin-right: 0.5em;
+  font-family: var(--bh-head);
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--bh-accent);
+}
+
+/* Pages 2+: a slim band so continued pages still carry the look */
+.t-bold-header .bh-strip {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 7mm;
+  background: var(--bh-band);
+  border-bottom: 1mm solid var(--bh-accent);
+}
+
+/* Columns */
+.t-bold-header .kr-region-side {
+  width: 56mm;
+  flex: none;
+  padding-right: 6mm;
+  margin-right: 7mm;
+  border-right: 1px solid var(--bh-rule);
+}
+
+/* Spacing between blocks */
+.t-bold-header .kr-b--title {
+  margin-bottom: 0.65em;
+}
+.t-bold-header .kr-b--item,
+.t-bold-header .kr-b--desc {
+  margin-bottom: 0.25em;
+}
+.t-bold-header .kr-end-item {
+  margin-bottom: 0.95em;
+}
+.t-bold-header .kr-end-section {
+  margin-bottom: 1.45em;
+}
+.t-bold-header .kr-region-side .kr-end-item {
+  margin-bottom: 0.7em;
+}
+.t-bold-header .kr-region-side .kr-end-section {
+  margin-bottom: 1.35em;
+}
+
+/* Headings */
+.t-bold-header .bh-title {
+  font-family: var(--bh-head);
+  font-size: 1.45em;
+  line-height: 1.1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--bh-ink);
+}
+.t-bold-header .bh-title::after {
+  content: '';
+  display: block;
+  width: 2.2em;
+  height: 0.16em;
+  margin-top: 0.2em;
+  background: var(--bh-accent);
+}
+.t-bold-header .bh-side-title {
+  font-family: var(--bh-head);
+  font-size: 1.12em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bh-ink);
+  padding-bottom: 0.25em;
+  border-bottom: 2px solid var(--bh-ink);
+}
+
+.t-bold-header .bh-summary {
+  font-size: 1.04em;
+}
+.t-bold-header .bh-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+
+/* Entries */
+.t-bold-header .bh-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+}
+.t-bold-header .bh-item-title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--bh-ink);
+}
+.t-bold-header .bh-date {
+  flex: none;
+  font-family: var(--bh-head);
+  font-size: 0.95em;
+  letter-spacing: 0.04em;
+  color: var(--bh-accent-ink);
+}
+.t-bold-header .bh-where {
+  font-weight: 500;
+  color: var(--bh-muted);
+}
+.t-bold-header .bh-tags,
+.t-bold-header .bh-link {
+  font-size: 0.92em;
+  color: var(--bh-muted);
+}
+.t-bold-header .bh-link a {
+  color: var(--bh-accent-ink);
+}
+
+/* Project summary blocks */
+.t-bold-header .bh-project {
+  padding: 0.65em 0.85em 0.7em;
+  background: #f9fafb;
+  border: 1px solid var(--bh-rule);
+  border-top: 0.25em solid var(--bh-accent);
+}
+.t-bold-header .bh-project-desc {
+  margin-top: 0.25em;
+}
+.t-bold-header .bh-project-desc .rt-li {
+  position: relative;
+  padding-left: 1em;
+}
+.t-bold-header .bh-project-desc .rt-li::before {
+  content: '–';
+  position: absolute;
+  left: 0.1em;
+}
+
+/* Side items */
+.t-bold-header .bh-side-item-title {
+  font-weight: 700;
+  color: var(--bh-ink);
+}
+.t-bold-header .bh-muted {
+  color: var(--bh-muted);
+}
+.t-bold-header .bh-side-desc {
+  font-size: 0.92em;
+  color: var(--bh-muted);
+}
+.t-bold-header .bh-list {
+  margin-top: 0.2em;
+}
+.t-bold-header .bh-list li {
+  position: relative;
+  padding-left: 0.9em;
+}
+.t-bold-header .bh-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.35em;
+  height: 0.35em;
+  background: var(--bh-accent);
+}
+.t-bold-header .bh-level {
+  display: flex;
+  gap: 0.2em;
+  margin-top: 0.35em;
+}
+.t-bold-header .bh-level span {
+  flex: 1;
+  height: 0.35em;
+  background: var(--bh-rule);
+}
+.t-bold-header .bh-level span.on {
+  background: var(--bh-ink);
+}
+
+/* Descriptions */
+.t-bold-header .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-bold-header .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.15em;
+}
+.t-bold-header .kr-desc .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.15em;
+  top: 0.55em;
+  width: 0.4em;
+  height: 0.4em;
+  background: var(--bh-accent);
+}

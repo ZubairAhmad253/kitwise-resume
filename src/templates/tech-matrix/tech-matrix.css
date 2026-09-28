@@ -1,0 +1,261 @@
+/* #4 Technical Matrix. All sizes in em so "fit to one page" scales them. */
+.t-tech-matrix {
+  --tm-ink: #111827;
+  --tm-text: #273142;
+  --tm-muted: #667085;
+  --tm-frame: #1f2937;
+  --tm-rule: #cfd6df;
+  --tm-fill: #f2f4f7;
+  --tm-accent: #1d4ed8;
+  --tm-mono: 'Courier Prime', 'Courier New', Courier, monospace;
+  /* Width of the date column inside a framed section. */
+  --tm-col: 10em;
+  --tm-pad: 0.9em;
+  font-family: 'Arimo Variable', Arial, Helvetica, sans-serif;
+  font-size: calc(9.4pt * var(--kr-scale));
+  line-height: 1.42;
+  color: var(--tm-text);
+}
+
+/* Header matrix */
+.t-tech-matrix .tm-head {
+  border: 1.5px solid var(--tm-frame);
+  margin-bottom: 1em;
+  overflow: hidden;
+}
+.t-tech-matrix .tm-head-top {
+  display: flex;
+  justify-content: space-between;
+}
+.t-tech-matrix .tm-head-name {
+  padding: 0.7em var(--tm-pad) 0.8em;
+}
+.t-tech-matrix .tm-photo {
+  width: 26mm;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-left: 1.5px solid var(--tm-frame);
+}
+.t-tech-matrix .tm-cell-label {
+  font-family: var(--tm-mono);
+  font-size: 0.78em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tm-muted);
+}
+.t-tech-matrix .tm-name {
+  font-size: 2.35em;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--tm-ink);
+}
+.t-tech-matrix .tm-headline {
+  margin-top: 0.25em;
+  font-family: var(--tm-mono);
+  font-size: 1.05em;
+  font-weight: 700;
+  color: var(--tm-accent);
+}
+.t-tech-matrix .tm-contact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--tm-frame);
+}
+.t-tech-matrix .tm-contact li {
+  padding: 0.4em var(--tm-pad) 0.45em;
+  border-right: 1px solid var(--tm-rule);
+  border-bottom: 1px solid var(--tm-rule);
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.t-tech-matrix .tm-contact li:nth-child(3n) {
+  border-right: 0;
+}
+.t-tech-matrix .tm-contact-value {
+  overflow-wrap: normal;
+  color: var(--tm-ink);
+  font-size: 0.95em;
+}
+/* The frame's own border closes the grid; hide the cells' bottom rule on the last row. */
+.t-tech-matrix .tm-contact {
+  margin-bottom: -1px;
+}
+
+/* Framed sections: every block carries the side borders, so a section is one box. */
+.t-tech-matrix .kr-b {
+  border-left: 1px solid var(--tm-frame);
+  border-right: 1px solid var(--tm-frame);
+}
+.t-tech-matrix .kr-b--item,
+.t-tech-matrix .kr-b--desc {
+  padding: 0 var(--tm-pad);
+  /* The column rule between dates and details. */
+  background: linear-gradient(var(--tm-rule), var(--tm-rule)) no-repeat;
+  background-size: 1px 100%;
+  background-position: calc(var(--tm-pad) + var(--tm-col) + 0.8em) 0;
+}
+.t-tech-matrix .kr-b--item {
+  padding-top: 0.7em;
+  border-top: 1px dashed var(--tm-rule);
+}
+.t-tech-matrix .kr-block:has(> .kr-b--title) + .kr-block > .kr-b--item {
+  border-top-color: transparent;
+}
+.t-tech-matrix .kr-b--desc {
+  padding-left: calc(var(--tm-pad) + var(--tm-col) + 1.6em);
+  padding-top: 0.2em;
+}
+.t-tech-matrix .kr-end-item {
+  padding-bottom: 0.75em;
+}
+.t-tech-matrix .kr-end-section {
+  border-bottom: 1px solid var(--tm-frame);
+  margin-bottom: 1.1em;
+}
+.t-tech-matrix .kr-b:has(> .tm-summary) {
+  border: 1px solid var(--tm-frame);
+  padding: 0.6em var(--tm-pad) 0.7em;
+}
+
+/* Title bars */
+.t-tech-matrix .kr-b--title {
+  border-top: 2px solid var(--tm-frame);
+  border-bottom: 1px solid var(--tm-frame);
+  background: var(--tm-fill);
+}
+.t-tech-matrix .tm-title {
+  display: flex;
+  align-items: stretch;
+  font-family: var(--tm-mono);
+  font-size: 0.95em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--tm-ink);
+}
+.t-tech-matrix .tm-title > span:last-child {
+  padding: 0.35em 0.8em;
+}
+.t-tech-matrix .tm-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2em;
+  flex: none;
+  background: var(--tm-frame);
+  color: #fff;
+  letter-spacing: 0;
+}
+
+/* Entries */
+.t-tech-matrix .tm-item {
+  display: grid;
+  grid-template-columns: var(--tm-col) 1fr;
+  column-gap: 1.6em;
+}
+.t-tech-matrix .tm-item-meta {
+  font-family: var(--tm-mono);
+  font-size: 0.86em;
+  line-height: 1.55;
+  color: var(--tm-ink);
+  font-weight: 700;
+  padding-top: 0.15em;
+}
+
+.t-tech-matrix .tm-item-title {
+  font-size: 1.06em;
+  font-weight: 700;
+  color: var(--tm-ink);
+}
+.t-tech-matrix .tm-where {
+  color: var(--tm-accent);
+  font-weight: 600;
+}
+.t-tech-matrix .tm-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  margin-top: 0.3em;
+}
+.t-tech-matrix .tm-spec {
+  display: inline-block;
+  font-family: var(--tm-mono);
+  font-size: 0.84em;
+  line-height: 1.5;
+  padding: 0 0.45em;
+  border: 1px solid var(--tm-rule);
+  background: #fff;
+  color: var(--tm-ink);
+}
+.t-tech-matrix .tm-link {
+  font-family: var(--tm-mono);
+  font-size: 0.86em;
+}
+.t-tech-matrix .tm-link a {
+  color: var(--tm-accent);
+}
+
+/* Data-table grid for skills and languages */
+.t-tech-matrix .tm-grid-row {
+  display: grid;
+  grid-template-columns: calc(var(--tm-pad) + var(--tm-col) + 0.8em) 1fr;
+}
+.t-tech-matrix .tm-grid-row + .tm-grid-row {
+  border-top: 1px dashed var(--tm-rule);
+}
+.t-tech-matrix .tm-grid-key {
+  padding: 0.5em 0.8em 0.5em var(--tm-pad);
+  border-right: 1px solid var(--tm-rule);
+  font-family: var(--tm-mono);
+  font-size: 0.9em;
+  font-weight: 700;
+  color: var(--tm-ink);
+}
+.t-tech-matrix .tm-grid-val {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.45em var(--tm-pad) 0.45em 0.8em;
+}
+.t-tech-matrix .tm-grid-sub {
+  margin-right: 0.4em;
+}
+.t-tech-matrix .tm-grid-desc {
+  flex-basis: 100%;
+  color: var(--tm-muted);
+}
+.t-tech-matrix .tm-level {
+  display: inline-flex;
+  gap: 0.2em;
+}
+.t-tech-matrix .tm-level span {
+  width: 0.75em;
+  height: 0.75em;
+  border: 1px solid var(--tm-frame);
+}
+.t-tech-matrix .tm-level span.on {
+  background: var(--tm-frame);
+}
+
+/* Descriptions */
+.t-tech-matrix .kr-desc .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
+.t-tech-matrix .kr-desc .rt-li {
+  position: relative;
+  padding-left: 1.2em;
+}
+.t-tech-matrix .kr-desc .rt-li::before {
+  content: '+';
+  position: absolute;
+  left: 0.1em;
+  font-family: var(--tm-mono);
+  font-weight: 700;
+  color: var(--tm-accent);
+}
+.t-tech-matrix .tm-summary .rt-p + .rt-p {
+  margin-top: 0.4em;
+}
