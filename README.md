@@ -107,6 +107,10 @@ The review screen shows what was found and a preview in the user's current templ
 
 To check the importer against real files, put PDFs in a folder and run `CV_FIXTURES=<folder> npx vitest run pdf-fixtures --silent=false` (add `CV_LINES=1` to see the rebuilt lines).
 
+### Arabic and right-to-left
+
+A resume written mostly in Arabic (or Urdu, Persian, Hebrew) is laid out right to left automatically; Design > Text direction can force either way. Templates use logical CSS properties, so columns, rails and bullets mirror. Arabic resumes get Arabic labels, month names and "حتى الآن", and Design offers one-click Arabic section headings. Noto Sans Arabic and Noto Naskh Arabic are registered under each template font name for Arabic characters only (`src/styles/arabic-fonts.css`), so they download only when needed. The importer understands Arabic headings, month names and Arabic-Indic digits. There is an Arabic example at `/examples/arabic`.
+
 ### Cover letters
 
 Every resume has a cover letter (**Resume / Cover letter** switch above the editor, or `/builder?doc=letter`). It reuses the resume's name, contact details, template, colours, typeface and paper, so the two always match (`src/templates/letter.tsx` renders it inside the chosen template's style scope, through the same page engine). The editor has recipient fields, a greeting that follows the recipient's name, three starter letters with [placeholders] (`src/lib/resume/letters.ts`), and the File menu downloads the open document as PDF, Word or plain text.
@@ -168,4 +172,4 @@ When the domain is ready:
 | 10 | Multiple resumes and more exports | Done |
 | 11 | Site pages and SEO: template pages, resume examples, blog, legal pages | Done |
 | 12 | QA and launch prep | Done |
-| Later | Arabic (right-to-left), accounts and paid features | |
+| Later | Accounts and paid features (see PLAN-accounts.md) | |

@@ -115,6 +115,12 @@ export const EXAMPLE_NOTES: Record<string, ExampleNotes> = {
     tips: ['Put your qualification (ACCA, CPA, CFA) next to your name or title.', 'Show the size of what you manage: budget, entities, team.', 'Give process improvements in days or hours saved.', 'Name the systems you use (SAP, Oracle, Power BI); they are common filters.'],
     field: 'finance',
   },
+  arabic: {
+    title: 'Arabic resume example (right to left)',
+    intro: 'A qualified accountant in Doha, written in Arabic. The page lays itself out right to left, with Arabic headings, month names and fonts, while emails and links stay readable.',
+    tips: ['Write your resume in Arabic and the builder switches to right to left by itself; you can also set it under Design, Text direction.', 'Keep English terms employers search for, such as IFRS, SAP or CMA, as they are.', 'Use Design, “Use Arabic section headings” to rename the default English headings in one click.', 'Many Gulf employers ask for both an Arabic and an English CV: duplicate this one under My resumes and translate the copy.'],
+    field: 'finance',
+  },
   academic: {
     title: 'Academic CV example',
     intro: 'An associate professor’s full academic CV: appointments, education, publications, teaching, supervision, talks and grants.',

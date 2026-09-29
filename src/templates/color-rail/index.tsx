@@ -10,7 +10,7 @@ import './color-rail.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, splitSections, standalone, UrlLink } from '../shared';
+import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, splitSections, standalone, UrlLink, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 const SIDE_KINDS = ['skills', 'languages', 'certifications', 'awards', 'education'] as const;
@@ -94,7 +94,7 @@ function build(r: Resume) {
             {sec.kind !== 'skills' && sec.kind !== 'languages' && dateText(r, sec, it) && <p className="cr-muted">{dateText(r, sec, it)}</p>}
             {it.tags.length > 0 && <p className="cr-side-tags">{it.tags.join(', ')}</p>}
             {it.level > 0 && (
-              <span className="cr-meter" role="img" aria-label={LEVEL_WORDS[it.level]}>
+              <span className="cr-meter" role="img" aria-label={tr(r, LEVEL_WORDS[it.level])}>
                 <span style={{ width: `${it.level * 20}%` }} />
               </span>
             )}

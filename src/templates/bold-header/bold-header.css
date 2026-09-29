@@ -65,7 +65,7 @@
   color: #e5e7eb;
 }
 .t-bold-header .bh-contact-label {
-  margin-right: 0.5em;
+  margin-inline-end: 0.5em;
   font-family: var(--bh-head);
   font-size: 0.9em;
   text-transform: uppercase;
@@ -86,9 +86,9 @@
 .t-bold-header .kr-region-side {
   width: 56mm;
   flex: none;
-  padding-right: 6mm;
-  margin-right: 7mm;
-  border-right: 1px solid var(--bh-rule);
+  padding-inline-end: 6mm;
+  margin-inline-end: 7mm;
+  border-inline-end: 1px solid var(--bh-rule);
 }
 
 /* Spacing between blocks */
@@ -192,12 +192,12 @@
 }
 .t-bold-header .bh-project-desc .rt-li {
   position: relative;
-  padding-left: 1em;
+  padding-inline-start: 1em;
 }
 .t-bold-header .bh-project-desc .rt-li::before {
   content: '–';
   position: absolute;
-  left: 0.1em;
+  inset-inline-start: 0.1em;
 }
 
 /* Side items */
@@ -217,12 +217,12 @@
 }
 .t-bold-header .bh-list li {
   position: relative;
-  padding-left: 0.9em;
+  padding-inline-start: 0.9em;
 }
 .t-bold-header .bh-list li::before {
   content: '';
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   top: 0.6em;
   width: 0.35em;
   height: 0.35em;
@@ -248,12 +248,12 @@
 }
 .t-bold-header .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.15em;
+  padding-inline-start: 1.15em;
 }
 .t-bold-header .kr-desc .rt-li::before {
   content: '';
   position: absolute;
-  left: 0.15em;
+  inset-inline-start: 0.15em;
   top: 0.55em;
   width: 0.4em;
   height: 0.4em;

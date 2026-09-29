@@ -17,10 +17,11 @@
 /* The strip: coral with a thin yellow edge */
 .t-color-rail .cr-strip {
   position: absolute;
-  inset: 0 auto 0 0;
+  inset-block: 0;
+  inset-inline: 0 auto;
   width: 11mm;
   background: var(--cr-pop);
-  border-right: 1.4mm solid var(--cr-second);
+  border-inline-end: 1.4mm solid var(--cr-second);
 }
 
 /* Header */
@@ -68,7 +69,7 @@
 .t-color-rail .kr-region-side {
   width: 56mm;
   flex: none;
-  margin-left: 8mm;
+  margin-inline-start: 8mm;
 }
 
 /* Spacing between blocks */
@@ -109,8 +110,8 @@
   content: '';
   position: absolute;
   z-index: -1;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0.08em;
   height: 0.5em;
   background: var(--cr-pop-soft);
@@ -205,12 +206,12 @@
 }
 .t-color-rail .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.15em;
+  padding-inline-start: 1.15em;
 }
 .t-color-rail .kr-desc .rt-li::before {
   content: '';
   position: absolute;
-  left: 0.15em;
+  inset-inline-start: 0.15em;
   top: 0.5em;
   width: 0.5em;
   height: 0.5em;

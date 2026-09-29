@@ -48,9 +48,9 @@
 .t-curriculum-vitae .kr-region-side {
   width: 44mm;
   flex: none;
-  padding-right: 5mm;
-  margin-right: 6mm;
-  border-right: 1px solid var(--cv-rule);
+  padding-inline-end: 5mm;
+  margin-inline-end: 6mm;
+  border-inline-end: 1px solid var(--cv-rule);
 }
 
 /* Spacing between blocks */
@@ -68,7 +68,7 @@
   margin-bottom: calc(1.3em * var(--kr-space));
 }
 .t-curriculum-vitae .kr-b--desc {
-  padding-left: calc(var(--cv-when) + 1em);
+  padding-inline-start: calc(var(--cv-when) + 1em);
 }
 
 /* Side column */
@@ -177,11 +177,11 @@
 }
 .t-curriculum-vitae .kr-desc .rt-li {
   position: relative;
-  padding-left: 1em;
+  padding-inline-start: 1em;
 }
 .t-curriculum-vitae .kr-desc .rt-li::before {
   content: '–';
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   color: var(--cv-accent);
 }

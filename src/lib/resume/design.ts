@@ -41,8 +41,8 @@ export const ACCENT_SWATCHES = ['#1f5fbf', '#0e7490', '#047857', '#4d7c0f', '#b4
 export const textFactor = (s: Settings) => TEXT_SIZES.find((t) => t.id === s.textSize)?.factor ?? 1;
 export const spaceFactor = (s: Settings) => SPACINGS.find((t) => t.id === s.spacing)?.factor ?? 1;
 
-/** Class names and inline custom properties for one page. */
-export function pageDesign(s: Settings, accent: AccentSpec | undefined): { className: string; style: CSSProperties } {
+/** Class names, inline custom properties and text direction for one page. */
+export function pageDesign(s: Settings, accent: AccentSpec | undefined, dir: 'ltr' | 'rtl' = 'ltr'): { className: string; style: CSSProperties; dir: 'ltr' | 'rtl' } {
   const style: Record<string, string | number> = { '--kr-space': spaceFactor(s) };
   if (s.accent && accent) {
     for (const v of accent.vars) style[v] = s.accent;
@@ -50,8 +50,8 @@ export function pageDesign(s: Settings, accent: AccentSpec | undefined): { class
   }
   const font = FONT_CHOICES.find((f) => f.id === s.font);
   if (font?.stack) style['--kr-font'] = font.stack;
-  return { className: font?.stack ? 'kr-font-override' : '', style: style as CSSProperties };
+  return { className: font?.stack ? 'kr-font-override' : '', style: style as CSSProperties, dir };
 }
 
 /** Changes whenever a design setting that affects measured heights changes. */
-export const designKey = (s: Settings) => `${s.font}|${s.textSize}|${s.spacing}`;
+export const designKey = (s: Settings, dir: 'ltr' | 'rtl' = 'ltr') => `${s.font}|${s.textSize}|${s.spacing}|${dir}`;

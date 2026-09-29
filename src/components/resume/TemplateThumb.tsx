@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { pageDesign, textFactor } from '@/lib/resume/design';
+import { resumeDir } from '@/lib/resume/direction';
 import { PAPER, PX_PER_MM } from '@/lib/resume/paper';
 import type { Resume } from '@/lib/resume/types';
 import type { TemplateDef } from '@/templates/types';
@@ -13,7 +14,7 @@ import { Page, wrapBlocks } from './usePagedLayout';
 export function TemplateThumb({ resume, template, width }: { resume: Resume; template: TemplateDef; width: number }) {
   const paper = PAPER[resume.settings.paper];
   const content = useMemo(() => template.build(resume), [template, resume]);
-  const design = useMemo(() => pageDesign(resume.settings, template.accent), [resume.settings, template]);
+  const design = useMemo(() => pageDesign(resume.settings, template.accent, resumeDir(resume)), [resume, template]);
   const zoom = width / (paper.width * PX_PER_MM);
   return (
     <div className="relative overflow-hidden bg-white" style={{ width, height: paper.height * PX_PER_MM * zoom }} aria-hidden="true">

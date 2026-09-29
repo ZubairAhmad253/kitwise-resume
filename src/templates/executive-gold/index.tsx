@@ -11,7 +11,7 @@ import './executive-gold.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections } from '../shared';
+import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 function build(r: Resume) {
@@ -58,7 +58,7 @@ function build(r: Resume) {
               {sec.items.map((it) => (
                 <p key={it.id}>
                   <strong>{it.title}</strong>
-                  {(it.subtitle || it.level > 0) && <em> — {it.subtitle || LEVEL_WORDS[it.level]}</em>}
+                  {(it.subtitle || it.level > 0) && <em> — {it.subtitle || tr(r, LEVEL_WORDS[it.level])}</em>}
                   {it.tags.length > 0 && <span className="eg-muted"> {it.tags.join(' · ')}</span>}
                 </p>
               ))}

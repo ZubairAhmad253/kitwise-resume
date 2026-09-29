@@ -12,7 +12,7 @@ import './curriculum-vitae.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections } from '../shared';
+import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 function build(r: Resume) {
@@ -25,7 +25,7 @@ function build(r: Resume) {
     <div className="cv-head">
       <h1 className="cv-name">{b.name || 'Your Name'}</h1>
       {b.headline && <p className="cv-headline">{b.headline}</p>}
-      <p className="cv-kicker">Curriculum Vitae</p>
+      <p className="cv-kicker">{tr(r, 'Curriculum Vitae')}</p>
     </div>
   );
 
@@ -36,7 +36,7 @@ function build(r: Resume) {
       standalone(
         'contact',
         <div>
-          <p className="cv-side-title">Contact</p>
+          <p className="cv-side-title">{tr(r, 'Contact')}</p>
           <ul className="cv-contact">
             {contacts.map((c) => (
               <li key={c.kind}>
@@ -55,7 +55,7 @@ function build(r: Resume) {
       standalone(
         'contents',
         <div>
-          <p className="cv-side-title">Contents</p>
+          <p className="cv-side-title">{tr(r, 'Contents')}</p>
           <ol className="cv-toc">
             {sections.map((s, i) => (
               <li key={s.id}>
@@ -85,7 +85,7 @@ function build(r: Resume) {
                 <div key={it.id} className="cv-row">
                   <p className="cv-when">{it.title}</p>
                   <div>
-                    {[it.subtitle || (it.level ? LEVEL_WORDS[it.level] : ''), it.tags.join(', ')].filter(Boolean).join('; ')}
+                    {[it.subtitle || (it.level ? tr(r, LEVEL_WORDS[it.level]) : ''), it.tags.join(', ')].filter(Boolean).join('; ')}
                     {it.description && <RichText source={it.description} className="cv-muted" />}
                   </div>
                 </div>

@@ -6,7 +6,7 @@
  */
 import { isSectionKind, KINDS } from './schema';
 import { defaultSettings, emptyBasics, emptyLetter, uid } from './defaults';
-import type { Basics, CoverLetter, DateFormat, FontChoice, Item, PaperSize, Resume, Section, Settings, Spacing, TextSize } from './types';
+import type { Basics, CoverLetter, DateFormat, FontChoice, Item, PaperSize, Resume, Section, Settings, Spacing, TextSize, Direction } from './types';
 
 const str = (v: unknown, max = 5000): string => (typeof v === 'string' ? v.slice(0, max) : typeof v === 'number' ? String(v) : '');
 const bool = (v: unknown, fallback: boolean): boolean => (typeof v === 'boolean' ? v : fallback);
@@ -27,6 +27,7 @@ const FORMATS: DateFormat[] = ['MMM YYYY', 'MM/YYYY', 'YYYY'];
 const FONTS: FontChoice[] = ['template', 'inter', 'jakarta', 'gelasio', 'garamond'];
 const SIZES: TextSize[] = ['S', 'M', 'L'];
 const SPACINGS: Spacing[] = ['compact', 'normal', 'relaxed'];
+const DIRECTIONS: Direction[] = ['auto', 'ltr', 'rtl'];
 
 function normalizeBasics(v: unknown): Basics {
   const o = obj(v);
@@ -84,6 +85,7 @@ function normalizeSettings(v: unknown): Settings {
     font: FONTS.includes(o.font as FontChoice) ? (o.font as FontChoice) : d.font,
     textSize: SIZES.includes(o.textSize as TextSize) ? (o.textSize as TextSize) : d.textSize,
     spacing: SPACINGS.includes(o.spacing as Spacing) ? (o.spacing as Spacing) : d.spacing,
+    direction: DIRECTIONS.includes(o.direction as Direction) ? (o.direction as Direction) : d.direction,
   };
 }
 

@@ -3,6 +3,7 @@
  * millimetres; templates style everything inside it under their own
  * class. The same markup is used for the preview and for printing.
  */
+@import './arabic-fonts.css';
 
 .kr-page {
   position: relative;
@@ -113,4 +114,23 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+}
+
+/*
+ * Right-to-left pages (dir="rtl" on .kr-page). Templates use logical
+ * properties (padding-inline-start…), so columns, rails and bullets
+ * mirror by themselves; these rules cover what doesn't.
+ */
+/* Arabic letters join up; letter-spacing would pull them apart. */
+.kr-page[dir='rtl'] *,
+.kr-page[dir='rtl'] *::before,
+.kr-page[dir='rtl'] *::after {
+  letter-spacing: 0 !important;
+}
+/* Emails, links and phone numbers stay left to right inside Arabic text. */
+.kr-page[dir='rtl'] a[href^='mailto:'],
+.kr-page[dir='rtl'] a[href^='tel:'],
+.kr-page[dir='rtl'] a[href^='http'] {
+  unicode-bidi: isolate;
+  direction: ltr;
 }

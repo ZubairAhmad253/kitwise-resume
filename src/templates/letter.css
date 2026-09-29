@@ -58,12 +58,12 @@
 }
 .kl .kl-body .rt-li {
   position: relative;
-  padding-left: 1.2em;
+  padding-inline-start: 1.2em;
 }
 .kl .kl-body .rt-li::before {
   content: '';
   position: absolute;
-  left: 0.3em;
+  inset-inline-start: 0.3em;
   top: 0.65em;
   width: 0.35em;
   height: 0.35em;

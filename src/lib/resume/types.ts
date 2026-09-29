@@ -72,6 +72,8 @@ export type DateFormat = 'MMM YYYY' | 'MM/YYYY' | 'YYYY';
 export type FontChoice = 'template' | 'inter' | 'jakarta' | 'gelasio' | 'garamond';
 export type TextSize = 'S' | 'M' | 'L';
 export type Spacing = 'compact' | 'normal' | 'relaxed';
+/** Text direction: 'auto' follows the resume's language. */
+export type Direction = 'auto' | 'ltr' | 'rtl';
 
 export interface Settings {
   template: string;
@@ -85,6 +87,7 @@ export interface Settings {
   font: FontChoice;
   textSize: TextSize;
   spacing: Spacing;
+  direction: Direction;
 }
 
 /**

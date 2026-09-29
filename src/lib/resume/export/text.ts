@@ -3,6 +3,7 @@
  * you to paste your CV, for email, and as a simple ATS-safe copy.
  */
 import { formatRange } from '../dates';
+import { isRtlContent } from '../direction';
 import { parseRichText, type Inline } from '../richtext';
 import { singleDate } from '../schema';
 import type { Item, Resume, Section } from '../types';
@@ -14,7 +15,7 @@ export const contactsOf = (r: Resume) => {
   return [b.email, b.phone, b.location, b.website, b.linkedin, b.github].filter(Boolean);
 };
 
-export const datesOf = (r: Resume, s: Section, it: Item) => formatRange(it.start, it.end, it.current, r.settings.dateFormat, singleDate(s.kind));
+export const datesOf = (r: Resume, s: Section, it: Item) => formatRange(it.start, it.end, it.current, r.settings.dateFormat, singleDate(s.kind), isRtlContent(r));
 
 /** Inline rich text as plain words: bold and italic dropped, links as "label (address)". */
 export function inlinePlain(nodes: Inline[], md = false): string {

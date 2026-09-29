@@ -10,7 +10,7 @@ import './medical-minimal.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections } from '../shared';
+import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 function build(r: Resume) {
@@ -38,7 +38,7 @@ function build(r: Resume) {
       key: 'contact',
       node: (
         <div className="mm-row mm-section-start">
-          <p className="mm-index">Contact</p>
+          <p className="mm-index">{tr(r, 'Contact')}</p>
           <ul className="mm-contact">
             {contacts.map((c) => (
               <li key={c.kind}>
@@ -55,7 +55,7 @@ function build(r: Resume) {
       standalone(
         'summary',
         <div className="mm-row mm-section-start">
-          <p className="mm-index">Profile</p>
+          <p className="mm-index">{tr(r, 'Profile')}</p>
           <RichText source={b.summary} className="mm-summary" />
         </div>,
       ),
@@ -82,7 +82,7 @@ function build(r: Resume) {
                 {sec.items.map((it) => (
                   <p key={it.id}>
                     <span className="mm-pair-key">{it.title}</span>
-                    <span>{[it.subtitle || (it.level ? LEVEL_WORDS[it.level] : ''), it.tags.join(', ')].filter(Boolean).join(' · ')}</span>
+                    <span>{[it.subtitle || (it.level ? tr(r, LEVEL_WORDS[it.level]) : ''), it.tags.join(', ')].filter(Boolean).join(' · ')}</span>
                   </p>
                 ))}
               </div>

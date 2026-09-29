@@ -44,6 +44,8 @@ const LIGATURES: Record<string, string> = { 'ﬁ': 'fi', 'ﬂ': 'fl', 'ﬀ': 'ff
 export const clean = (s: string) =>
   s
     .replace(/[ﬁﬂﬀﬃﬄﬅﬆ]/g, (c) => LIGATURES[c] ?? c)
+    // Arabic-Indic digits (٠١٢, Persian ۰۱۲) as 0-9, so dates and numbers read the same.
+    .replace(/[٠-٩۰-۹]/g, (d) => String(d.charCodeAt(0) & 0xf))
     .replace(/[​-‍﻿­]/g, '')
     .replace(/[ \t]+/g, ' ')
     .replace(/\s{2,}/g, ' ')
@@ -70,11 +72,14 @@ const stripBullet = (s: string) => s.replace(BULLET_RE, '').trim();
 /* ---------- dates ---------- */
 
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-const MONTH = '\\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\\.?';
+/** Arabic month names (Gregorian calendar), with and without hamza. */
+const AR_MONTHS = [['يناير'], ['فبراير'], ['مارس'], ['أبريل', 'ابريل', 'إبريل'], ['مايو'], ['يونيو'], ['يوليو'], ['أغسطس', 'اغسطس'], ['سبتمبر'], ['أكتوبر', 'اكتوبر'], ['نوفمبر'], ['ديسمبر']];
+// A letter lookbehind instead of \b, which doesn't see Arabic letters.
+const MONTH = `(?<![A-Za-z\\u0600-\\u06FF])(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?|${AR_MONTHS.flat().join('|')})\\.?`;
 const YEAR = '(?<!\\d)((?:19|20)\\d{2})(?!\\d)';
 const ONE = `(?:${MONTH}\\s*,?\\s*${YEAR}|(?<!\\d)(\\d{1,2})\\s*[/.-]\\s*${YEAR}|${YEAR})`;
-const NOW = '(present|current(?:ly)?|now|today|ongoing|till\\s+date|to\\s+date|date)';
-const RANGE_RE = new RegExp(`${ONE}\\s*(?:-|–|—|to|until|till|through)\\s*(?:${ONE}|${NOW})`, 'i');
+const NOW = '(present|current(?:ly)?|now|today|ongoing|till\\s+date|to\\s+date|date|حتى\\s+الآن|حتى\\s+الان|الآن|حاليًا|حاليا|حتى\\s+تاريخه)';
+const RANGE_RE = new RegExp(`${ONE}\\s*(?:-|–|—|to|until|till|through|إلى|الى)\\s*(?:${ONE}|${NOW})`, 'i');
 /** A piece of a date: "Sep 2020 –", "Oct 2015 – Aug", "2020", "Present". */
 const FRAG_RE = new RegExp(`^(?:(?:${MONTH}\\s*)?(?:(?:19|20)\\d{2})?\\s*(?:[-–—]|to)?\\s*(?:${MONTH}\\s*)?(?:(?:19|20)\\d{2})?|${NOW})$`, 'i');
 const SINGLE_RE = new RegExp(`(?:^|[\\s(,|])${ONE}(?=$|[\\s),|.])`, 'i');
@@ -82,7 +87,10 @@ const SINGLE_RE = new RegExp(`(?:^|[\\s(,|])${ONE}(?=$|[\\s),|.])`, 'i');
 /** One matched date → "YYYY-MM" or "YYYY". Groups: month name, year | month number, year | year. */
 function toDate(g: (string | undefined)[]): string {
   const [mName, y1, mNum, y2, y3] = g;
-  if (mName && y1) return `${y1}-${String(MONTHS.indexOf(mName.slice(0, 3).toLowerCase()) + 1).padStart(2, '0')}`;
+  if (mName && y1) {
+    const ar = AR_MONTHS.findIndex((names) => names.includes(mName));
+    return `${y1}-${String((ar >= 0 ? ar : MONTHS.indexOf(mName.slice(0, 3).toLowerCase())) + 1).padStart(2, '0')}`;
+  }
   if (mNum && y2 && Number(mNum) >= 1 && Number(mNum) <= 12) return `${y2}-${mNum.padStart(2, '0')}`;
   return y2 || y3 || '';
 }
@@ -127,6 +135,19 @@ const HEADINGS: [SectionKind | 'summary' | 'contact' | 'skip', string[]][] = [
   ['custom', ['teaching', 'teaching and mentoring', 'supervision', 'mentoring', 'invited talks', 'talks', 'presentations', 'conferences', 'conference presentations', 'service', 'professional service', 'memberships', 'professional memberships', 'affiliations', 'professional affiliations', 'interests', 'hobbies', 'hobbies and interests', 'additional information', 'other information', 'patents', 'exhibitions', 'clients', 'key achievements']],
   // A printed table of contents only repeats the section names.
   ['skip', ['contents', 'table of contents']],
+  // Arabic headings.
+  ['summary', ['الملخص', 'ملخص', 'نبذة', 'نبذة عني', 'نبذة مختصرة', 'الملف الشخصي', 'الملخص المهني', 'الهدف الوظيفي', 'الهدف المهني']],
+  ['experience', ['الخبرة العملية', 'الخبرات العملية', 'الخبرة', 'الخبرات', 'الخبرة المهنية', 'الخبرات المهنية', 'الخبرة الوظيفية', 'السجل الوظيفي', 'التدريب العملي']],
+  ['education', ['التعليم', 'المؤهلات العلمية', 'المؤهلات الأكاديمية', 'المؤهل العلمي', 'التحصيل العلمي', 'الدراسة']],
+  ['skills', ['المهارات', 'المهارات التقنية', 'المهارات الشخصية', 'المهارات الأساسية', 'الكفاءات']],
+  ['projects', ['المشاريع', 'المشروعات', 'أبرز المشاريع']],
+  ['certifications', ['الشهادات', 'الشهادات والرخص', 'الشهادات المهنية', 'الرخص', 'الدورات', 'الدورات التدريبية', 'الدورات والشهادات']],
+  ['languages', ['اللغات', 'اللغة']],
+  ['awards', ['الجوائز', 'الإنجازات', 'الجوائز والإنجازات', 'التكريمات']],
+  ['publications', ['المنشورات', 'الأبحاث', 'الأبحاث والمنشورات']],
+  ['volunteering', ['العمل التطوعي', 'التطوع', 'الأنشطة']],
+  ['references', ['المراجع', 'المعرفون']],
+  ['contact', ['التواصل', 'معلومات التواصل', 'بيانات التواصل', 'البيانات الشخصية', 'المعلومات الشخصية']],
 ];
 const HEADING_INDEX = new Map(HEADINGS.flatMap(([kind, names]) => names.map((n) => [n, kind] as const)));
 // Letter-spaced headings lose their word breaks ("CERTIFICATIONS&LICENCES"), so also match without spaces.
@@ -149,7 +170,7 @@ const headingKey = (s: string) =>
   s
     .toLowerCase()
     .replace(/[:：]\s*$/, '')
-    .replace(/[^a-z& ]/g, ' ')
+    .replace(/[^a-z&؀-ۿ ]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 

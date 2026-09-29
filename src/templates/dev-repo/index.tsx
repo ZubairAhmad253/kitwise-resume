@@ -10,7 +10,7 @@ import './dev-repo.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections } from '../shared';
+import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 /** Colours for the "main language" dot on project cards, picked by name. */
@@ -49,7 +49,7 @@ function build(r: Resume) {
             <span className="dr-owner">{owner(r)}</span>
             <span className="dr-slash">/</span>
             <strong>resume</strong>
-            <span className="dr-pill">Public</span>
+            <span className="dr-pill">{tr(r, 'Public')}</span>
           </p>
           <ul className="dr-tabs">
             <li className="on">README.md</li>
@@ -123,7 +123,7 @@ function build(r: Resume) {
                 {sec.items.map((it) => (
                   <span key={it.id} className="dr-lang">
                     <span className="dr-lang-dot" style={{ background: dotColour(it.title) }} />
-                    <strong>{it.title}</strong> <span className="dr-muted">{it.subtitle || LEVEL_WORDS[it.level]}</span>
+                    <strong>{it.title}</strong> <span className="dr-muted">{it.subtitle || tr(r, LEVEL_WORDS[it.level])}</span>
                   </span>
                 ))}
               </p>

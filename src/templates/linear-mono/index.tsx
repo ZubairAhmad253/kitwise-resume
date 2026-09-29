@@ -9,7 +9,7 @@ import './linear-mono.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, Level, sectionBlocks, standalone, UrlLink, visibleSections } from '../shared';
+import { contactLines, ContactValue, dateText, Level, sectionBlocks, standalone, UrlLink, visibleSections, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 const CARD_KINDS = new Set(['skills', 'languages']);
@@ -49,7 +49,7 @@ function build(r: Resume) {
       standalone(
         'summary',
         <div className="lm-row">
-          <p className="lm-label">Profile</p>
+          <p className="lm-label">{tr(r, 'Profile')}</p>
           <RichText source={b.summary} className="lm-summary" />
         </div>,
       ),

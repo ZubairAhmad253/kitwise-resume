@@ -19,18 +19,20 @@
 
 .t-code-block .cb-rail {
   position: absolute;
-  inset: 0 auto 0 0;
+  inset-block: 0;
+  inset-inline: 0 auto;
   width: 64mm;
   background: var(--cb-rail);
 }
 .t-code-block .kr-region-side {
   width: 64mm;
   flex: none;
-  padding: 0 6mm 0 8mm;
+  padding-block: 0 0;
+  padding-inline: 8mm 6mm;
   color: var(--cb-rail-text);
 }
 .t-code-block .kr-region-main {
-  padding-left: 9mm;
+  padding-inline-start: 9mm;
 }
 
 /* Spacing between blocks */
@@ -268,12 +270,12 @@
 }
 .t-code-block .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.2em;
+  padding-inline-start: 1.2em;
 }
 .t-code-block .kr-desc .rt-li::before {
   content: '>';
   position: absolute;
-  left: 0.1em;
+  inset-inline-start: 0.1em;
   top: 0;
   font-family: var(--cb-mono);
   font-weight: 700;

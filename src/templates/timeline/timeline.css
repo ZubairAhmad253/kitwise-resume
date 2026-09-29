@@ -20,9 +20,9 @@
   position: absolute;
   top: 14mm;
   bottom: 10mm;
-  margin-left: -0.75px;
+  margin-inline-start: -0.75px;
   /* A border, not a background: thin gradient backgrounds can drop out of printed PDFs. */
-  border-left: 1.5px solid var(--tl-line);
+  border-inline-start: 1.5px solid var(--tl-line);
 }
 /* On page 1 the line starts below the name. */
 .t-timeline .tl-line--first {
@@ -36,7 +36,7 @@
   column-gap: 8mm;
 }
 .t-timeline .kr-b--desc {
-  padding-left: 37mm;
+  padding-inline-start: 37mm;
 }
 
 /* Spacing between blocks */
@@ -96,7 +96,7 @@
 }
 
 .t-timeline .tl-side-label {
-  text-align: right;
+  text-align: end;
   font-family: var(--tl-head);
   font-size: 0.9em;
   text-transform: uppercase;
@@ -121,7 +121,7 @@
 .t-timeline .tl-title::before {
   content: '';
   position: absolute;
-  left: calc(-4mm - 0.3em);
+  inset-inline-start: calc(-4mm - 0.3em);
   top: 0.35em;
   width: 0.6em;
   height: 0.6em;
@@ -135,7 +135,7 @@
 }
 .t-timeline .tl-node {
   position: absolute;
-  left: calc(-4mm - 0.42em);
+  inset-inline-start: calc(-4mm - 0.42em);
   top: 0.3em;
   width: 0.84em;
   height: 0.84em;
@@ -144,7 +144,7 @@
   border: 2px solid var(--tl-accent);
 }
 .t-timeline .tl-when {
-  text-align: right;
+  text-align: end;
   font-size: 0.9em;
   padding-top: 0.1em;
 }
@@ -205,12 +205,12 @@
 }
 .t-timeline .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.1em;
+  padding-inline-start: 1.1em;
 }
 .t-timeline .kr-desc .rt-li::before {
   content: '';
   position: absolute;
-  left: 0.15em;
+  inset-inline-start: 0.15em;
   top: 0.62em;
   width: 0.5em;
   height: 1.5px;
