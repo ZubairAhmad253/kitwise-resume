@@ -177,3 +177,16 @@ When the domain is ready:
 | 11 | Site pages and SEO: template pages, resume examples, blog, legal pages | Done |
 | 12 | QA and launch prep | Done |
 | Later | Accounts and paid features (see PLAN-accounts.md) | |
+
+## Remaining work
+
+What's left, in order. Each part gets its own branch: push it, merge it into `main`, push `main`, then pull.
+
+1. **Domain:** buy it, add it in Vercel, then set `SITE_URL`. Until then, canonical links, the sitemap and the link-preview images in `public/og/` point to `example.com`.
+2. **Contact email:** replace `hello@example.com` in `src/config/site.ts`. It appears on the contact, privacy and terms pages.
+3. **Deploy on Vercel,** then submit `/sitemap-index.xml` in Google Search Console and Bing Webmaster Tools.
+4. **AdSense:** apply, set `PUBLIC_ADSENSE_CLIENT`, and paste each ad unit's ID into `AD_SLOTS`. Then turn on the consent message for EU and UK visitors. The builder page stays ad-free (`AD_PLACEMENTS_OFF`).
+5. **Legal review** of the privacy policy and terms (`src/pages/privacy.astro`, `terms.astro`).
+6. **Accounts and paid features:** follow [PLAN-accounts.md](PLAN-accounts.md). This needs a Supabase project, a payments account (Lemon Squeezy or Stripe), and a decision on which features are paid and their prices.
+7. **Optional:** better reading of Arabic PDF uploads. PDFs store right-to-left text in visual order, so it can come out jumbled. Arabic Word files, pasted text and backups already import cleanly.
+8. **After launch:** check the builder on the live site (import a PDF; download a PDF, a Word file and a backup). Then add templates, examples and blog posts based on Search Console data, and run `npm run og` after each one.
