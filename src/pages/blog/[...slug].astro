@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import AdSlot from '@/components/layout/AdSlot.astro';
 import PreviewScale from '@/components/site/PreviewScale.astro';
 import { PagePreview } from '@/components/site/PagePreview';
 import { SITE } from '@/config/site';
@@ -60,9 +61,11 @@ const jsonLd = [
       }
       {' '}· {minutes} min read
     </p>
+    <AdSlot placement="articleTop" height={100} class="mt-8" />
     <div class="prose-content mt-8">
       <Content />
     </div>
+    <AdSlot placement="articleEnd" height={250} class="mt-12" />
 
     {
       shown.length > 0 && (

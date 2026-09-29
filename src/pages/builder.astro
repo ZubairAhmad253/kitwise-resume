@@ -1,10 +1,13 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BuilderApp from '@/components/builder/BuilderApp';
+import AdSlot from '@/components/layout/AdSlot.astro';
 import { SITE } from '@/config/site';
 ---
 
 <BaseLayout title="Resume Builder" description={`Create your resume with ${SITE.name}: pick a template, fill in your details and download a PDF. Free, no sign-up.`} variant="app">
+  <!-- Reserved for a banner above the builder; switched off in AD_PLACEMENTS_OFF, so nothing renders for now. -->
+  <AdSlot placement="builder" height={90} class="mx-auto w-full max-w-[728px] shrink-0 py-1" />
   <!-- The builder reads and saves this browser's storage, so it renders only in the browser. -->
   <BuilderApp client:only="react">
     <div slot="fallback" class="grid h-full place-items-center p-8 text-center text-muted">Loading the resume builder…</div>

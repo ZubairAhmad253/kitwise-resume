@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import AdSlot from '@/components/layout/AdSlot.astro';
 import Icon from '@/components/ui/Icon.astro';
 import PreviewScale from '@/components/site/PreviewScale.astro';
 import { PagePreview } from '@/components/site/PagePreview';
@@ -71,6 +72,8 @@ const jsonLd = [
       <p class="mt-3 text-center text-xs text-muted">Shown with the {example.label.toLowerCase()} example. All names and details are made up.</p>
     </div>
   </section>
+
+  <AdSlot placement="template" height={100} class="mx-auto mt-12 w-[calc(100%-2rem)] max-w-[760px]" />
 
   <section class="container-page pt-16">
     <h2 class="text-xl font-bold tracking-tight">More templates</h2>

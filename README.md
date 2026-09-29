@@ -137,7 +137,7 @@ When the domain is ready:
 1. Add the domain in Vercel, then set `SITE_URL` (e.g. `https://kitwise.example`) in the project's environment variables and redeploy. Canonical links, the sitemap and link previews use it.
 2. Replace the placeholder email `hello@example.com` in `src/config/site.ts` (it appears on the contact, privacy and terms pages).
 3. Submit `/sitemap-index.xml` in Google Search Console and Bing Webmaster Tools.
-4. For ads: set `PUBLIC_ADSENSE_CLIENT`, and update the privacy page (cookies and consent) before switching them on.
+4. For ads: set `PUBLIC_ADSENSE_CLIENT`, create an ad unit for each placement and paste its ID into `AD_SLOTS` in `src/config/site.ts` (placements without an ID keep the "Advertisement" placeholder). Turn on Google's consent message (AdSense → Privacy & messaging) for visitors in the EU and UK. The builder placement is kept but switched off in `AD_PLACEMENTS_OFF`.
 5. Check the builder once on the live site: import a PDF, download a PDF, a Word file and a backup.
 
 ### Quality checks
