@@ -6,9 +6,9 @@ import { TemplateThumb } from '@/components/resume/TemplateThumb';
 import { getTemplate } from '@/templates';
 import { Icon } from './icons';
 
-type State = { step: 'pick' } | { step: 'reading'; name: string } | { step: 'review'; report: ImportReport; source: string } | { step: 'error'; message: string };
+type State = { step: 'pick' } | { step: 'reading'; name: string; note?: string } | { step: 'review'; report: ImportReport; source: string } | { step: 'error'; message: string };
 
-const ACCEPT = '.pdf,.docx,.txt,.md,.json,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain';
+const ACCEPT = '.pdf,.docx,.txt,.md,.json,.png,.jpg,.jpeg,.webp,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,image/*';
 
 /**
  * "Upload your CV": reads a PDF, Word or text file in the browser, shows
@@ -41,7 +41,7 @@ export function ImportDialog({ current, onApply, onClose }: { current: Resume; o
     if (!file) return;
     setState({ step: 'reading', name: file.name });
     try {
-      const result = await readCvFile(file);
+      const result = await readCvFile(file, (note) => setState({ step: 'reading', name: file.name, note }));
       if (result.kind === 'backup') {
         setState({ step: 'review', report: { resume: result.resume, found: ['A complete Kitwise backup: everything is restored exactly.'], warnings: [] }, source: file.name });
         return;
@@ -100,7 +100,7 @@ export function ImportDialog({ current, onApply, onClose }: { current: Resume; o
                   <Icon name="file" className="size-6" />
                 </span>
                 <p className="font-semibold">Drop your CV here</p>
-                <p className="max-w-md text-sm text-muted">PDF, Word (.docx) or text. We read it right here in your browser: the file never leaves your device.</p>
+                <p className="max-w-md text-sm text-muted">PDF, Word (.docx), text, or a photo or scan of a printed CV. We read it right here in your browser: the file never leaves your device.</p>
                 <button type="button" onClick={() => input.current?.click()} className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand px-4 text-sm font-semibold text-brand-fg hover:opacity-90">
                   <Icon name="upload" /> Choose a file
                 </button>
@@ -138,6 +138,7 @@ export function ImportDialog({ current, onApply, onClose }: { current: Resume; o
             <div className="flex flex-col items-center gap-3 py-16 text-center" aria-live="polite">
               <span className="size-8 animate-spin rounded-full border-2 border-brand border-t-transparent" />
               <p className="font-medium">Reading {state.name}…</p>
+              {state.note && <p className="text-sm text-muted">{state.note}</p>}
             </div>
           )}
 

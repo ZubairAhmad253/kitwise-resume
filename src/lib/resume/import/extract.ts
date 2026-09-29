@@ -6,6 +6,8 @@
 import { normalizeResume } from '../normalize';
 import type { Resume } from '../types';
 import { linesFromText, type SourceLine } from './parse';
+import { recognise, type Progress } from './ocr';
+import { cleanOcrText } from './ocr-clean';
 import { pdfDocLines } from './pdf-lines';
 
 export type ReadResult = { kind: 'lines'; lines: SourceLine[]; format: string } | { kind: 'backup'; resume: Resume };
@@ -14,7 +16,7 @@ export class ImportError extends Error {}
 
 const MAX_BYTES = 15 * 1024 * 1024;
 
-export async function readCvFile(file: File): Promise<ReadResult> {
+export async function readCvFile(file: File, progress: Progress = () => {}): Promise<ReadResult> {
   if (file.size > MAX_BYTES) throw new ImportError('That file is over 15 MB. Save a smaller copy (a PDF or Word file of your CV is usually under 1 MB).');
   const name = file.name.toLowerCase();
   const type = file.type;
@@ -23,12 +25,12 @@ export async function readCvFile(file: File): Promise<ReadResult> {
     if (!resume) throw new ImportError('That JSON file is not a Kitwise resume backup.');
     return { kind: 'backup', resume };
   }
-  if (name.endsWith('.pdf') || type === 'application/pdf') return { kind: 'lines', lines: await readPdf(file), format: 'PDF' };
+  if (name.endsWith('.pdf') || type === 'application/pdf') return readPdf(file, progress);
   if (name.endsWith('.docx') || type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') return { kind: 'lines', lines: await readDocx(file), format: 'Word' };
   if (name.endsWith('.doc')) throw new ImportError('Old Word files (.doc) can’t be read in the browser. In Word, choose File › Save As › Word Document (.docx) or PDF, then upload that.');
   if (/\.(txt|md|text)$/.test(name) || type.startsWith('text/')) return { kind: 'lines', lines: markdownish(await file.text()), format: 'text' };
-  if (type.startsWith('image/')) throw new ImportError('Photos and scans of a CV can’t be read as text. Upload the original PDF or Word file, or paste the text instead.');
-  throw new ImportError('Upload a PDF, Word (.docx) or text file.');
+  if (type.startsWith('image/') || /.(png|jpe?g|webp|bmp)$/.test(name)) return { kind: 'lines', lines: fromScan(await recognise([file], progress)), format: 'photo or scan' };
+  throw new ImportError('Upload a PDF, Word (.docx), text file or a photo of your CV.');
 }
 
 /** Plain text, treating Markdown "# Heading" and "- item" lines as headings and bullets. */
@@ -41,7 +43,14 @@ function markdownish(text: string): SourceLine[] {
 
 /* ---------- PDF ---------- */
 
-async function readPdf(file: File): Promise<SourceLine[]> {
+/** Recognised text as lines; OCR output has no layout information beyond line breaks. */
+function fromScan(text: string): SourceLine[] {
+  const lines = linesFromText(cleanOcrText(text));
+  if (lines.map((l) => l.text).join('').replace(/s/g, '').length < 40) throw new ImportError('We couldn’t read enough text in that image. Try a sharper, well-lit photo taken straight on, or upload the PDF or Word file.');
+  return lines;
+}
+
+async function readPdf(file: File, progress: Progress): Promise<ReadResult> {
   const pdfjs = await import('pdfjs-dist');
   const worker = await import('pdfjs-dist/build/pdf.worker.min.mjs?url');
   pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
@@ -52,8 +61,19 @@ async function readPdf(file: File): Promise<SourceLine[]> {
     throw new ImportError((e as Error)?.name === 'PasswordException' ? 'That PDF is password-protected. Save an unprotected copy and upload that.' : 'That PDF could not be opened. It may be damaged; try saving it again.');
   }
   const { lines, chars } = await pdfDocLines(doc);
-  if (chars < 40) throw new ImportError('This PDF has no selectable text, so it is probably a scan or an image. Upload the original Word file or a PDF exported from it.');
-  return lines;
+  if (chars >= 40) return { kind: 'lines', lines, format: 'PDF' };
+  // No text layer: a scanned PDF. Draw the pages and read them with text recognition.
+  const pages: HTMLCanvasElement[] = [];
+  for (let p = 1; p <= Math.min(doc.numPages, 3); p++) {
+    const page = await doc.getPage(p);
+    const viewport = page.getViewport({ scale: 2 });
+    const canvas = document.createElement('canvas');
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    await page.render({ canvas, viewport }).promise;
+    pages.push(canvas);
+  }
+  return { kind: 'lines', lines: fromScan(await recognise(pages, progress)), format: 'scanned PDF' };
 }
 
 /* ---------- Word ---------- */
