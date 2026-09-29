@@ -5,8 +5,8 @@
  * only when it isn't a resume at all.
  */
 import { isSectionKind, KINDS } from './schema';
-import { defaultSettings, emptyBasics, uid } from './defaults';
-import type { Basics, DateFormat, FontChoice, Item, PaperSize, Resume, Section, Settings, Spacing, TextSize } from './types';
+import { defaultSettings, emptyBasics, emptyLetter, uid } from './defaults';
+import type { Basics, CoverLetter, DateFormat, FontChoice, Item, PaperSize, Resume, Section, Settings, Spacing, TextSize } from './types';
 
 const str = (v: unknown, max = 5000): string => (typeof v === 'string' ? v.slice(0, max) : typeof v === 'number' ? String(v) : '');
 const bool = (v: unknown, fallback: boolean): boolean => (typeof v === 'boolean' ? v : fallback);
@@ -87,6 +87,24 @@ function normalizeSettings(v: unknown): Settings {
   };
 }
 
+function normalizeLetter(v: unknown): CoverLetter {
+  const o = obj(v);
+  const d = emptyLetter();
+  const pick = (k: keyof CoverLetter, max: number) => (typeof o[k] === 'string' ? str(o[k], max) : d[k]);
+  return {
+    date: pick('date', 60),
+    recipientName: pick('recipientName', 120),
+    recipientTitle: pick('recipientTitle', 120),
+    company: pick('company', 160),
+    address: pick('address', 400),
+    subject: pick('subject', 200),
+    greeting: pick('greeting', 120),
+    body: pick('body', 8000),
+    closing: pick('closing', 80),
+    signature: pick('signature', 120),
+  };
+}
+
 export function normalizeResume(input: unknown): Resume | null {
   const o = obj(input);
   // A resume needs at least a basics object or a sections array.
@@ -100,5 +118,6 @@ export function normalizeResume(input: unknown): Resume | null {
     basics: normalizeBasics(o.basics),
     sections: Array.isArray(o.sections) ? o.sections.slice(0, 40).map((s) => normalizeSection(s, seen)) : [],
     settings: normalizeSettings(o.settings),
+    letter: normalizeLetter(o.letter),
   };
 }

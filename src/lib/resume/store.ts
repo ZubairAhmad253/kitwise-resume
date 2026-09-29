@@ -3,13 +3,14 @@
  * in React state and saves it to localStorage (see useResume).
  */
 import { newItem, newSection, uid } from './defaults';
-import type { Basics, Item, Resume, Section, SectionKind, Settings } from './types';
+import type { Basics, CoverLetter, Item, Resume, Section, SectionKind, Settings } from './types';
 
 export type Action =
   | { type: 'replace'; resume: Resume }
   | { type: 'rename'; name: string }
   | { type: 'basics'; patch: Partial<Basics> }
   | { type: 'settings'; patch: Partial<Settings> }
+  | { type: 'letter'; patch: Partial<CoverLetter> }
   | { type: 'addSection'; kind: SectionKind; id?: string }
   | { type: 'updateSection'; id: string; patch: Partial<Pick<Section, 'title' | 'hidden'>> }
   | { type: 'removeSection'; id: string }
@@ -41,6 +42,8 @@ function apply(r: Resume, a: Action): Resume {
       return { ...r, basics: { ...r.basics, ...a.patch } };
     case 'settings':
       return { ...r, settings: { ...r.settings, ...a.patch } };
+    case 'letter':
+      return { ...r, letter: { ...r.letter, ...a.patch } };
     case 'addSection':
       return { ...r, sections: [...r.sections, newSection(a.kind, a.id ? { id: a.id } : {})] };
     case 'updateSection':

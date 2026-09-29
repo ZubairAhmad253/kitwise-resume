@@ -5,6 +5,7 @@
  */
 import { parseRichText, type Inline } from '../richtext';
 import type { Resume } from '../types';
+import { letterDate } from '../letters';
 import { contactsOf, datesOf, visibleSectionsOf } from './text';
 import { zip } from './zip';
 
@@ -40,7 +41,7 @@ function description(source: string): string {
     .join('');
 }
 
-function documentXml(r: Resume): string {
+function resumeBody(r: Resume): string[] {
   const b = r.basics;
   const body: string[] = [para(run(b.name || 'Your Name'), 'Title')];
   if (b.headline) body.push(para(run(b.headline), 'Subtitle'));
@@ -65,6 +66,27 @@ function documentXml(r: Resume): string {
       if (it.description) body.push(description(it.description));
     }
   }
+  return body;
+}
+
+function letterBody(r: Resume): string[] {
+  const b = r.basics;
+  const l = r.letter;
+  const body: string[] = [para(run(b.name || 'Your Name'), 'Title')];
+  if (b.headline) body.push(para(run(b.headline), 'Subtitle'));
+  if (contactsOf(r).length) body.push(para(run(contactsOf(r).join('  |  ')), 'Contact'));
+  body.push(para(run(letterDate(r))));
+  const to = [l.recipientName, l.recipientTitle, l.company, ...l.address.split('\n')].map((s) => s.trim()).filter(Boolean);
+  if (to.length) body.push(para(to.map((t, i) => (i ? `<w:r><w:br/></w:r>${run(t)}` : run(t))).join(''), undefined, '<w:spacing w:before="200" w:after="200"/>'));
+  if (l.subject) body.push(para(run(l.subject, '<w:b/>')));
+  if (l.greeting) body.push(para(run(l.greeting), undefined, '<w:spacing w:before="120" w:after="120"/>'));
+  body.push(description(l.body));
+  if (l.closing) body.push(para(run(l.closing), undefined, '<w:spacing w:before="240"/>'));
+  body.push(para(run(l.signature || b.name || 'Your Name', '<w:b/>'), undefined, '<w:spacing w:before="480"/>'));
+  return body;
+}
+
+function documentXml(r: Resume, body: string[]): string {
   const [w, h] = PAGES[r.settings.paper];
   const margin = 1020; // 18 mm
   return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -87,8 +109,10 @@ const STYLES = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 const NUMBERING = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:numbering xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:abstractNum w:abstractNumId="0"><w:multiLevelType w:val="singleLevel"/><w:lvl w:ilvl="0"><w:start w:val="1"/><w:numFmt w:val="bullet"/><w:lvlText w:val="•"/><w:lvlJc w:val="left"/><w:pPr><w:ind w:left="357" w:hanging="357"/></w:pPr><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/></w:rPr></w:lvl></w:abstractNum><w:num w:numId="1"><w:abstractNumId w:val="0"/></w:num></w:numbering>`;
 
-export function toDocx(r: Resume): Uint8Array {
-  const title = esc(r.basics.name ? `${r.basics.name} – Resume` : r.name);
+/** The resume, or its cover letter, as a Word file. */
+export function toDocx(r: Resume, doc: 'resume' | 'letter' = 'resume'): Uint8Array {
+  const what = doc === 'letter' ? 'Cover letter' : 'Resume';
+  const title = esc(r.basics.name ? `${r.basics.name} – ${what}` : r.name);
   return zip([
     {
       name: '[Content_Types].xml',
@@ -106,7 +130,7 @@ export function toDocx(r: Resume): Uint8Array {
       name: 'word/_rels/document.xml.rels',
       data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering" Target="numbering.xml"/></Relationships>`,
     },
-    { name: 'word/document.xml', data: documentXml(r) },
+    { name: 'word/document.xml', data: documentXml(r, doc === 'letter' ? letterBody(r) : resumeBody(r)) },
     { name: 'word/styles.xml', data: STYLES },
     { name: 'word/numbering.xml', data: NUMBERING },
   ]);

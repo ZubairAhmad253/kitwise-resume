@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { toDocx } from '@/lib/resume/export/docx';
-import { toMarkdown, toPlainText } from '@/lib/resume/export/text';
+import { toLetterText, toMarkdown, toPlainText } from '@/lib/resume/export/text';
+import { letterDate } from '@/lib/resume/letters';
 import type { LibraryEntry } from '@/lib/resume/library';
 import { normalizeResume } from '@/lib/resume/normalize';
 import { SAMPLES } from '@/lib/resume/samples';
@@ -72,11 +73,27 @@ export interface LibraryActions {
   remove: (id: string) => void;
 }
 
-export function Toolbar({ resume, dispatch, savedAt, saveError, lib }: { resume: Resume; dispatch: (a: Action) => void; savedAt: Date | null; saveError: boolean; lib: LibraryActions }) {
+export function Toolbar({
+  resume,
+  dispatch,
+  savedAt,
+  saveError,
+  lib,
+  doc = 'resume',
+}: {
+  resume: Resume;
+  dispatch: (a: Action) => void;
+  savedAt: Date | null;
+  saveError: boolean;
+  lib: LibraryActions;
+  /** The document open in the builder; downloads export this one. */
+  doc?: 'resume' | 'letter';
+}) {
   const file = useRef<HTMLInputElement>(null);
   const [notice, setNotice] = useState('');
   const [importing, setImporting] = useState(false);
-  const base = slug(resume.basics.name || resume.name);
+  const letter = doc === 'letter';
+  const base = `${slug(resume.basics.name || resume.name)}${letter ? '-cover-letter' : ''}`;
 
   // Links like /builder?import=1 open the importer straight away.
   useEffect(() => {
@@ -217,21 +234,22 @@ export function Toolbar({ resume, dispatch, savedAt, saveError, lib }: { resume:
         <Menu label="File" icon={<Icon name="download" />}>
           {(close) => (
             <>
-              <p className="px-3 pt-1 pb-1 text-xs font-semibold tracking-wide text-muted uppercase">Download as</p>
-              <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), download(toDocx(resume) as BlobPart, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', `${base}.docx`))}>
+              <p className="px-3 pt-1 pb-1 text-xs font-semibold tracking-wide text-muted uppercase">Download {letter ? 'cover letter' : 'resume'} as</p>
+              <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), download(toDocx(resume, doc) as BlobPart, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', `${base}.docx`))}>
                 <Icon name="file" className="mt-0.5 size-4 shrink-0" />
                 <span>
                   <span className="block font-medium">Word document (.docx)</span>
                   <span className="block text-xs text-muted">A simple, editable version for employers who ask for Word.</span>
                 </span>
               </button>
-              <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), download(toPlainText(resume), 'text/plain;charset=utf-8', `${base}.txt`))}>
+              <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), download(letter ? toLetterText(resume, letterDate(resume)) : toPlainText(resume), 'text/plain;charset=utf-8', `${base}.txt`))}>
                 <Icon name="file" className="mt-0.5 size-4 shrink-0" />
                 <span>
                   <span className="block font-medium">Plain text (.txt)</span>
                   <span className="block text-xs text-muted">For job sites that ask you to paste your CV.</span>
                 </span>
               </button>
+              {!letter && (
               <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), download(toMarkdown(resume), 'text/markdown;charset=utf-8', `${base}.md`))}>
                 <Icon name="file" className="mt-0.5 size-4 shrink-0" />
                 <span>
@@ -239,6 +257,7 @@ export function Toolbar({ resume, dispatch, savedAt, saveError, lib }: { resume:
                   <span className="block text-xs text-muted">For GitHub profiles, portfolios and notes apps.</span>
                 </span>
               </button>
+              )}
               <div className="mt-1 border-t border-line pt-1">
                 <button type="button" role="menuitem" className={menuItem} onClick={() => (close(), download(JSON.stringify(resume, null, 2), 'application/json', `${base}-kitwise-resume.json`))}>
                   <Icon name="download" className="mt-0.5 size-4 shrink-0" />
