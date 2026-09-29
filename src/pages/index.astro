@@ -28,6 +28,7 @@ const points = [
   { icon: 'layout', title: 'Modern templates', text: 'Designs made for your field, from software and engineering to healthcare, logistics and finance.' },
   { icon: 'file', title: 'A4, US Letter or Legal', text: 'See real pages as you type, with clean page breaks and space at the top of every new page.' },
   { icon: 'download', title: 'Free PDF download', text: 'Text stays selectable and readable by applicant tracking systems (ATS). No watermark.' },
+  { icon: 'file', title: 'Matching cover letter', text: 'Write the letter next to your resume, in the same design, with starter letters to adapt.' },
   { icon: 'upload', title: 'Bring your old CV', text: 'Upload a PDF or Word CV and it fills the editor for you, ready for any template.' },
   { icon: 'lock', title: 'Private by design', text: 'No sign-up. Your resume and any file you import stay in your own browser.' },
 ];
@@ -55,7 +56,7 @@ const steps = [
     </div>
   </section>
 
-  <section class="container-page grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+  <section class="container-page grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {
       points.map((p) => (
         <div class="card p-5">

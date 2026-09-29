@@ -87,6 +87,28 @@ export interface Settings {
   spacing: Spacing;
 }
 
+/**
+ * The cover letter that goes with a resume. It shares the resume's
+ * contact details, template and design settings, so the two match.
+ */
+export interface CoverLetter {
+  /** As written on the letter, e.g. "29 September 2026"; '' shows today's date. */
+  date: string;
+  recipientName: string;
+  recipientTitle: string;
+  company: string;
+  /** Postal or office address, one line per part. */
+  address: string;
+  /** Optional subject line, e.g. "Application for Senior Nurse (ref. 1234)". */
+  subject: string;
+  greeting: string;
+  /** Rich text (see richtext.ts). */
+  body: string;
+  closing: string;
+  /** Name under the closing; '' uses the resume's name. */
+  signature: string;
+}
+
 export interface Resume {
   version: 1;
   id: string;
@@ -96,4 +118,5 @@ export interface Resume {
   basics: Basics;
   sections: Section[];
   settings: Settings;
+  letter: CoverLetter;
 }

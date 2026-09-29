@@ -1,0 +1,80 @@
+/*
+ * Cover letter layout. Scoped under `.kr-page.kl`, so it wins over the
+ * template's base size while keeping its fonts. The accent comes from
+ * --kl-accent (the template's colour or the user's). Sizes are in em.
+ */
+.kr-page.kl {
+  font-size: calc(10.5pt * var(--kr-scale));
+  line-height: 1.55;
+  color: #222;
+}
+.kr-page.kl .kr-region-main {
+  padding: 0;
+}
+.kl .kl-head {
+  padding-bottom: 0.9em;
+  margin-bottom: 1.8em;
+  border-bottom: 2px solid var(--kl-accent);
+}
+.kl .kl-name {
+  font-size: 2.1em;
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--kl-accent);
+}
+.kl .kl-headline {
+  margin-top: 0.2em;
+  font-size: 1.05em;
+  color: #444;
+}
+.kl .kl-contact {
+  margin-top: 0.5em;
+  font-size: 0.88em;
+  color: #555;
+  overflow-wrap: anywhere;
+}
+.kl .kl-sep {
+  color: #aaa;
+}
+.kl .kl-date {
+  margin-bottom: 1.3em;
+  color: #444;
+}
+.kl .kl-to {
+  margin-bottom: 1.5em;
+}
+.kl .kl-line {
+  display: block;
+}
+.kl .kl-subject {
+  margin-bottom: 1.2em;
+  font-weight: 700;
+}
+.kl .kl-greeting {
+  margin-bottom: 0.9em;
+}
+.kl .kl-body {
+  margin-bottom: calc(0.9em * var(--kr-space));
+}
+.kl .kl-body .rt-li {
+  position: relative;
+  padding-left: 1.2em;
+}
+.kl .kl-body .rt-li::before {
+  content: '';
+  position: absolute;
+  left: 0.3em;
+  top: 0.65em;
+  width: 0.35em;
+  height: 0.35em;
+  border-radius: 50%;
+  background: var(--kl-accent);
+}
+.kl .kl-sign {
+  margin-top: 1.2em;
+}
+.kl .kl-signature {
+  margin-top: 2.2em;
+  font-weight: 700;
+  color: var(--kl-accent);
+}

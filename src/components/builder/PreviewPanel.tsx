@@ -5,6 +5,7 @@ import type { Action } from '@/lib/resume/store';
 import type { PaperSize, Resume } from '@/lib/resume/types';
 import { usePagedLayout } from '@/components/resume/usePagedLayout';
 import { getTemplate } from '@/templates';
+import { letterTemplateFor } from '@/templates/letter';
 import { DesignPanel } from './DesignPanel';
 import { ReviewPanel } from './ReviewPanel';
 import { TemplateGallery } from './TemplateGallery';
@@ -14,11 +15,11 @@ const PAD = 32;
 const GAP = 24;
 
 /** Opens the browser's print dialog, where "Save as PDF" makes the file. */
-function downloadPdf(resume: Resume) {
+function downloadPdf(resume: Resume, what: string) {
   const before = document.title;
   const who = resume.basics.name.trim();
   // Browsers use the page title as the suggested PDF file name.
-  document.title = `${who ? `${who} – ` : ''}Resume`.replace(/[\\/:*?"<>|]+/g, '');
+  document.title = `${who ? `${who} – ` : ''}${what}`.replace(/[\\/:*?"<>|]+/g, '');
   const restore = () => {
     document.title = before;
     window.removeEventListener('afterprint', restore);
@@ -27,8 +28,10 @@ function downloadPdf(resume: Resume) {
   window.print();
 }
 
-export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (a: Action) => void }) {
-  const template = getTemplate(resume.settings.template);
+export function PreviewPanel({ resume, dispatch, doc = 'resume' }: { resume: Resume; dispatch: (a: Action) => void; doc?: 'resume' | 'letter' }) {
+  const base = getTemplate(resume.settings.template);
+  // The letter uses the same template's fonts and colours (letterTemplateFor caches, so identity is stable).
+  const template = doc === 'letter' ? letterTemplateFor(base) : base;
   const layout = usePagedLayout(resume, template, resume.settings.fitOnePage);
   const box = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState(0.7);
@@ -83,7 +86,7 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
         >
           <Icon name="grid" className="size-4 shrink-0 text-muted" />
           <span className="truncate">
-            {template.number}. {template.name}
+            {base.number}. {base.name}
           </span>
           <Icon name="chevron" className="size-3.5 shrink-0 text-muted" />
         </button>
@@ -96,6 +99,7 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
         >
           <Icon name="palette" /> Design
         </button>
+        {doc === 'resume' && (
         <button
           type="button"
           onClick={() => toggle('check')}
@@ -105,6 +109,7 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
         >
           <Icon name="check" /> Check
         </button>
+        )}
         <div className="flex overflow-hidden rounded-lg border border-line" role="radiogroup" aria-label="Paper size">
           {PAPER_SIZES.map((p: PaperSize) => (
             <button
@@ -129,7 +134,7 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
         </span>
         <div className="ml-auto flex items-center gap-2">
           <span className="hidden text-xs text-muted xl:inline">Choose “Save as PDF” in the print window</span>
-          <button type="button" onClick={() => downloadPdf(resume)} className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-brand px-3.5 text-sm font-semibold text-brand-fg hover:opacity-90">
+          <button type="button" onClick={() => downloadPdf(resume, doc === 'letter' ? 'Cover letter' : 'Resume')} className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-brand px-3.5 text-sm font-semibold text-brand-fg hover:opacity-90">
             <Icon name="download" /> Download PDF
           </button>
         </div>
@@ -137,7 +142,7 @@ export function PreviewPanel({ resume, dispatch }: { resume: Resume; dispatch: (
 
       {panel && (
         <div id="kr-panel">
-          {panel === 'design' ? <DesignPanel resume={resume} template={template} dispatch={dispatch} /> : <ReviewPanel resume={resume} pageCount={layout.pageCount} />}
+          {panel === 'check' && doc === 'resume' ? <ReviewPanel resume={resume} pageCount={layout.pageCount} /> : <DesignPanel resume={resume} template={base} dispatch={dispatch} />}
         </div>
       )}
 

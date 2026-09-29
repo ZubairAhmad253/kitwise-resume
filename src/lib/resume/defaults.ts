@@ -1,5 +1,5 @@
 import { KINDS } from './schema';
-import type { Basics, Item, Resume, Section, SectionKind, Settings } from './types';
+import type { Basics, CoverLetter, Item, Resume, Section, SectionKind, Settings } from './types';
 
 /** Short random id; unique enough for items within one resume. */
 export function uid(prefix = 'i'): string {
@@ -59,6 +59,19 @@ export const newSection = (kind: SectionKind, patch: Partial<Section> = {}): Sec
 });
 
 /** A blank resume with the sections almost everyone needs. */
+export const emptyLetter = (): CoverLetter => ({
+  date: '',
+  recipientName: '',
+  recipientTitle: '',
+  company: '',
+  address: '',
+  subject: '',
+  greeting: 'Dear Hiring Manager,',
+  body: '',
+  closing: 'Kind regards,',
+  signature: '',
+});
+
 export const emptyResume = (): Resume => ({
   version: 1,
   id: uid('r'),
@@ -67,4 +80,5 @@ export const emptyResume = (): Resume => ({
   basics: emptyBasics(),
   sections: [newSection('experience'), newSection('education'), newSection('skills')],
   settings: defaultSettings(),
+  letter: emptyLetter(),
 });

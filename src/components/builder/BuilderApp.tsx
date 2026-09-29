@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { guessField } from '@/lib/resume/assist/phrases';
 import { AddSection } from './AddSection';
 import { BasicsEditor } from './BasicsEditor';
+import { LetterEditor } from './LetterEditor';
 import { PhraseFieldContext } from './PhrasePicker';
 import { PreviewPanel } from './PreviewPanel';
 import { SectionEditor } from './SectionEditor';
@@ -12,6 +13,8 @@ import { useResume } from './useResume';
 export default function BuilderApp() {
   const { resume, dispatch, savedAt, saveError, library, open, create, duplicate, remove } = useResume();
   const [tab, setTab] = useState<'edit' | 'preview'>('edit');
+  // Which document is open: the resume or its cover letter (same design, same details).
+  const [doc, setDoc] = useState<'resume' | 'letter'>(() => (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('doc') === 'letter' ? 'letter' : 'resume'));
   const [justAdded, setJustAdded] = useState<string | null>(null);
   const field = useMemo(() => guessField(resume), [resume]);
   const sections = useReorder((from, to) => dispatch({ type: 'moveSection', from, to }));
@@ -26,7 +29,7 @@ export default function BuilderApp() {
   return (
     <PhraseFieldContext.Provider value={field}>
       <div className="flex h-full flex-col">
-        <Toolbar resume={resume} dispatch={dispatch} savedAt={savedAt} saveError={saveError} lib={{ library, open, create, duplicate, remove }} />
+        <Toolbar resume={resume} dispatch={dispatch} savedAt={savedAt} saveError={saveError} lib={{ library, open, create, duplicate, remove }} doc={doc} />
 
         <div className="flex border-b border-line bg-surface lg:hidden" role="tablist">
           {(['edit', 'preview'] as const).map((t) => (
@@ -39,6 +42,17 @@ export default function BuilderApp() {
         <div className="grid min-h-0 flex-1 lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)]">
           <div className={`min-h-0 overflow-y-auto border-line bg-bg lg:border-r ${tab === 'edit' ? '' : 'hidden lg:block'}`}>
             <div className="space-y-4 p-3 sm:p-5">
+              <div className="flex rounded-xl border border-line bg-surface p-1" role="tablist" aria-label="Document">
+                {(['resume', 'letter'] as const).map((d) => (
+                  <button key={d} type="button" role="tab" aria-selected={doc === d} onClick={() => setDoc(d)} className={`flex-1 rounded-lg py-2 text-sm font-semibold ${doc === d ? 'bg-brand text-brand-fg' : 'text-muted hover:text-fg'}`}>
+                    {d === 'resume' ? 'Resume' : 'Cover letter'}
+                  </button>
+                ))}
+              </div>
+              {doc === 'letter' ? (
+                <LetterEditor resume={resume} dispatch={dispatch} />
+              ) : (
+                <>
               <div className="card p-4">
                 <p className="mb-4 font-semibold">Personal details</p>
                 <BasicsEditor basics={resume.basics} onChange={(patch) => dispatch({ type: 'basics', patch })} />
@@ -49,11 +63,13 @@ export default function BuilderApp() {
                 </div>
               ))}
               <AddSection resume={resume} dispatch={dispatch} onAdded={setJustAdded} />
+                </>
+              )}
             </div>
           </div>
 
           <div className={`min-h-0 ${tab === 'preview' ? '' : 'hidden lg:block'}`}>
-            <PreviewPanel resume={resume} dispatch={dispatch} />
+            <PreviewPanel resume={resume} dispatch={dispatch} doc={doc} />
           </div>
         </div>
       </div>

@@ -63,6 +63,22 @@ export function toPlainText(r: Resume): string {
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
 
+/** The cover letter as plain text, ready to paste into an email or job site. */
+export function toLetterText(r: Resume, date: string): string {
+  const b = r.basics;
+  const l = r.letter;
+  const out: string[] = [b.name, b.headline, contactsOf(r).join(' | '), '', date, ''];
+  const to = [l.recipientName, l.recipientTitle, l.company, ...l.address.split('\n')].map((s) => s.trim()).filter(Boolean);
+  if (to.length) out.push(...to, '');
+  if (l.subject) out.push(l.subject, '');
+  if (l.greeting) out.push(l.greeting, '');
+  for (const p of descriptionLines(l.body, '• ')) out.push(p, '');
+  out.push(l.closing, '', l.signature || b.name);
+  // No double blank lines (a missing headline or subject leaves gaps).
+  const lines = out.filter((x, i, a) => !(x === '' && a[i - 1] === ''));
+  return `${lines.join('\n').trim()}\n`;
+}
+
 export function toMarkdown(r: Resume): string {
   const b = r.basics;
   const out: string[] = [`# ${b.name || 'Your Name'}`];

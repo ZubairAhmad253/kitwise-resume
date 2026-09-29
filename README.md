@@ -107,6 +107,10 @@ The review screen shows what was found and a preview in the user's current templ
 
 To check the importer against real files, put PDFs in a folder and run `CV_FIXTURES=<folder> npx vitest run pdf-fixtures --silent=false` (add `CV_LINES=1` to see the rebuilt lines).
 
+### Cover letters
+
+Every resume has a cover letter (**Resume / Cover letter** switch above the editor, or `/builder?doc=letter`). It reuses the resume's name, contact details, template, colours, typeface and paper, so the two always match (`src/templates/letter.tsx` renders it inside the chosen template's style scope, through the same page engine). The editor has recipient fields, a greeting that follows the recipient's name, three starter letters with [placeholders] (`src/lib/resume/letters.ts`), and the File menu downloads the open document as PDF, Word or plain text.
+
 ### Writing helpers
 
 - **Ideas** (on the summary and on experience, project and volunteering descriptions) inserts ready-made wording from `src/lib/resume/assist/phrases.ts`: bullet points and summary starters for 12 fields, with the parts to personalise in [square brackets]. The field is guessed from the job title.
@@ -164,4 +168,4 @@ When the domain is ready:
 | 10 | Multiple resumes and more exports | Done |
 | 11 | Site pages and SEO: template pages, resume examples, blog, legal pages | Done |
 | 12 | QA and launch prep | Done |
-| Later | Cover letters, Arabic (right-to-left), ads, accounts and paid features | |
+| Later | Arabic (right-to-left), accounts and paid features | |
