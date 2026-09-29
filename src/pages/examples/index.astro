@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import AdSlot from '@/components/layout/AdSlot.astro';
 import PreviewScale from '@/components/site/PreviewScale.astro';
 import { PagePreview } from '@/components/site/PagePreview';
 import { SAMPLES } from '@/lib/resume/samples';
@@ -41,5 +42,6 @@ const description = 'Real-world resume and CV examples for software engineers, g
       })
     }
   </ul>
+  <AdSlot placement="examples" height={100} class="mx-auto mt-12 w-[calc(100%-2rem)] max-w-[760px]" />
   <PreviewScale />
 </BaseLayout>

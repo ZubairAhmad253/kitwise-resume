@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import AdSlot from '@/components/layout/AdSlot.astro';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 const fmt = (d: Date) => d.toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -27,5 +28,6 @@ const fmt = (d: Date) => d.toLocaleDateString('en', { year: 'numeric', month: 'l
         ))
       }
     </ul>
+    <AdSlot placement="blog" height={100} class="mx-auto mt-8 max-w-[760px]" />
   </section>
 </BaseLayout>

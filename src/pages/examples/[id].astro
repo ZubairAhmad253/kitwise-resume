@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import AdSlot from '@/components/layout/AdSlot.astro';
 import Icon from '@/components/ui/Icon.astro';
 import PreviewScale from '@/components/site/PreviewScale.astro';
 import { PagePreview } from '@/components/site/PagePreview';
@@ -60,6 +61,8 @@ const jsonLd = [
           ))
         }
       </ul>
+
+      <AdSlot placement="example" height={250} class="mt-10" />
 
       {
         field && (

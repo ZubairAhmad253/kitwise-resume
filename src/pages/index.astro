@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Icon from '@/components/ui/Icon.astro';
+import AdSlot from '@/components/layout/AdSlot.astro';
 import PreviewScale from '@/components/site/PreviewScale.astro';
 import { PagePreview } from '@/components/site/PagePreview';
 import { SITE } from '@/config/site';
@@ -103,6 +104,8 @@ const steps = [
     </ul>
     <p class="mt-6"><a href="/templates" class="font-semibold text-brand hover:underline">See all {TEMPLATES.length} templates →</a></p>
   </section>
+
+  <AdSlot placement="home" height={100} class="mx-auto mt-12 w-[calc(100%-2rem)] max-w-[760px]" />
 
   <section id="how-it-works" class="container-page scroll-mt-24 pt-20">
     <h2 class="text-2xl font-bold tracking-tight">How it works</h2>

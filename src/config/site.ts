@@ -18,3 +18,25 @@ export const SITE = {
 } as const;
 
 export const ADSENSE_CLIENT = import.meta.env.PUBLIC_ADSENSE_CLIENT ?? '';
+
+/**
+ * Ad placements. Paste each AdSense ad unit ID here once the account is
+ * approved; until then every placement shows a light "Advertisement"
+ * placeholder. Placements listed in AD_PLACEMENTS_OFF are kept in the code
+ * but render nothing (the builder stays ad-free for now).
+ */
+export const AD_SLOTS = {
+  home: '',
+  templates: '',
+  template: '',
+  examples: '',
+  example: '',
+  blog: '',
+  articleTop: '',
+  articleEnd: '',
+  builder: '',
+} as const;
+
+export type AdPlacement = keyof typeof AD_SLOTS;
+
+export const AD_PLACEMENTS_OFF: readonly AdPlacement[] = ['builder'];
