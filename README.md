@@ -96,10 +96,11 @@ Every Kitwise site shares the mark (three white tiles and one round teal "key");
 
 ### Importing an existing CV
 
-"Import CV" in the builder (or `/builder?import=1`) reads a PDF, Word (.docx) or text file, or pasted text, in the browser: nothing is uploaded. The code is in `src/lib/resume/import/`:
+"Import CV" in the builder (or `/builder?import=1`) reads a PDF, Word (.docx) or text file, a photo or scan of a printed CV, or pasted text, in the browser: nothing is uploaded. The code is in `src/lib/resume/import/`:
 
 - `extract.ts` reads the file (pdf.js for PDF, mammoth for Word; both load only when a file is chosen).
 - `pdf-lines.ts` rebuilds lines from a PDF's positioned text: two-column layouts are read one column at a time (main text first, sidebar after), a box beside the name is read separately, letter-spacing is undone and wrapped lines are joined.
+- `ocr.ts` reads photos and scanned PDFs (no text layer) with tesseract.js, loaded only when needed; its engine and English data download from a CDN the first time. `ocr-clean.ts` tidies the recognised text (drawn heading rules, misread bullet dots, stray icon letters, decorative stripes).
 - `parse.ts` turns lines into a resume: section headings, contact details, date ranges, entries (title, employer, place, dates, bullets), skills groups and languages.
 
 The review screen shows what was found and a preview in the user's current template; their template, paper and design settings are kept.

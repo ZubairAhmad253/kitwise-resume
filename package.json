@@ -47,7 +47,8 @@
     "mammoth": "^1.13.0",
     "pdfjs-dist": "^6.3.289",
     "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react-dom": "^19.3.0",
+    "tesseract.js": "^7.0.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

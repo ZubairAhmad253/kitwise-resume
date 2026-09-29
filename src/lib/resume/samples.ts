@@ -220,7 +220,7 @@ export const SAMPLES: Sample[] = [
         email: 'sara.almansoori@example.com',
         phone: '+974 5550 3030',
         location: 'Doha, Qatar',
-        summary: 'Board-certified internist with 12 years of clinical practice and a special interest in diabetes and cardiometabolic care. Experienced in residency teaching and quality-improvement programmes.',
+        summary: 'Board-certified internist with 12 years of clinical practice and a special interest in diabetes and cardiometabolic care.',
       },
       sections: [
         sec('certifications', [
@@ -244,12 +244,10 @@ export const SAMPLES: Sample[] = [
           { title: 'MBBS', subtitle: 'Weill Cornell Medicine – Qatar', start: '2006', end: '2012' },
         ]),
         sec('skills', [
-          { title: 'Clinical', tags: ['Diabetes management', 'Cardiometabolic care', 'Acute medicine', 'Point-of-care ultrasound'] },
-          { title: 'Teaching & quality', tags: ['Resident supervision', 'Quality improvement', 'Clinical audit'] },
+          { title: 'Clinical', tags: ['Diabetes management', 'Cardiometabolic care', 'Acute medicine', 'Point-of-care ultrasound', 'Quality improvement'] },
         ], 'Clinical skills'),
         sec('publications', [
           { title: 'Early insulin titration in hospitalised patients with type 2 diabetes', subtitle: 'Gulf Journal of Medicine', start: '2022', description: 'Al-Mansoori S, Haddad R, Patel K.' },
-          { title: 'Discharge planning and readmissions in general medicine', subtitle: 'Qatar Medical Review', start: '2020' },
         ]),
         sec('languages', [
           { title: 'Arabic', subtitle: 'Native', level: 5 },
