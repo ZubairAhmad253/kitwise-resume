@@ -1,0 +1,79 @@
+---
+/**
+ * 1200×630 link-preview cards, one per template, example and blog post.
+ * Only built when OG_CARDS=1: `npm run og` builds them, screenshots each
+ * into public/og/<slug>.jpg and the normal build leaves them out.
+ */
+import { getCollection } from 'astro:content';
+import '@/styles/global.css';
+import PreviewScale from '@/components/site/PreviewScale.astro';
+import { PagePreview } from '@/components/site/PagePreview';
+import { SAMPLES } from '@/lib/resume/samples';
+import { EXAMPLE_NOTES, previewResume } from '@/lib/site/catalog';
+import { getTemplate, TEMPLATES } from '@/templates';
+import type { Resume } from '@/lib/resume/types';
+import type { TemplateDef } from '@/templates/types';
+
+interface Card {
+  kicker: string;
+  title: string;
+  resume: Resume;
+  template: TemplateDef;
+}
+
+export async function getStaticPaths() {
+  if (process.env.OG_CARDS !== '1') return [];
+  const cards: { params: { slug: string }; props: Card }[] = [];
+  for (const t of TEMPLATES) cards.push({ params: { slug: `template-${t.id}` }, props: { kicker: `Template ${t.number} · ${t.category}`, title: `${t.name} resume template`, resume: previewResume(t), template: t } });
+  for (const s of SAMPLES) {
+    const r = s.build();
+    cards.push({ params: { slug: `example-${s.id}` }, props: { kicker: 'Resume example', title: EXAMPLE_NOTES[s.id].title, resume: r, template: getTemplate(r.settings.template) } });
+  }
+  for (const post of await getCollection('blog', ({ data }) => !data.draft)) {
+    const t = getTemplate(post.data.templates[0] ?? 'corporate');
+    cards.push({ params: { slug: `blog-${post.id}` }, props: { kicker: 'Resume advice', title: post.data.title, resume: previewResume(t), template: t } });
+  }
+  return cards;
+}
+
+const { kicker, title, resume, template } = Astro.props as Card;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display:flex;width:1200px;height:630px;background:linear-gradient(135deg,#eef2ff,#f8fafc 60%);font-family:'Inter Variable',Inter,Arial,sans-serif;color:#0f172a">
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:64px 56px 56px 72px">
+        <div style="display:flex;align-items:center;gap:14px;font-size:28px;font-weight:700">
+          <img src="/favicon.svg" width="44" height="44" alt="" />
+          <span>Kitwise <span style="font-weight:400;color:#475569">Resume</span></span>
+        </div>
+        <div>
+          <p style="margin:0 0 16px;font-size:24px;font-weight:600;color:#4f46e5">{kicker}</p>
+          <h1 style="margin:0;font-size:60px;line-height:1.08;font-weight:800;letter-spacing:-0.02em">{title}</h1>
+        </div>
+        <p style="margin:0;font-size:24px;color:#475569">Free builder · PDF and Word · No sign-up</p>
+      </div>
+      <div style="width:430px;padding-top:56px;padding-right:64px">
+        <div style="width:430px;box-shadow:0 20px 50px rgb(15 23 42/0.25);border-radius:6px 6px 0 0;overflow:hidden">
+          <PagePreview resume={resume} template={template} zoom={0.54} />
+        </div>
+      </div>
+    </div>
+    <PreviewScale />
+  </body>
+</html>

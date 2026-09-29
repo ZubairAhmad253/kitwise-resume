@@ -44,7 +44,7 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout title={title} description={description} type="article" jsonLd={jsonLd}>
+<BaseLayout title={title} description={description} image={`/og/blog-${post.id}.jpg`} type="article" jsonLd={jsonLd}>
   <article class="container-page max-w-3xl pt-8">
     <nav aria-label="Breadcrumb" class="text-sm text-muted"><a href="/blog" class="hover:text-fg">Resume advice</a></nav>
     <h1 class="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl">{title}</h1>

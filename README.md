@@ -107,6 +107,10 @@ The review screen shows what was found and a preview in the user's current templ
 
 To check the importer against real files, put PDFs in a folder and run `CV_FIXTURES=<folder> npx vitest run pdf-fixtures --silent=false` (add `CV_LINES=1` to see the rebuilt lines).
 
+### Link-preview images
+
+Each template, example and blog post has its own 1200×630 card in `public/og/`, shown when a link is shared on WhatsApp, LinkedIn or X. After adding a template, example or post, run `npm run og` (it needs Edge or Chrome installed). It builds the cards from `src/pages/og-card` and saves a screenshot of each one; the normal build leaves the card pages out.
+
 ### Arabic and right-to-left
 
 A resume written mostly in Arabic (or Urdu, Persian, Hebrew) is laid out right to left automatically; Design > Text direction can force either way. Templates use logical CSS properties, so columns, rails and bullets mirror. Arabic resumes get Arabic labels, month names and "حتى الآن", and Design offers one-click Arabic section headings. Noto Sans Arabic and Noto Naskh Arabic are registered under each template font name for Arabic characters only (`src/styles/arabic-fonts.css`), so they download only when needed. The importer understands Arabic headings, month names and Arabic-Indic digits. There is an Arabic example at `/examples/arabic`.
