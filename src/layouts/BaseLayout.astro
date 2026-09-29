@@ -52,15 +52,10 @@ const ogImage = new URL(image ?? SITE.ogImage, Astro.site).href;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    {
-      !image && (
-        <>
-          <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" />
-          <meta property="og:image:alt" content={`${SITE.name}: ${SITE.tagline}`} />
-        </>
-      )
-    }
+    {/* The default card and the per-page ones (from `npm run og`) are all 1200×630. */}
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={image ? fullTitle : `${SITE.name}: ${SITE.tagline}`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
 
