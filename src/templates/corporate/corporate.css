@@ -14,7 +14,8 @@
 
 .t-corporate .c-rail {
   position: absolute;
-  inset: 0 auto 0 0;
+  inset-block: 0;
+  inset-inline: 0 auto;
   width: 64mm;
   background: var(--c-rail);
 }
@@ -22,10 +23,11 @@
 .t-corporate .kr-region-side {
   width: 64mm;
   flex: none;
-  padding: 0 7mm 0 10mm;
+  padding-block: 0 0;
+  padding-inline: 10mm 7mm;
 }
 .t-corporate .kr-region-main {
-  padding-left: 9mm;
+  padding-inline-start: 9mm;
 }
 
 /* Spacing between blocks */
@@ -194,12 +196,12 @@
 }
 .t-corporate .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.1em;
+  padding-inline-start: 1.1em;
 }
 .t-corporate .kr-desc .rt-li::before {
   content: '';
   position: absolute;
-  left: 0.2em;
+  inset-inline-start: 0.2em;
   top: 0.62em;
   width: 0.34em;
   height: 0.34em;

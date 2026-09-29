@@ -68,9 +68,9 @@
 .t-startup .kr-region-side {
   width: 58mm;
   flex: none;
-  margin-left: 7mm;
-  padding-left: 6mm;
-  border-left: 1px solid var(--su-rule);
+  margin-inline-start: 7mm;
+  padding-inline-start: 6mm;
+  border-inline-start: 1px solid var(--su-rule);
 }
 
 /* Spacing between blocks */
@@ -164,19 +164,19 @@
   padding: 0.7em 0.9em 0.75em;
   border-radius: 0.7em;
   background: var(--su-tone-bg);
-  border-left: 0.3em solid var(--su-tone-fg);
+  border-inline-start: 0.3em solid var(--su-tone-fg);
 }
 .t-startup .su-project-desc {
   margin-top: 0.3em;
 }
 .t-startup .su-project-desc .rt-li {
   position: relative;
-  padding-left: 1em;
+  padding-inline-start: 1em;
 }
 .t-startup .su-project-desc .rt-li::before {
   content: '•';
   position: absolute;
-  left: 0.1em;
+  inset-inline-start: 0.1em;
   color: var(--su-tone-fg);
 }
 
@@ -262,12 +262,12 @@
 }
 .t-startup .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.15em;
+  padding-inline-start: 1.15em;
 }
 .t-startup .kr-desc .rt-li::before {
   content: '';
   position: absolute;
-  left: 0.15em;
+  inset-inline-start: 0.15em;
   top: 0.5em;
   width: 0.45em;
   height: 0.45em;

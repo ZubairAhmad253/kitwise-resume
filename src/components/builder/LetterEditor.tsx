@@ -42,7 +42,7 @@ export function LetterEditor({ resume, dispatch }: { resume: Resume; dispatch: (
           <label htmlFor={addressId} className="mb-1.5 block text-sm font-medium">
             Address <span className="font-normal text-muted">(optional)</span>
           </label>
-          <textarea
+          <textarea dir="auto"
             id={addressId}
             rows={2}
             value={l.address}

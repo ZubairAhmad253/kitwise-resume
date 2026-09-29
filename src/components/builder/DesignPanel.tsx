@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react';
 import { ACCENT_SWATCHES, FONT_CHOICES, SPACINGS, TEXT_SIZES } from '@/lib/resume/design';
+import { AR_SECTION_TITLES, isRtlContent, resumeDir } from '@/lib/resume/direction';
+import { KINDS } from '@/lib/resume/schema';
 import type { Action } from '@/lib/resume/store';
-import type { DateFormat, Resume, Settings } from '@/lib/resume/types';
+import type { DateFormat, Direction, Resume, Settings } from '@/lib/resume/types';
 import type { TemplateDef } from '@/templates/types';
 import { Icon } from './icons';
 
@@ -9,6 +11,12 @@ const DATE_FORMATS: { id: DateFormat; label: string }[] = [
   { id: 'MMM YYYY', label: 'Mar 2024' },
   { id: 'MM/YYYY', label: '03/2024' },
   { id: 'YYYY', label: '2024' },
+];
+
+const DIRECTIONS: { id: Direction; label: string }[] = [
+  { id: 'auto', label: 'Auto' },
+  { id: 'ltr', label: 'Left to right' },
+  { id: 'rtl', label: 'Right to left' },
 ];
 
 function Row({ label, children }: { label: string; children: ReactNode }) {
@@ -59,6 +67,12 @@ export function DesignPanel({ resume, template, dispatch }: { resume: Resume; te
     </button>
   );
   const custom = s.accent && !ACCENT_SWATCHES.includes(s.accent);
+  const dir = resumeDir(resume);
+  // Sections still called by their English default name ("Experience"…).
+  const englishTitles = resume.sections.filter((x) => x.title === KINDS[x.kind].label && x.title !== AR_SECTION_TITLES[x.kind]);
+  const arabicHeadings = () => {
+    for (const x of englishTitles) dispatch({ type: 'updateSection', id: x.id, patch: { title: AR_SECTION_TITLES[x.kind] } });
+  };
 
   return (
     <div className="grid gap-4 border-b border-line bg-surface px-3 py-3 sm:grid-cols-2 sm:px-4 xl:grid-cols-3">
@@ -91,6 +105,20 @@ export function DesignPanel({ resume, template, dispatch }: { resume: Resume; te
       </Row>
       <Row label="Dates">
         <Segmented label="Date format" value={s.dateFormat} options={DATE_FORMATS} onChange={(v) => set({ dateFormat: v })} />
+      </Row>
+      <Row label="Text direction">
+        <Segmented label="Text direction" value={s.direction} options={DIRECTIONS} onChange={(v) => set({ direction: v })} />
+        <span className="text-xs text-muted">
+          {s.direction === 'auto' ? `Follows your writing: ${dir === 'rtl' ? 'right to left (Arabic)' : 'left to right'} now.` : 'For Arabic, Urdu or Hebrew resumes, choose right to left.'}
+          {dir === 'rtl' && isRtlContent(resume) && englishTitles.length > 0 && (
+            <>
+              {' '}
+              <button type="button" onClick={arabicHeadings} className="font-medium text-brand underline underline-offset-2">
+                Use Arabic section headings
+              </button>
+            </>
+          )}
+        </span>
       </Row>
       <Row label="Photo">
         <label className={`inline-flex items-center gap-2 text-sm ${resume.basics.photo ? 'cursor-pointer' : 'text-muted'}`}>

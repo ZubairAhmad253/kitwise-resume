@@ -35,7 +35,7 @@
   height: auto;
   aspect-ratio: 1;
   object-fit: cover;
-  border-left: 1.5px solid var(--tm-frame);
+  border-inline-start: 1.5px solid var(--tm-frame);
 }
 .t-tech-matrix .tm-cell-label {
   font-family: var(--tm-mono);
@@ -65,13 +65,13 @@
 }
 .t-tech-matrix .tm-contact li {
   padding: 0.4em var(--tm-pad) 0.45em;
-  border-right: 1px solid var(--tm-rule);
+  border-inline-end: 1px solid var(--tm-rule);
   border-bottom: 1px solid var(--tm-rule);
   overflow-wrap: anywhere;
   min-width: 0;
 }
 .t-tech-matrix .tm-contact li:nth-child(3n) {
-  border-right: 0;
+  border-inline-end: 0;
 }
 .t-tech-matrix .tm-contact-value {
   overflow-wrap: normal;
@@ -85,8 +85,8 @@
 
 /* Framed sections: every block carries the side borders, so a section is one box. */
 .t-tech-matrix .kr-b {
-  border-left: 1px solid var(--tm-frame);
-  border-right: 1px solid var(--tm-frame);
+  border-inline-start: 1px solid var(--tm-frame);
+  border-inline-end: 1px solid var(--tm-frame);
 }
 .t-tech-matrix .kr-b--item,
 .t-tech-matrix .kr-b--desc {
@@ -104,7 +104,7 @@
   border-top-color: transparent;
 }
 .t-tech-matrix .kr-b--desc {
-  padding-left: calc(var(--tm-pad) + var(--tm-col) + 1.6em);
+  padding-inline-start: calc(var(--tm-pad) + var(--tm-col) + 1.6em);
   padding-top: calc(0.2em * var(--kr-space));
 }
 .t-tech-matrix .kr-end-item {
@@ -206,8 +206,9 @@
   border-top: 1px dashed var(--tm-rule);
 }
 .t-tech-matrix .tm-grid-key {
-  padding: 0.5em 0.8em 0.5em var(--tm-pad);
-  border-right: 1px solid var(--tm-rule);
+  padding-block: 0.5em 0.5em;
+  padding-inline: var(--tm-pad) 0.8em;
+  border-inline-end: 1px solid var(--tm-rule);
   font-family: var(--tm-mono);
   font-size: 0.9em;
   font-weight: 700;
@@ -218,10 +219,11 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.3em;
-  padding: 0.45em var(--tm-pad) 0.45em 0.8em;
+  padding-block: 0.45em 0.45em;
+  padding-inline: 0.8em var(--tm-pad);
 }
 .t-tech-matrix .tm-grid-sub {
-  margin-right: 0.4em;
+  margin-inline-end: 0.4em;
 }
 .t-tech-matrix .tm-grid-desc {
   flex-basis: 100%;
@@ -246,16 +248,21 @@
 }
 .t-tech-matrix .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.2em;
+  padding-inline-start: 1.2em;
 }
 .t-tech-matrix .kr-desc .rt-li::before {
   content: '+';
   position: absolute;
-  left: 0.1em;
+  inset-inline-start: 0.1em;
   font-family: var(--tm-mono);
   font-weight: 700;
   color: var(--tm-accent);
 }
 .t-tech-matrix .tm-summary .rt-p + .rt-p {
   margin-top: 0.4em;
+}
+/* Right to left: the column rule measures from the right edge. */
+.t-tech-matrix[dir='rtl'] .kr-b--item,
+.t-tech-matrix[dir='rtl'] .kr-b--desc {
+  background-position: right calc(var(--tm-pad) + var(--tm-col) + 0.8em) top 0;
 }

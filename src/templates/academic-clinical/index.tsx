@@ -11,7 +11,7 @@ import './academic-clinical.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, sectionBlocks, standalone, UrlLink, visibleSections } from '../shared';
+import { contactLines, ContactValue, dateText, sectionBlocks, standalone, UrlLink, visibleSections, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 function build(r: Resume) {
@@ -47,7 +47,7 @@ function build(r: Resume) {
           </div>
           {badge && credSection && (
             <div className="ac-badge">
-              <p className="ac-badge-label">Registration</p>
+              <p className="ac-badge-label">{tr(r, 'Registration')}</p>
               <p className="ac-badge-title">{badge.title}</p>
               {badge.subtitle && <p className="ac-badge-sub">{badge.subtitle}</p>}
               {badge.description && <RichText source={badge.description} className="ac-badge-no" />}

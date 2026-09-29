@@ -37,7 +37,7 @@ export function TextField({
       <Label htmlFor={id} hint={hint}>
         {label}
       </Label>
-      <input id={id} type={type} value={value} placeholder={placeholder} autoComplete={autoComplete ?? 'off'} onChange={(e) => onChange(e.target.value)} className={inputCls} />
+      <input id={id} type={type} dir="auto" value={value} placeholder={placeholder} autoComplete={autoComplete ?? 'off'} onChange={(e) => onChange(e.target.value)} className={inputCls} />
     </div>
   );
 }
@@ -114,7 +114,7 @@ export function TagsField({ label, value, onChange, placeholder }: { label: stri
       <Label htmlFor={id} hint="Separate with commas">
         {label}
       </Label>
-      <input
+      <input dir="auto"
         id={id}
         value={shown}
         placeholder={placeholder}
@@ -226,7 +226,7 @@ export function RichTextField({
           </button>
           {ideas && <PhrasePicker kind={ideas} onInsert={(idea) => onChange(insertIdea(value, idea, ideas))} />}
         </div>
-        <textarea
+        <textarea dir="auto"
           ref={ref}
           id={id}
           rows={rows}

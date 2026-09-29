@@ -84,7 +84,7 @@ export function SectionEditor({
         <span {...dragHandle} className="grid size-8 cursor-grab place-items-center rounded-lg text-muted hover:bg-surface active:cursor-grabbing" title="Drag to reorder" aria-hidden="true">
           <Icon name="grip" />
         </span>
-        <input
+        <input dir="auto"
           aria-label="Section title"
           value={section.title}
           onChange={(e) => dispatch({ type: 'updateSection', id: section.id, patch: { title: e.target.value } })}

@@ -166,11 +166,11 @@
 }
 .t-academic-clinical .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.1em;
+  padding-inline-start: 1.1em;
 }
 .t-academic-clinical .kr-desc .rt-li::before {
   content: '•';
   position: absolute;
-  left: 0.25em;
+  inset-inline-start: 0.25em;
   color: var(--ac-accent);
 }

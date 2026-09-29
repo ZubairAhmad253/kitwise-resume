@@ -33,7 +33,7 @@
   margin-bottom: calc(0.7em * var(--kr-space));
 }
 .t-portfolio .kr-b--desc {
-  padding-left: calc(var(--pf-when) + 1em);
+  padding-inline-start: calc(var(--pf-when) + 1em);
 }
 
 /* Header */
@@ -154,12 +154,12 @@
 }
 .t-portfolio .pf-card-desc .rt-li {
   position: relative;
-  padding-left: 0.9em;
+  padding-inline-start: 0.9em;
 }
 .t-portfolio .pf-card-desc .rt-li::before {
   content: '–';
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
 }
 .t-portfolio .pf-tags {
   display: flex;
@@ -230,12 +230,12 @@
 }
 .t-portfolio .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.1em;
+  padding-inline-start: 1.1em;
 }
 .t-portfolio .kr-desc .rt-li::before {
   content: '';
   position: absolute;
-  left: 0.1em;
+  inset-inline-start: 0.1em;
   top: 0.62em;
   width: 0.55em;
   height: 2px;

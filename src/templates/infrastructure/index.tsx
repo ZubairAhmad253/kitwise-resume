@@ -13,7 +13,7 @@ import './infrastructure.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections } from '../shared';
+import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 function build(r: Resume) {
@@ -63,7 +63,7 @@ function build(r: Resume) {
                 <div key={it.id} className="is-spec-row">
                   <p className="is-spec-key">{it.title}</p>
                   <div className="is-spec-val">
-                    {[it.subtitle || (it.level ? LEVEL_WORDS[it.level] : ''), it.tags.join(', ')].filter(Boolean).join(' · ')}
+                    {[it.subtitle || (it.level ? tr(r, LEVEL_WORDS[it.level]) : ''), it.tags.join(', ')].filter(Boolean).join(' · ')}
                     {it.description && <RichText source={it.description} className="is-muted" />}
                   </div>
                 </div>
@@ -84,12 +84,12 @@ function build(r: Resume) {
                     <p className="is-sheet-role">
                       {it.subtitle && (
                         <>
-                          <span className="is-key">Role</span> {it.subtitle}
+                          <span className="is-key">{tr(r, 'Role')}</span> {it.subtitle}
                         </>
                       )}
                       {it.location && (
                         <>
-                          <span className="is-key">Site</span> {it.location}
+                          <span className="is-key">{tr(r, 'Site')}</span> {it.location}
                         </>
                       )}
                     </p>

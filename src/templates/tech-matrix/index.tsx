@@ -10,7 +10,7 @@ import './tech-matrix.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, Level, sectionBlocks, standalone, UrlLink, visibleSections } from '../shared';
+import { contactLines, ContactValue, dateText, Level, sectionBlocks, standalone, UrlLink, visibleSections, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 const GRID_KINDS = new Set(['skills', 'languages']);
@@ -27,7 +27,7 @@ function build(r: Resume) {
         <div className="tm-head">
           <div className="tm-head-top">
             <div className="tm-head-name">
-              <p className="tm-cell-label">Name</p>
+              <p className="tm-cell-label">{tr(r, 'Name')}</p>
               <h1 className="tm-name">{b.name || 'Your Name'}</h1>
               {b.headline && <p className="tm-headline">{b.headline}</p>}
             </div>
@@ -55,7 +55,7 @@ function build(r: Resume) {
       standalone(
         'summary',
         <div className="tm-summary">
-          <p className="tm-cell-label">Profile</p>
+          <p className="tm-cell-label">{tr(r, 'Profile')}</p>
           <RichText source={b.summary} />
         </div>,
       ),

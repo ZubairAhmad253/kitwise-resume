@@ -9,7 +9,7 @@ import './timeline.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, Level, sectionBlocks, standalone, UrlLink, visibleSections } from '../shared';
+import { contactLines, ContactValue, dateText, Level, sectionBlocks, standalone, UrlLink, visibleSections, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 /** Page left margin and the line's distance from it, in mm (the CSS uses the same numbers). */
@@ -50,7 +50,7 @@ function build(r: Resume) {
       standalone(
         'summary',
         <div className="tl-row">
-          <p className="tl-side-label">Profile</p>
+          <p className="tl-side-label">{tr(r, 'Profile')}</p>
           <RichText source={b.summary} className="tl-summary" />
         </div>,
       ),

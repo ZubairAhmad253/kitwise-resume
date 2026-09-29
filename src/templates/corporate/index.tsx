@@ -8,7 +8,7 @@ import './corporate.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, Level, sectionBlocks, splitSections, standalone } from '../shared';
+import { contactLines, ContactValue, dateText, Level, sectionBlocks, splitSections, standalone, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 const SIDE_KINDS = ['skills', 'languages', 'certifications', 'awards'] as const;
@@ -29,7 +29,7 @@ function build(r: Resume) {
       standalone(
         'contact',
         <div>
-          <h3 className="c-side-title">Contact</h3>
+          <h3 className="c-side-title">{tr(r, 'Contact')}</h3>
           <ul className="c-contact">
             {contacts.map((c) => (
               <li key={c.kind}>

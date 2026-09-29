@@ -5,6 +5,7 @@ import '@fontsource-variable/plus-jakarta-sans';
 import '@fontsource-variable/gelasio';
 import '@fontsource-variable/eb-garamond';
 import { designKey, pageDesign, textFactor } from '@/lib/resume/design';
+import { resumeDir } from '@/lib/resume/direction';
 import { paginate } from '@/lib/resume/paginate';
 import { PAPER } from '@/lib/resume/paper';
 import type { Resume } from '@/lib/resume/types';
@@ -33,9 +34,13 @@ export function Page({ template, paperWidth, height, pageIndex, scale, header, r
   const m = template.margins;
   const style = { ...design.style, width: `${paperWidth}mm`, height: height === 'measure' ? '4000mm' : `${height}mm`, '--kr-scale': scale } as CSSProperties;
   return (
-    <div className={`kr-page ${template.className} ${design.className}`} style={style} data-page={pageIndex + 1}>
+    <div className={`kr-page ${template.className} ${design.className}`} style={style} data-page={pageIndex + 1} dir={design.dir}>
       {template.decor && <div className="kr-decor">{template.decor(pageIndex)}</div>}
-      <div className="kr-body" style={{ padding: `${pageIndex === 0 ? m.top : m.topNext}mm ${m.right}mm ${m.bottom}mm ${m.left}mm` }}>
+      {/* Logical sides, so a right-to-left page mirrors its margins too. */}
+      <div
+        className="kr-body"
+        style={{ paddingTop: `${pageIndex === 0 ? m.top : m.topNext}mm`, paddingBottom: `${m.bottom}mm`, paddingInlineStart: `${m.left}mm`, paddingInlineEnd: `${m.right}mm` }}
+      >
         {pageIndex === 0 && header && <div className="kr-header">{header}</div>}
         <div className="kr-cols">
           {template.regions.map((id) => (
@@ -82,10 +87,11 @@ export interface PagedLayout {
 export function usePagedLayout(resume: Resume, template: TemplateDef, fit: boolean): PagedLayout {
   const paper = PAPER[resume.settings.paper];
   const content = useMemo(() => template.build(resume), [template, resume]);
-  const design = useMemo(() => pageDesign(resume.settings, template.accent), [resume.settings, template]);
+  const dir = resumeDir(resume);
+  const design = useMemo(() => pageDesign(resume.settings, template.accent, dir), [resume.settings, template, dir]);
   // The Design panel's text size multiplies the fit-to-page scale.
   const base = textFactor(resume.settings);
-  const dKey = designKey(resume.settings);
+  const dKey = designKey(resume.settings, dir);
   const [scale, setScale] = useState(1);
   const [layout, setLayout] = useState<{ pages: Partial<Record<RegionId, number[][]>>; count: number; scale: number } | null>(null);
   const [fontTick, setFontTick] = useState(0);

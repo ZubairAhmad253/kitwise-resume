@@ -10,7 +10,7 @@ import './bento.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, splitSections, UrlLink } from '../shared';
+import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, splitSections, UrlLink, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 const SIDE_KINDS = ['skills', 'languages', 'certifications', 'awards'] as const;
@@ -45,7 +45,7 @@ function build(r: Resume) {
       )}
       {b.summary && (
         <div className="bn-tile bn-tile--summary">
-          <p className="bn-label">Profile</p>
+          <p className="bn-label">{tr(r, 'Profile')}</p>
           <RichText source={b.summary} />
         </div>
       )}
@@ -110,7 +110,7 @@ function build(r: Resume) {
                 <div key={it.id}>
                   <p className="bn-side-title">
                     {it.title}
-                    {(it.subtitle || it.level > 0) && <span className="bn-muted"> · {it.subtitle || LEVEL_WORDS[it.level]}</span>}
+                    {(it.subtitle || it.level > 0) && <span className="bn-muted"> · {it.subtitle || tr(r, LEVEL_WORDS[it.level])}</span>}
                   </p>
                   {it.tags.length > 0 && (
                     <p className="bn-pills">

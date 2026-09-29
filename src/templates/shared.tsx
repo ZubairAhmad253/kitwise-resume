@@ -4,6 +4,7 @@
  */
 import type { ReactNode } from 'react';
 import { formatRange } from '@/lib/resume/dates';
+import { isRtlBasics, isRtlContent, label } from '@/lib/resume/direction';
 import { parseRichText, type Block as RtBlock } from '@/lib/resume/richtext';
 import { singleDate } from '@/lib/resume/schema';
 import type { Basics, Item, Resume, Section, SectionKind } from '@/lib/resume/types';
@@ -19,7 +20,10 @@ export function splitSections(r: Resume, sideKinds: SectionKind[]) {
   return { side: all.filter((s) => sideKinds.includes(s.kind)), main: all.filter((s) => !sideKinds.includes(s.kind)) };
 }
 
-export const dateText = (r: Resume, s: Section, it: Item) => formatRange(it.start, it.end, it.current, r.settings.dateFormat, singleDate(s.kind));
+export const dateText = (r: Resume, s: Section, it: Item) => formatRange(it.start, it.end, it.current, r.settings.dateFormat, singleDate(s.kind), isRtlContent(r));
+
+/** A label the template prints itself ("Profile", "Contact"…), in Arabic when the resume is. */
+export const tr = (r: Resume, text: string) => label(isRtlContent(r), text);
 
 export interface ContactLine {
   kind: 'email' | 'phone' | 'location' | 'website' | 'linkedin' | 'github';
@@ -33,12 +37,13 @@ const bare = (v: string) => v.replace(/^https?:\/\//i, '').replace(/\/$/, '');
 
 export function contactLines(b: Basics): ContactLine[] {
   const out: ContactLine[] = [];
-  if (b.email) out.push({ kind: 'email', label: 'Email', value: b.email, href: `mailto:${b.email}` });
-  if (b.phone) out.push({ kind: 'phone', label: 'Phone', value: b.phone, href: `tel:${b.phone.replace(/[^\d+]/g, '')}` });
-  if (b.location) out.push({ kind: 'location', label: 'Location', value: b.location });
-  if (b.website) out.push({ kind: 'website', label: 'Website', value: bare(b.website), href: withScheme(b.website) });
-  if (b.linkedin) out.push({ kind: 'linkedin', label: 'LinkedIn', value: bare(b.linkedin), href: withScheme(b.linkedin) });
-  if (b.github) out.push({ kind: 'github', label: 'GitHub', value: bare(b.github), href: withScheme(b.github) });
+  const ar = isRtlBasics(b);
+  if (b.email) out.push({ kind: 'email', label: label(ar, 'Email'), value: b.email, href: `mailto:${b.email}` });
+  if (b.phone) out.push({ kind: 'phone', label: label(ar, 'Phone'), value: b.phone, href: `tel:${b.phone.replace(/[^\d+]/g, '')}` });
+  if (b.location) out.push({ kind: 'location', label: label(ar, 'Location'), value: b.location });
+  if (b.website) out.push({ kind: 'website', label: label(ar, 'Website'), value: bare(b.website), href: withScheme(b.website) });
+  if (b.linkedin) out.push({ kind: 'linkedin', label: label(ar, 'LinkedIn'), value: bare(b.linkedin), href: withScheme(b.linkedin) });
+  if (b.github) out.push({ kind: 'github', label: label(ar, 'GitHub'), value: bare(b.github), href: withScheme(b.github) });
   return out;
 }
 

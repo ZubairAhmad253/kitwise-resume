@@ -29,7 +29,7 @@
   margin-bottom: calc(1.35em * var(--kr-space));
 }
 .t-linear-mono .kr-b--desc {
-  padding-left: var(--lm-gutter);
+  padding-inline-start: var(--lm-gutter);
 }
 
 /* Header */
@@ -72,7 +72,7 @@
   display: inline-block;
   width: 0.45em;
   height: 0.45em;
-  margin-right: 0.55em;
+  margin-inline-end: 0.55em;
   vertical-align: 0.1em;
   background: var(--lm-ink);
 }
@@ -95,7 +95,7 @@
   font-size: 0.8em;
   line-height: 1.8;
   color: var(--lm-muted);
-  padding-right: 1em;
+  padding-inline-end: 1em;
 }
 .t-linear-mono .lm-label {
   text-transform: uppercase;
@@ -158,7 +158,7 @@
 }
 .t-linear-mono .lm-card {
   background: var(--lm-card);
-  border-left: 3px solid var(--lm-ink);
+  border-inline-start: 3px solid var(--lm-ink);
   padding: 0.6em 0.8em 0.7em;
 }
 .t-linear-mono .lm-card-title {
@@ -201,12 +201,12 @@
 }
 .t-linear-mono .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.2em;
+  padding-inline-start: 1.2em;
 }
 .t-linear-mono .kr-desc .rt-li::before {
   content: '—';
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   top: 0;
   color: var(--lm-muted);
 }

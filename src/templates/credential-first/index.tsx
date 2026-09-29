@@ -9,9 +9,10 @@ import '@fontsource-variable/arimo';
 import './credential-first.css';
 import { RichText } from '@/components/resume/RichText';
 import { formatDate } from '@/lib/resume/dates';
+import { isRtlContent } from '@/lib/resume/direction';
 import { KINDS } from '@/lib/resume/schema';
 import type { Item, Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, Level, role, sectionBlocks, standalone, UrlLink, visibleSections } from '../shared';
+import { contactLines, ContactValue, dateText, Level, role, sectionBlocks, standalone, UrlLink, visibleSections, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 const ShieldIcon = () => (
@@ -23,8 +24,9 @@ const ShieldIcon = () => (
 
 function validity(r: Resume, it: Item) {
   const f = r.settings.dateFormat;
-  const issued = formatDate(it.start, f);
-  const until = it.current ? '' : formatDate(it.end, f);
+  const ar = isRtlContent(r);
+  const issued = formatDate(it.start, f, ar);
+  const until = it.current ? '' : formatDate(it.end, f, ar);
   return { issued, until };
 }
 
@@ -89,7 +91,7 @@ function build(r: Resume) {
                       <p className="cf-badge-dates">
                         {issued && <span>Issued {issued}</span>}
                         {until && <span className="cf-valid">Valid to {until}</span>}
-                        {it.current && <span className="cf-valid">Valid</span>}
+                        {it.current && <span className="cf-valid">{tr(r, 'Valid')}</span>}
                       </p>
                     )}
                     {it.url && <UrlLink url={it.url} className="cf-badge-link" />}

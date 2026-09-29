@@ -10,7 +10,7 @@ import './scholar.css';
 import { RichText } from '@/components/resume/RichText';
 import { KINDS } from '@/lib/resume/schema';
 import type { Resume, Section } from '@/lib/resume/types';
-import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections } from '../shared';
+import { contactLines, ContactValue, dateText, LEVEL_WORDS, sectionBlocks, standalone, UrlLink, visibleSections, tr } from '../shared';
 import type { Block, TemplateDef } from '../types';
 
 function build(r: Resume) {
@@ -58,8 +58,8 @@ function build(r: Resume) {
               {sec.items.map((it) => (
                 <span key={it.id}>
                   <strong>{it.title}</strong>
-                  {[it.subtitle || (it.level ? LEVEL_WORDS[it.level] : ''), it.tags.join(', ')].filter(Boolean).length > 0 && (
-                    <>: {[it.subtitle || (it.level ? LEVEL_WORDS[it.level] : ''), it.tags.join(', ')].filter(Boolean).join('; ')}</>
+                  {[it.subtitle || (it.level ? tr(r, LEVEL_WORDS[it.level]) : ''), it.tags.join(', ')].filter(Boolean).length > 0 && (
+                    <>: {[it.subtitle || (it.level ? tr(r, LEVEL_WORDS[it.level]) : ''), it.tags.join(', ')].filter(Boolean).join('; ')}</>
                   )}
                 </span>
               ))}

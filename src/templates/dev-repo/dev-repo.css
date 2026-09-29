@@ -30,7 +30,7 @@
   margin-bottom: calc(1.3em * var(--kr-space));
 }
 .t-dev-repo .kr-b--desc {
-  padding-left: 1.9em;
+  padding-inline-start: 1.9em;
 }
 
 /* Repo bar and file tabs */
@@ -174,7 +174,8 @@
   flex: none;
   width: 0.8em;
   height: 0.8em;
-  margin: 0.35em 0.15em 0 0.2em;
+  margin-block: 0.35em 0;
+  margin-inline: 0.2em 0.15em;
   border: 2px solid var(--dr-muted);
   border-radius: 50%;
   background: #fff;
@@ -237,13 +238,13 @@
   font-size: 0.95em;
 }
 .t-dev-repo .dr-card-desc .rt-li {
-  padding-left: 1em;
+  padding-inline-start: 1em;
   position: relative;
 }
 .t-dev-repo .dr-card-desc .rt-li::before {
   content: '-';
   position: absolute;
-  left: 0.15em;
+  inset-inline-start: 0.15em;
 }
 .t-dev-repo .dr-card-foot {
   display: flex;
@@ -287,7 +288,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35em;
-  margin-right: 1em;
+  margin-inline-end: 1em;
 }
 .t-dev-repo .dr-lang-dot {
   width: 0.75em;
@@ -302,12 +303,12 @@
 }
 .t-dev-repo .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.2em;
+  padding-inline-start: 1.2em;
 }
 .t-dev-repo .kr-desc .rt-li::before {
   content: '';
   position: absolute;
-  left: 0.3em;
+  inset-inline-start: 0.3em;
   top: 0.65em;
   width: 0.32em;
   height: 0.32em;

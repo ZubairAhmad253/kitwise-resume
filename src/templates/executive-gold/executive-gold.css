@@ -46,8 +46,8 @@
 .t-executive-gold .eg-head::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: -6px;
   border-top: 1px solid var(--eg-gold);
 }
@@ -88,7 +88,7 @@
   padding: 0 0.8em;
 }
 .t-executive-gold .eg-contact li + li {
-  border-left: 1px solid var(--eg-gold-soft);
+  border-inline-start: 1px solid var(--eg-gold-soft);
 }
 
 .t-executive-gold .eg-summary {
@@ -168,12 +168,12 @@
 }
 .t-executive-gold .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.2em;
+  padding-inline-start: 1.2em;
 }
 .t-executive-gold .kr-desc .rt-li::before {
   content: '';
   position: absolute;
-  left: 0.25em;
+  inset-inline-start: 0.25em;
   top: 0.5em;
   width: 0.36em;
   height: 0.36em;

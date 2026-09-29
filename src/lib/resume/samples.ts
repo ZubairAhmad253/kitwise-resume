@@ -409,6 +409,38 @@ export const SAMPLES: Sample[] = [
       ],
     }),
   },
+  {
+    id: 'arabic',
+    label: 'Accountant (Arabic)',
+    field: 'Arabic (right to left)',
+    build: make('Arabic resume', 'corporate', {
+      basics: {
+        name: 'مريم عبدالله الكواري',
+        headline: 'محاسبة قانونية · CMA',
+        email: 'mariam.alkuwari@example.com',
+        phone: '+974 5550 7788',
+        location: 'الدوحة، قطر',
+        linkedin: 'linkedin.com/in/mariamalkuwari',
+        summary: 'محاسبة قانونية بخبرة 9 سنوات في إعداد القوائم المالية والتدقيق الداخلي لشركات التجزئة والعقارات. أشرف على إقفال الحسابات الشهري لـ 14 فرعًا وأقود فريقًا من 6 محاسبين.',
+      },
+      sections: [
+        sec('experience', [
+          { title: 'رئيسة قسم المحاسبة', subtitle: 'مجموعة الواحة للتجزئة', location: 'الدوحة، قطر', start: '2020-03', current: true, description: '- خفضت مدة الإقفال الشهري من 10 أيام إلى 4 أيام عمل\n- أعددت القوائم المالية الموحدة وفق المعايير الدولية IFRS لـ 14 فرعًا\n- قدت الانتقال إلى نظام SAP S/4HANA دون أي تأخير في التقارير' },
+          { title: 'محاسبة أولى', subtitle: 'شركة اللؤلؤة العقارية', location: 'الدوحة، قطر', start: '2016-09', end: '2020-02', description: '- راجعت عقود الإيجار لـ 320 وحدة سكنية وحصّلت متأخرات بقيمة 2.1 مليون ريال\n- أعددت إقرارات ضريبة الدخل وتقارير التدقيق الربعية' },
+        ], 'الخبرة العملية'),
+        sec('education', [{ title: 'بكالوريوس المحاسبة', subtitle: 'جامعة قطر', start: '2012', end: '2016' }], 'التعليم'),
+        sec('skills', [
+          { title: 'المحاسبة', tags: ['القوائم المالية', 'IFRS', 'التدقيق الداخلي', 'الضرائب'] },
+          { title: 'الأنظمة', tags: ['SAP S/4HANA', 'Oracle', 'Power BI', 'Excel'] },
+        ], 'المهارات'),
+        sec('certifications', [{ title: 'محاسب إداري معتمد (CMA)', subtitle: 'معهد المحاسبين الإداريين', start: '2019' }], 'الشهادات'),
+        sec('languages', [
+          { title: 'العربية', subtitle: 'اللغة الأم' },
+          { title: 'الإنجليزية', subtitle: 'متقدم' },
+        ], 'اللغات'),
+      ],
+    }),
+  },
 ];
 
 export const sampleById = (id: string) => SAMPLES.find((s) => s.id === id);

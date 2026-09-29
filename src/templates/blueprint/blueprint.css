@@ -48,7 +48,7 @@
 .t-blueprint .bp-tb-main {
   flex: 1;
   padding: 0.8em 1em 0.9em;
-  border-right: 1px solid var(--bp-ink);
+  border-inline-end: 1px solid var(--bp-ink);
 }
 .t-blueprint .bp-tb-label {
   display: block;
@@ -98,14 +98,14 @@
   width: 30mm;
   flex: none;
   object-fit: cover;
-  border-left: 1px solid var(--bp-ink);
+  border-inline-start: 1px solid var(--bp-ink);
 }
 
 /* Columns: the side column is a white panel on the grid */
 .t-blueprint .kr-region-side {
   width: 58mm;
   flex: none;
-  margin-left: 7mm;
+  margin-inline-start: 7mm;
   padding: 0.9em 0.9em 0;
   background: #fff;
   border: 1px solid var(--bp-line);
@@ -157,7 +157,7 @@
   content: '';
   flex: 1;
   height: 0.7em;
-  border-right: 1px solid var(--bp-accent);
+  border-inline-end: 1px solid var(--bp-accent);
   background: linear-gradient(var(--bp-accent), var(--bp-accent)) no-repeat center / 100% 1px;
 }
 .t-blueprint .bp-side-title {
@@ -174,7 +174,7 @@
 .t-blueprint .bp-summary {
   padding: 0.7em 0.9em;
   background: #fff;
-  border-left: 3px solid var(--bp-accent);
+  border-inline-start: 3px solid var(--bp-accent);
 }
 .t-blueprint .bp-summary .rt-p + .rt-p {
   margin-top: 0.4em;
@@ -255,12 +255,12 @@
 }
 .t-blueprint .kr-desc .rt-li {
   position: relative;
-  padding-left: 1.2em;
+  padding-inline-start: 1.2em;
 }
 .t-blueprint .kr-desc .rt-li::before {
   content: '';
   position: absolute;
-  left: 0.15em;
+  inset-inline-start: 0.15em;
   top: 0.45em;
   width: 0.5em;
   height: 0.5em;

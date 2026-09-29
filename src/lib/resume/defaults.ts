@@ -32,6 +32,7 @@ export const defaultSettings = (): Settings => ({
   font: 'template',
   textSize: 'M',
   spacing: 'normal',
+  direction: 'auto',
 });
 
 export const newItem = (patch: Partial<Item> = {}): Item => ({

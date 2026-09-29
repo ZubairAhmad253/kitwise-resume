@@ -140,6 +140,6 @@ describe('samples', () => {
       }
       expect(normalizeResume(JSON.parse(JSON.stringify(r)))).toEqual(r);
     }
-    expect(SAMPLES).toHaveLength(9);
+    expect(SAMPLES).toHaveLength(10);
   });
 });
